@@ -20,22 +20,19 @@ namespace AgroShop.API
 
             builder.Services.AddControllers();
 
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            //builder.Services.AddOpenApi();
-
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // Adding DIs and validators
+            // Application services, repositories and validators
             builder.Services.AddApplicationServices();
 
-            // Adding IUnitOfWork
+            // Unit of work
             builder.Services.AddUnitOfWork();
 
-            // Adding JWT authentication
+            // JWT authentication
             builder.Services.AddJwtAuthentication(builder.Configuration);
 
-            // Adding Cors
+            // CORS
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowReact",
@@ -55,7 +52,6 @@ namespace AgroShop.API
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                //app.MapOpenApi();
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }

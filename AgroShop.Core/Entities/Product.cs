@@ -61,7 +61,7 @@ namespace AgroShop.Core.Entities
                 Guid subCategoryId,
                 Guid supplierId,
                 bool isAvailable,
-                string? imagePath = null // теперь опциональный
+                string? imagePath = null // now optional
             )
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -89,7 +89,7 @@ namespace AgroShop.Core.Entities
 
             if (!string.IsNullOrWhiteSpace(imagePath))
             {
-                ImagePath = imagePath.Trim(); // установка возможна только внутри метода
+                ImagePath = imagePath.Trim(); // can only be set from within this method
             }
         }
     }

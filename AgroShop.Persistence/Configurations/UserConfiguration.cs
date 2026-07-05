@@ -12,18 +12,6 @@ namespace AgroShop.Persistence.Configurations
 
             builder.Property(u => u.Id).ValueGeneratedNever();
 
-            //builder.OwnsOne(u => u.Login, loginBuilder =>
-            //{
-            //    loginBuilder.Property(l => l.Value)
-            //        .HasMaxLength(100)
-            //        .HasColumnName("Login")
-            //        .IsRequired();
-
-            //    loginBuilder
-            //        .HasIndex(l => l.Value)
-            //        .IsUnique();
-            //});
-
             builder.OwnsOne(u => u.LastName, lastNameBuilder =>
             {
                 lastNameBuilder.Property(ln => ln.Value)

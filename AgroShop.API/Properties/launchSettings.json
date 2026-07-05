@@ -9,15 +9,6 @@
     }
   },
   "profiles": {
-    //"http": {
-    //  "commandName": "Project",
-    //  "dotnetRunMessages": true,
-    //  "launchBrowser": true,
-    //  "applicationUrl": "http://localhost:5243",
-    //  "environmentVariables": {
-    //    "ASPNETCORE_ENVIRONMENT": "Development"
-    //  }
-    //},
     "AgroShop.API": {
       "commandName": "Project",
       "dotnetRunMessages": true,

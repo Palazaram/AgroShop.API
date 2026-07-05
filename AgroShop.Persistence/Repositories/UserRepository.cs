@@ -15,12 +15,6 @@ namespace AgroShop.Persistence.Repositories
             _context = context;
         }
 
-        //public async Task<bool> UserExistsByLoginAsync(CancellationToken cancellationToken, string login)
-        //{
-        //    cancellationToken.ThrowIfCancellationRequested();
-        //    return await _context.Users.AnyAsync(u => u.Login.Value == login);
-        //}
-
         public async Task<bool> UserExistsByEmailAsync(CancellationToken cancellationToken, string? email)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -36,12 +30,6 @@ namespace AgroShop.Persistence.Repositories
             cancellationToken.ThrowIfCancellationRequested();
             return await _context.Users.AnyAsync(u => u.Phone.Value == phone, cancellationToken);
         }
-
-        //public async Task<User?> GetUserByLoginAsync(CancellationToken cancellationToken, string login)
-        //{
-        //    cancellationToken.ThrowIfCancellationRequested();
-        //    return await _context.Users.IncludeAll().SingleOrDefaultAsync(u => u.Login.Value == login);
-        //}
 
         public async Task<User?> GetUserByPhoneAsync(CancellationToken cancellationToken, string phone)
         {

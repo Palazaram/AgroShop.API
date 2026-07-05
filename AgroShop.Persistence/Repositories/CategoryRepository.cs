@@ -53,19 +53,5 @@ namespace AgroShop.Persistence.Repositories
         {
             _context.Entry(category).State = EntityState.Deleted;
         }
-
-        //public async Task<IEnumerable<TDto>> GetCategoriesDTOAsync<TDto>(Expression<Func<Category, TDto>> selector, CancellationToken cancellationToken, Func<IQueryable<Category>, IQueryable<Category>>? filter = null)
-        //{
-        //    cancellationToken.ThrowIfCancellationRequested();
-
-        //    var categoriesQuery = _context.Categories.AsNoTracking();
-
-        //    if (filter != null)
-        //    {
-        //        categoriesQuery = filter(categoriesQuery);
-        //    }
-
-        //    return await categoriesQuery.Select(selector).ToListAsync(cancellationToken);
-        //}
     }
 }

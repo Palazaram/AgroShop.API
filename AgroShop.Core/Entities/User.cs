@@ -8,7 +8,6 @@ namespace AgroShop.Core.Entities
         private readonly HashSet<RefreshToken> _refreshTokens = new();
 
         public Guid Id { get; private set; }
-        //public Login Login { get; private set; } = null!;
         public LastName LastName { get; private set; } = null!;
         public FirstName FirstName { get; private set; } = null!;
         public Patronymic? Patronymic { get; private set; }
@@ -20,14 +19,13 @@ namespace AgroShop.Core.Entities
         public IReadOnlyCollection<RefreshToken> RefreshTokens => _refreshTokens;
         public Role Role { get; private set; } = null!;
 
-        public static User Create(/*Login login,*/
-            LastName lastName, FirstName firstName, Patronymic? patronymic, 
+        public static User Create(
+            LastName lastName, FirstName firstName, Patronymic? patronymic,
             Email email, Phone phone, string passwordHash, Guid roleId)
         {
             var user = new User
             {
                 Id = Guid.NewGuid(),
-                //Login = login,
                 LastName = lastName,
                 FirstName = firstName,
                 Patronymic = patronymic,

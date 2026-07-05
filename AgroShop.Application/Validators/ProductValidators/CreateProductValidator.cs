@@ -31,7 +31,7 @@ namespace AgroShop.Application.Validators.ProductValidators
                 .Must(img => img == null || img.Length > 0).WithMessage("Файл зображення не може бути порожнім.")
                 .Must(img =>
                 {
-                    if (img == null) return true; // NotNull сработает отдельно
+                    if (img == null) return true; // NotNull is handled by a separate rule
                     var allowedTypes = new[] { "image/jpeg", "image/png" };
                     return allowedTypes.Contains(img.ContentType.ToLower());
                 }).WithMessage("Підтримуються лише зображення формату JPG або PNG.");

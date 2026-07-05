@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\%2a%2a" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,10 +28,6 @@
     <ProjectReference Include="..\AgroShop.Application\AgroShop.Application.csproj" />
     <ProjectReference Include="..\AgroShop.Core\AgroShop.Core.csproj" />
     <ProjectReference Include="..\AgroShop.Persistence\AgroShop.Persistence.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

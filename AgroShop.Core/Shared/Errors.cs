@@ -4,18 +4,6 @@
     {
         public static class General
         {
-            //public static Error NotFound(Guid? id = null)
-            //{
-            //    string forId = id == null ? "" : $" for Id '{id}'";
-            //    return Error.NotFound("record.not.found", $"Record not found{forId}");
-            //}
-
-            //public static Error ValueIsInvalid(string? name = null)
-            //{
-            //    var label = name ?? "Value";
-            //    return Error.Validation("value.is.invalid", $"{label} is invalid");
-            //}
-
             public static Error ValueIsRequired(string? name = null)
             {
                 var label = name ?? "Поле";
@@ -25,14 +13,8 @@
             public static Error InvalidLength(string? name = null)
             {
                 var label = name == null ? " " : " " + name + " ";
-                //return Error.Validation("invalid.string.length", $"Invalid{label}length");
                 return Error.Validation("invalid.string.length", $"Недопустима{label}довжина");
             }
-
-            //public static Error InternalServerError(string message)
-            //{
-            //    return Error.InternalServerError("internal.server.error", message);
-            //}
 
             public static Error IncorrectGuidError(string message = "Некоректний Guid")
             {
@@ -48,14 +30,6 @@
         public static class Category
         {
             public static Error CategoryIsNullById() => Error.Validation("category.is.null.by.id", "Категорію з даним ID не знайдено");
-        }
-
-        public static class Login
-        {
-            public static Error LoginCantBeEmpty() => Error.Validation("login.cant.be.empty", "Логін не може бути порожнім");
-            public static Error LoginInvalidFormat() => Error.Validation("login.invalid.format", "Логін може містити тільки англійські літери, цифри та знак підкреслення");
-            public static Error LoginInvalidMaxLength(int maxLength) => Error.Validation("login.invalid.max.length", $"Логін не має перевищувати {maxLength} символів");
-            public static Error LoginInvalidMinLength(int minLength) => Error.Validation("login.invalid.min.length", $"Логін має перевищувати {minLength} символи");
         }
 
         public static class Email
@@ -122,12 +96,8 @@
             public static Error Unauthorized() => Error.Unauthorized("Unauthorized", "Неавторизовано");
             public static Error UserIsAlreadyExistsByEmail() => Error.Validation("user.is.already.exists.by.email", "Користувач з такою адресою вже існує");
             public static Error UserIsAlreadyExistsByPhone() => Error.Validation("user.is.already.exists.by.phone", "Користувач з таким номером вже існує");
-            public static Error IncorrectLoginOrPassword() => Error.Validation("incorrect.login.or.password", "Невірний логін або пароль");
             public static Error IncorrectPhone() => Error.Validation("incorrect.phone", "Невірний номер");
             public static Error IncorrectPassword() => Error.Validation("incorrect.password", "Невірний пароль");
-
-            //public static Error UserIsAlreadyExistsByLogin() => Error.Validation("user.is.already.exists", "Користувач з таким логіном вже існує");
-            //public static Error IncorrectPhoneOrPassword() => Error.Validation("incorrect.phone.or.password", "Невірний номер або пароль.");
         }
     }
 }

@@ -2,7 +2,6 @@
 {
     public class RegisterUserDto
     {
-        //public required string Login { get; set; } 
         public required string LastName { get; set; }
         public required string FirstName { get; set; }
         public string? Patronymic { get; set; }

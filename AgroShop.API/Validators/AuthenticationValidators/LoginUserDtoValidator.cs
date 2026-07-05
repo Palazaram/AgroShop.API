@@ -9,7 +9,6 @@ namespace AgroShop.API.Validators.AuthenticationValidators
     {
         public LoginUserDtoValidator()
         {
-            //RuleFor(x => x.Login).MustBeValueObject(Login.Create);
             RuleFor(x => x.Phone).MustBeValueObject(Phone.Create);
             RuleFor(x => x.Password).MustBeValueObject(Password.Create);
         }

@@ -2,59 +2,61 @@
 using CSharpFunctionalExtensions;
 using System.Text.RegularExpressions;
 
-public class Password : ValueObject
+namespace AgroShop.Core.ValueObjects
 {
-    public string Value { get; }
-
-    protected static readonly int minLength = 8;
-    protected static readonly int maxLength = 100;
-    protected static readonly Regex AllowedCharactersRegex = 
-        new Regex(@"^[A-Za-z0-9!@#$%^&*()\-_=+\[\]{};:,.<>/?~]+$", RegexOptions.Compiled);
-
-    private Password(string value)
+    public class Password : ValueObject
     {
-        Value = value;
-    }
+        public string Value { get; }
 
-    protected override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Value; // Пароль чувствителен к регистру
-    }
+        protected static readonly int minLength = 8;
+        protected static readonly int maxLength = 100;
+        protected static readonly Regex AllowedCharactersRegex =
+            new Regex(@"^[A-Za-z0-9!@#$%^&*()\-_=+\[\]{};:,.<>/?~]+$", RegexOptions.Compiled);
 
-    public static Result<Password, Error> Create(string password)
-    {
-        if (string.IsNullOrWhiteSpace(password))
-            return Result.Failure<Password, Error>(Errors.Password.PasswordCantBeEmpty());
+        private Password(string value)
+        {
+            Value = value;
+        }
 
-        if (password.Length < minLength)
-            return Result.Failure<Password, Error>(Errors.Password.PasswordInvalidMinLength(minLength));
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Value; // Password is case-sensitive
+        }
 
-        if (password.Length > maxLength)
-            return Result.Failure<Password, Error>(Errors.Password.PasswordInvalidMaxLength(maxLength));
+        public static Result<Password, Error> Create(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+                return Result.Failure<Password, Error>(Errors.Password.PasswordCantBeEmpty());
 
-        if (!HasOnlyAllowedCharacters(password))
-            return Result.Failure<Password, Error>(Errors.Password.PasswordInvalidFormat());
+            if (password.Length < minLength)
+                return Result.Failure<Password, Error>(Errors.Password.PasswordInvalidMinLength(minLength));
 
-        if (!HasMinimumRequirements(password))
-            return Result.Failure<Password, Error>(Errors.Password.PasswordLowDifficulty());
+            if (password.Length > maxLength)
+                return Result.Failure<Password, Error>(Errors.Password.PasswordInvalidMaxLength(maxLength));
 
-        return Result.Success<Password, Error>(new Password(password));
-    }
+            if (!HasOnlyAllowedCharacters(password))
+                return Result.Failure<Password, Error>(Errors.Password.PasswordInvalidFormat());
 
-    public override string ToString() => "***";
+            if (!HasMinimumRequirements(password))
+                return Result.Failure<Password, Error>(Errors.Password.PasswordLowDifficulty());
 
-    private static bool HasMinimumRequirements(string password)
-    {
-        // Проверяем наличие хотя бы одной заглавной буквы, одной строчной и одной цифры
-        var hasUpper = password.Any(char.IsUpper);
-        //var hasLower = password.Any(char.IsLower);
-        var hasDigit = password.Any(char.IsDigit);
+            return Result.Success<Password, Error>(new Password(password));
+        }
 
-        return hasUpper /*&& hasLower*/ && hasDigit;
-    }
+        public override string ToString() => "***";
 
-    private static bool HasOnlyAllowedCharacters(string password)
-    {
-        return AllowedCharactersRegex.IsMatch(password);
+        private static bool HasMinimumRequirements(string password)
+        {
+            // Require at least one uppercase letter and one digit.
+            var hasUpper = password.Any(char.IsUpper);
+            var hasDigit = password.Any(char.IsDigit);
+
+            return hasUpper && hasDigit;
+        }
+
+        private static bool HasOnlyAllowedCharacters(string password)
+        {
+            return AllowedCharactersRegex.IsMatch(password);
+        }
     }
 }

@@ -5,12 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AgroShop.API.Controllers
 {
-    /*
-     
-        Сделать таблицу-справочник со всеми существующими категориями
-        И при создании новой категории на сайте, в форме отображать список существующих недобавленных категорий
-     
-    */
     public class CategoryController : ApplicationController
     {
         private readonly ICategoryService _categoryService;

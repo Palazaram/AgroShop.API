@@ -100,8 +100,6 @@ namespace AgroShop.Application.Jwt
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                //new Claim(ClaimTypes.Name, user.Login.Value),
-                //new Claim(ClaimTypes.Email, user.Email.Value),
                 new Claim(ClaimTypes.MobilePhone, user.Phone.Value),
                 new Claim(ClaimTypes.Role, user.Role.Name)
             };

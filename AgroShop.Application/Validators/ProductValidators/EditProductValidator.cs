@@ -29,18 +29,18 @@ namespace AgroShop.Application.Validators.ProductValidators
                 .NotNull().WithMessage("Постачальник є обов’язковим.")
                 .NotEqual(Guid.Empty).WithMessage("Постачальник не може бути порожнім.");
 
-            // 1. Если нет текущего изображения (ImagePath пустой) — требуем новое
+            // 1. If there is no current image (ImagePath is empty), a new one is required.
             RuleFor(x => x.Image)
                 .NotNull()
                 .When(x => string.IsNullOrWhiteSpace(x.ImagePath))
                 .WithMessage("Зображення є обов’язковим для продукту, що ще не має фото.");
 
-            // 2. Если передали файл — он не должен быть пустым
+            // 2. If a file was provided, it must not be empty.
             RuleFor(x => x.Image)
                 .Must(file => file == null || file.Length > 0)
                 .WithMessage("Файл зображення не може бути порожнім.");
 
-            // 3. Если передали файл — проверяем формат (jpg/png)
+            // 3. If a file was provided, validate its format (jpg/png).
             RuleFor(x => x.Image)
                 .Must(file =>
                 {
