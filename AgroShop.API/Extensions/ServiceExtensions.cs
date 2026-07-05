@@ -1,8 +1,8 @@
 ﻿using AgroShop.API.Services;
-using AgroShop.API.Validators.AuthenticationValidators;
 using AgroShop.API.Validators.CategoryValidators;
 using AgroShop.Application.Jwt;
 using AgroShop.Application.Services;
+using AgroShop.Application.Validators.ProductValidators;
 using AgroShop.Core.Interfaces;
 using AgroShop.Core.Shared;
 using AgroShop.Persistence.Data;
@@ -62,9 +62,7 @@ namespace AgroShop.API.Extensions
                     typeof(UserRepository),
                     typeof(AuthService),
                     typeof(IUserRepository),
-                    typeof(IJwtTokenHandler),
-                    typeof(LoginUserDtoValidator),
-                    typeof(AddCategoryDtoValidator)
+                    typeof(IJwtTokenHandler)
                 )
 
                 // Repositories
@@ -81,12 +79,11 @@ namespace AgroShop.API.Extensions
                 .AddClasses(c => c.AssignableTo(typeof(IJwtTokenHandler)))
                     .AsImplementedInterfaces()
                     .WithScopedLifetime()
-
-                // Validators
-                .AddClasses(c => c.AssignableTo(typeof(IValidator<>)))
-                    .AsImplementedInterfaces()
-                    .WithScopedLifetime()
             );
+
+            // Automatically register all FluentValidation validators from both assemblies that hold them.
+            services.AddValidatorsFromAssemblyContaining<AddCategoryDtoValidator>(); // AgroShop.API
+            services.AddValidatorsFromAssemblyContaining<CreateProductValidator>();  // AgroShop.Application
 
             services.AddScoped<IAuthCookieService, AuthCookieService>();
 
