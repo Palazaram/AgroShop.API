@@ -9,7 +9,7 @@ namespace AgroShop.Application.Interfaces
     {
         Task<Result<AuthResponse, Error>> RegisterAsync(CancellationToken cancellationToken, RegisterUserDto registerUserDto);
         Task<Result<AuthResponse, Error>> LoginAsync(CancellationToken cancellationToken, LoginUserDto loginUserDto);
-        Task<Result<object?, Error>> LogOutAsync(CancellationToken cancellationToken, string? refreshToken);
+        Task<UnitResult<Error>> LogOutAsync(CancellationToken cancellationToken, string? refreshToken);
         Task<Result<AuthResponse, Error>> RefreshTokensAsync(CancellationToken cancellationToken, string? refreshToken);
     }
 }

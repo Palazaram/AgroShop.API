@@ -21,6 +21,16 @@ namespace AgroShop.API.Controllers
             return result.Error.ToResponse();
         }
 
+        protected IActionResult FromResult(UnitResult<Error> result)
+        {
+            if (result.IsSuccess)
+            {
+                return Ok(Envelope.Ok());
+            }
+
+            return result.Error.ToResponse();
+        }
+
         protected IActionResult FromValidation(ValidationResult validationResult)
         {
             return validationResult.ToValidationErrorResponse();

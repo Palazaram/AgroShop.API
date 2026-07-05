@@ -40,13 +40,13 @@ namespace AgroShop.Application.Services
             return Result.Success<Category, Error>(category);
         }
 
-        public async Task<Result<object?, Error>> AddAsync(AddCategoryDto categoryDto, CancellationToken cancellationToken)
+        public async Task<UnitResult<Error>> AddAsync(AddCategoryDto categoryDto, CancellationToken cancellationToken)
         {
             var categoryName = CategoryName.Create(categoryDto.Name).Value;
             var category = Category.Create(categoryName);
             await _categoryRepository.AddAsync(category, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
-            return Result.Success<object?, Error>(null);
+            return UnitResult.Success<Error>();
         }
 
         public async Task<Result<Category, Error>> UpdateAsync(string id, UpdateCategoryDto categoryDto, CancellationToken cancellationToken)
@@ -66,19 +66,19 @@ namespace AgroShop.Application.Services
             return Result.Success<Category, Error>(category);
         }
 
-        public async Task<Result<object?, Error>> DeleteAsync(string id, CancellationToken cancellationToken)
+        public async Task<UnitResult<Error>> DeleteAsync(string id, CancellationToken cancellationToken)
         {
             if (!Guid.TryParse(id, out var categoryId))
-                return Result.Failure<Category, Error>(Errors.General.IncorrectGuidError());
+                return UnitResult.Failure(Errors.General.IncorrectGuidError());
 
             var category = await _categoryRepository.GetCategoryByIdAsync(categoryId, cancellationToken, asNoTracking: false);
 
             if (category == null)
-                return Result.Failure<object?, Error>(Errors.Category.CategoryIsNullById());
+                return UnitResult.Failure(Errors.Category.CategoryIsNullById());
 
             _categoryRepository.Delete(category);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
-            return Result.Success<object?, Error>(null);
+            return UnitResult.Success<Error>();
         }
     }
 }
