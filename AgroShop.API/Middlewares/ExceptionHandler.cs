@@ -8,11 +8,13 @@ namespace AgroShop.API.Middlewares
     {
         private readonly RequestDelegate _next;
         private readonly IWebHostEnvironment _env;
+        private readonly ILogger<ExceptionHandler> _logger;
 
-        public ExceptionHandler(RequestDelegate next, IWebHostEnvironment env)
+        public ExceptionHandler(RequestDelegate next, IWebHostEnvironment env, ILogger<ExceptionHandler> logger)
         {
             _next = next;
             _env = env;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -29,6 +31,9 @@ namespace AgroShop.API.Middlewares
 
         private Task HandleException(HttpContext context, Exception exception)
         {
+            _logger.LogError(exception, "Unhandled exception while processing {Method} {Path}",
+                context.Request.Method, context.Request.Path);
+
             string errorMessage = _env.IsProduction() ? "Internal server error" : "Exception: " + exception.Message;
 
             var error = new ResponseError(
