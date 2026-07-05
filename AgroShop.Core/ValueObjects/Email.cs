@@ -6,24 +6,24 @@ namespace AgroShop.Core.ValueObjects
 {
     public class Email : ValueObject
     {
-        public string? Value { get; }
+        public string Value { get; }
 
         protected static int maxLength = 256;
 
-        private Email(string? value)
+        private Email(string value)
         {
             Value = value;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return Value?.ToLowerInvariant() ?? string.Empty;
+            yield return Value.ToLowerInvariant();
         }
 
         public static Result<Email, Error> Create(string? email)
         {
             if (string.IsNullOrWhiteSpace(email))
-                return Result.Success<Email, Error>(new Email(null));
+                return Result.Failure<Email, Error>(Errors.Email.EmailCantBeEmpty());
 
             email = email.Trim().ToLowerInvariant();
 

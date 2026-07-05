@@ -7,7 +7,7 @@
         public string LastName { get; init; } = default!;
         public string FirstName { get; init; } = default!;
         public string? Patronymic { get; init; }
-        public string? Email { get; init; }
+        public string Email { get; init; } = default!;
         public string Role { get; init; } = default!;
     }
 }

@@ -41,7 +41,7 @@ namespace AgroShop.Persistence.Configurations
                 emailBuilder.Property(e => e.Value)
                     .HasMaxLength(255)
                     .HasColumnName("Email")
-                    .IsRequired(false);
+                    .IsRequired();
 
                 emailBuilder
                     .HasIndex(e => e.Value)

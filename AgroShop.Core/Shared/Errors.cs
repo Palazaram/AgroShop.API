@@ -34,6 +34,7 @@
 
         public static class Email
         {
+            public static Error EmailCantBeEmpty() => Error.Validation("email.cant.be.empty", "Електронна адреса є обов'язковою");
             public static Error EmailInvalidFormat() => Error.Validation("email.invalid.format", "Невірний формат електронної адреси");
             public static Error EmailInvalidMaxLength(int maxLength) => Error.Validation("email.invalid.max.length", $"Електронна адреса не має перевищувати {maxLength} символів");
         }

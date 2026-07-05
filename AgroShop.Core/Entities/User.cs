@@ -11,7 +11,7 @@ namespace AgroShop.Core.Entities
         public LastName LastName { get; private set; } = null!;
         public FirstName FirstName { get; private set; } = null!;
         public Patronymic? Patronymic { get; private set; }
-        public Email? Email { get; private set; }
+        public Email Email { get; private set; } = null!;
         public Phone Phone { get; private set; } = null!;
         public string PasswordHash { get; private set; } = null!;
         public DateTime CreatedAtUtc { get; private set; } = DateTime.UtcNow;
