@@ -41,7 +41,7 @@
 
         public static class Password
         {
-            public static Error PasswordCantBeEmpty() => Error.Validation("password.cant.be.empty", "Пароль не може бути порожнім");
+            public static Error PasswordCantBeEmpty() => Error.Validation("password.cant.be.empty", "Пароль є обов’язковим");
             public static Error PasswordLowDifficulty() => Error.Validation("password.low.difficulty", "Пароль повинен містити принаймні одну велику літеру та одну цифру");
             public static Error PasswordInvalidFormat() => Error.Validation("password.invalid.format", "Пароль може містити лише латинські літери, цифри та спецсимволи, без пробілів та кирилиці");
             public static Error PasswordInvalidMaxLength(int maxLength) => Error.Validation("password.invalid.max.length", $"Пароль не має перевищувати {maxLength} символів");
@@ -50,14 +50,14 @@
 
         public static class Phone
         {
-            public static Error PhoneCantBeEmpty() => Error.Validation("phone.cant.be.empty", "Номер телефону не може бути порожнім");
+            public static Error PhoneCantBeEmpty() => Error.Validation("phone.cant.be.empty", "Номер телефону є обов’язковим");
             public static Error PhoneInvalidLength() => Error.Validation("phone.invalid.length", $"Невірний формат номера телефону");        
             public static Error PhoneInvalidOperatorCode() => Error.Validation("phone.invalid.operator.code", "Невірний код оператора");
         }
 
         public static class LastName
         {
-            public static Error LastNameCantBeEmpty() => Error.Validation("last.name.cant.be.empty", "Поле обов'язкове");
+            public static Error LastNameCantBeEmpty() => Error.Validation("last.name.cant.be.empty", "Прізвище є обов’язковим");
             public static Error LastNameInvalidMinLength() => Error.Validation("last.name.invalid.min.length", $"Прізвище має містити принаймні 2 символи");
             public static Error LastNameInvalidMaxLength() => Error.Validation("last.name.invalid.max.length", $"Прізвище не має перевищувати 50 символів");
             public static Error LastNameInvalidFormat() => Error.Validation("last.name.invalid.format", $"Допустимі лише літери, пробіл, дефіс та апостроф");
@@ -66,7 +66,7 @@
 
         public static class FirstName
         {
-            public static Error FirstNameCantBeEmpty() => Error.Validation("first.name.cant.be.empty", "Поле обов'язкове");
+            public static Error FirstNameCantBeEmpty() => Error.Validation("first.name.cant.be.empty", "Ім'я є обов’язковим");
             public static Error FirstNameInvalidMinLength() => Error.Validation("first.name.invalid.min.length", $"Ім'я має містити принаймні 2 символи");
             public static Error FirstNameInvalidMaxLength() => Error.Validation("first.name.invalid.max.length", $"Ім'я не має перевищувати 50 символів");
             public static Error FirstNameInvalidFormat() => Error.Validation("first.name.invalid.format", $"Допустимі лише літери, пробіл, дефіс та апостроф");
@@ -75,7 +75,7 @@
 
         public static class CategoryName
         {
-            public static Error CategoryNameCantBeEmpty() => Error.Validation("category.name.cant.be.empty", "Поле обов'язкове");
+            public static Error CategoryNameCantBeEmpty() => Error.Validation("category.name.cant.be.empty", "Назва категорії є обов'язковою");
             public static Error CategoryNameInvalidMinLength() => Error.Validation("category.name.invalid.min.length", $"Назва категорії має містити принаймні 2 символи");
             public static Error CategoryNameInvalidMaxLength() => Error.Validation("category.name.invalid.max.length", $"Назва категорії не має перевищувати 50 символів");
             public static Error CategoryNameInvalidFormat() => Error.Validation("category.name.invalid.format", $"Допустимі лише літери, пробіл, дефіс та апостроф");
