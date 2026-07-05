@@ -9,9 +9,9 @@
         public Guid UserId { get; private set; }
         public virtual User User { get; set; } = default!;
 
-        public string TokenHash { get; set; } = null!;
+        public string TokenHash { get; private set; } = null!;
 
-        public bool IsRevoked { get; set; } = false;
+        public bool IsRevoked { get; private set; } = false;
 
         public DateTime ExpiryDate { get; private set; }
         public DateTime? RevokeDate { get; private set; }

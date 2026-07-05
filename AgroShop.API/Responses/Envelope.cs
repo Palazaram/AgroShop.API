@@ -10,7 +10,7 @@
         {
             Result = result;
             Errors = errors.ToList();
-            TimeGenerated = DateTime.Now;
+            TimeGenerated = DateTime.UtcNow;
         }
 
         public static Envelope Ok(object? result = null) => new Envelope(result, []);
