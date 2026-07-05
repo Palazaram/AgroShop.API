@@ -1,10 +1,12 @@
-﻿using AgroShop.API.Extensions;
+using AgroShop.API.Extensions;
 using AgroShop.API.Responses;
+using AgroShop.API.Services;
 using AgroShop.Application.Dto.AuthDto;
 using AgroShop.Application.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AgroShop.API.Controllers
 {
@@ -12,17 +14,20 @@ namespace AgroShop.API.Controllers
     {
         private readonly IAuthService _authService;
         private readonly IUserService _userService;
+        private readonly IAuthCookieService _authCookieService;
         private readonly IValidator<LoginUserDto> _loginUserDtoValidator;
         private readonly IValidator<RegisterUserDto> _registerUserDtoValidator;
 
         public AuthController(
-            IAuthService authService, 
+            IAuthService authService,
             IUserService userService,
-            IValidator<LoginUserDto> loginUserDtoValidator, 
+            IAuthCookieService authCookieService,
+            IValidator<LoginUserDto> loginUserDtoValidator,
             IValidator<RegisterUserDto> registerUserDtoValidator)
         {
             _authService = authService;
             _userService = userService;
+            _authCookieService = authCookieService;
             _loginUserDtoValidator = loginUserDtoValidator;
             _registerUserDtoValidator = registerUserDtoValidator;
         }
@@ -38,14 +43,11 @@ namespace AgroShop.API.Controllers
 
             var result = await _authService.RegisterAsync(cancellationToken, registerUserDto);
 
-            if (result.IsSuccess)
-            {
-                Response.Cookies.Append("accessToken", result.Value.AccessToken);
-                Response.Cookies.Append("refreshToken", result.Value.RefreshToken);
-                return Ok(Envelope.Ok());
-            }
+            if (result.IsFailure)
+                return result.Error.ToResponse();
 
-            return result.Error.ToResponse();
+            _authCookieService.SetAuthCookies(Response, result.Value);
+            return Ok(Envelope.Ok());
         }
 
         [AllowAnonymous]
@@ -59,57 +61,48 @@ namespace AgroShop.API.Controllers
 
             var result = await _authService.LoginAsync(cancellationToken, loginUserDto);
 
-            if (result.IsSuccess)
-            {
-                Response.Cookies.Append("accessToken", result.Value.AccessToken);
-                Response.Cookies.Append("refreshToken", result.Value.RefreshToken);
-                return Ok(Envelope.Ok());
-            }
+            if (result.IsFailure)
+                return result.Error.ToResponse();
 
-            return result.Error.ToResponse(); 
+            _authCookieService.SetAuthCookies(Response, result.Value);
+            return Ok(Envelope.Ok());
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("logout")]
         public async Task<IActionResult> LogOut(CancellationToken cancellationToken)
         {
-            var refreshToken = Request.Cookies["refreshToken"];
+            var refreshToken = Request.Cookies[AuthCookieService.RefreshTokenCookie];
             var result = await _authService.LogOutAsync(cancellationToken, refreshToken);
 
-            if (result.IsSuccess)
-            {
-                Response.Cookies.Delete("accessToken");
-                Response.Cookies.Delete("refreshToken");
-                return Ok(Envelope.Ok());
-            }
+            if (result.IsFailure)
+                return result.Error.ToResponse();
 
-            return result.Error.ToResponse();
+            _authCookieService.DeleteAuthCookies(Response);
+            return Ok(Envelope.Ok());
         }
 
         [AllowAnonymous]
         [HttpPost("refresh")]
         public async Task<IActionResult> RefreshTokens(CancellationToken cancellationToken)
         {
-            var refreshToken = Request.Cookies["refreshToken"];
+            var refreshToken = Request.Cookies[AuthCookieService.RefreshTokenCookie];
             var result = await _authService.RefreshTokensAsync(cancellationToken, refreshToken);
 
-            if (result.IsSuccess)
-            {
-                Response.Cookies.Append("accessToken", result.Value.AccessToken);
-                Response.Cookies.Append("refreshToken", result.Value.RefreshToken);
-                return Ok(Envelope.Ok());
-            }
+            if (result.IsFailure)
+                return result.Error.ToResponse();
 
-            return result.Error.ToResponse();
+            _authCookieService.SetAuthCookies(Response, result.Value);
+            return Ok(Envelope.Ok());
         }
 
-        //[Authorize]
-        //[HttpGet("me")]
-        //public async Task<IActionResult> Me(CancellationToken cancellationToken)
-        //{
-        //    var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        //    var result = await _userService.GetUserByIdAsync(userId, cancellationToken);
-        //    return FromResult(result);
-        //}
+        [Authorize]
+        [HttpGet("me")]
+        public async Task<IActionResult> Me(CancellationToken cancellationToken)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var result = await _userService.GetUserByIdAsync(userId, cancellationToken);
+            return FromResult(result);
+        }
     }
 }

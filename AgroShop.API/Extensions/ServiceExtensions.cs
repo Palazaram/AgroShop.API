@@ -1,4 +1,5 @@
-﻿using AgroShop.API.Validators.AuthenticationValidators;
+﻿using AgroShop.API.Services;
+using AgroShop.API.Validators.AuthenticationValidators;
 using AgroShop.API.Validators.CategoryValidators;
 using AgroShop.Application.Jwt;
 using AgroShop.Application.Services;
@@ -42,9 +43,9 @@ namespace AgroShop.API.Extensions
 
                     options.Events = new JwtBearerEvents 
                     {
-                        OnMessageReceived = context => 
+                        OnMessageReceived = context =>
                         {
-                            context.Token = context.Request.Cookies["accessToken"];
+                            context.Token = context.Request.Cookies[AuthCookieService.AccessTokenCookie];
                             return Task.CompletedTask;
                         }
                     };
@@ -56,22 +57,22 @@ namespace AgroShop.API.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.Scan(scan => scan
-                // указываем сборки, где лежат нужные классы
+                // Point the scanner at the assemblies that contain the types we need.
                 .FromAssembliesOf(
                     typeof(UserRepository),
                     typeof(AuthService),
                     typeof(IUserRepository),
-                    typeof(IJwtTokenHandler), // добавляем сборку с JWT
+                    typeof(IJwtTokenHandler),
                     typeof(LoginUserDtoValidator),
                     typeof(AddCategoryDtoValidator)
                 )
 
-                // Репозитории
+                // Repositories
                 .AddClasses(c => c.Where(x => x.Name.EndsWith("Repository")))
                     .AsImplementedInterfaces()
                     .WithScopedLifetime()
 
-                // Сервисы
+                // Services
                 .AddClasses(c => c.Where(x => x.Name.EndsWith("Service")))
                     .AsImplementedInterfaces()
                     .WithScopedLifetime()
@@ -81,11 +82,13 @@ namespace AgroShop.API.Extensions
                     .AsImplementedInterfaces()
                     .WithScopedLifetime()
 
-                // Валидаторы
+                // Validators
                 .AddClasses(c => c.AssignableTo(typeof(IValidator<>)))
                     .AsImplementedInterfaces()
                     .WithScopedLifetime()
             );
+
+            services.AddScoped<IAuthCookieService, AuthCookieService>();
 
             return services;
         }
