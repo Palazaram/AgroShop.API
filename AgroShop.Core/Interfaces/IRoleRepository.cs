@@ -1,9 +1,9 @@
-﻿using AgroShop.Core.Entities;
+using AgroShop.Core.Entities;
 
 namespace AgroShop.Core.Interfaces
 {
     public interface IRoleRepository
     {
-        Task<Role?> GetRoleByIdAsync(CancellationToken cancellationToken, Guid Id);
+        Task<Role?> GetRoleByIdAsync(Guid id, CancellationToken cancellationToken);
     }
 }

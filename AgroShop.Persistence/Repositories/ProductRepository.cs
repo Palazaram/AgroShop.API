@@ -17,7 +17,7 @@ namespace AgroShop.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync(CancellationToken cancellationToken, bool asNoTracking = false, Func<IQueryable<Product>, IQueryable<Product>>? filter = null)
+        public async Task<IEnumerable<Product>> GetProductsAsync(bool asNoTracking = false, Func<IQueryable<Product>, IQueryable<Product>>? filter = null, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -36,7 +36,7 @@ namespace AgroShop.Persistence.Repositories
             return await productsQuery.ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<TDto>> GetProductsDTOAsync<TDto>(Expression<Func<Product, TDto>> selector, CancellationToken cancellationToken, Func<IQueryable<Product>, IQueryable<Product>>? filter = null)
+        public async Task<IEnumerable<TDto>> GetProductsDTOAsync<TDto>(Expression<Func<Product, TDto>> selector, Func<IQueryable<Product>, IQueryable<Product>>? filter = null, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -50,7 +50,7 @@ namespace AgroShop.Persistence.Repositories
             return await productsQuery.Select(selector).ToListAsync(cancellationToken);
         }
 
-        public async Task<Product?> GetProductByIdAsync(Guid id, CancellationToken cancellationToken, bool asNoTracking = false)
+        public async Task<Product?> GetProductByIdAsync(Guid id, bool asNoTracking = false, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 

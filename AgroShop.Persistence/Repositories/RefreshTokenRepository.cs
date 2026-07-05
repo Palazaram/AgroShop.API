@@ -14,7 +14,7 @@ namespace AgroShop.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<RefreshToken?> GetRefreshTokenByHashAsync(CancellationToken cancellationToken, string tokenHash)
+        public async Task<RefreshToken?> GetRefreshTokenByHashAsync(string tokenHash, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             return await _context.RefreshTokens.SingleOrDefaultAsync(rt => rt.TokenHash == tokenHash, cancellationToken);

@@ -1,8 +1,7 @@
-﻿using AgroShop.Application.Interfaces;
+using AgroShop.Application.Interfaces;
 using AgroShop.Core.Entities;
 using AgroShop.Core.Interfaces;
 using AgroShop.Core.Shared;
-using AgroShop.Core.ValueObjects;
 using CSharpFunctionalExtensions;
 
 namespace AgroShop.Application.Services
@@ -16,17 +15,17 @@ namespace AgroShop.Application.Services
             _supplierRepository = supplierRepository;
         }
 
-        public async Task<Result<IEnumerable<Supplier>, Error>> GetSuppliersAsync(CancellationToken cancellationToken, bool asNoTracking = false, Func<IQueryable<Supplier>, IQueryable<Supplier>>? filter = null)
+        public async Task<Result<IEnumerable<Supplier>, Error>> GetSuppliersAsync(bool asNoTracking = false, Func<IQueryable<Supplier>, IQueryable<Supplier>>? filter = null, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var suppliers = await _supplierRepository.GetSuppliersAsync(cancellationToken, asNoTracking, filter);
+            var suppliers = await _supplierRepository.GetSuppliersAsync(asNoTracking, filter, cancellationToken);
             return Result.Success<IEnumerable<Supplier>, Error>(suppliers);
         }
 
-        public async Task<Result<Supplier?, Error>> GetSupplierByIdAsync(Guid id, CancellationToken cancellationToken, bool asNoTracking = false)
+        public async Task<Result<Supplier?, Error>> GetSupplierByIdAsync(Guid id, bool asNoTracking = false, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var supplier = await _supplierRepository.GetSupplierByIdAsync(id, cancellationToken, asNoTracking);
+            var supplier = await _supplierRepository.GetSupplierByIdAsync(id, asNoTracking, cancellationToken);
             return Result.Success<Supplier?, Error>(supplier);
         }
     }

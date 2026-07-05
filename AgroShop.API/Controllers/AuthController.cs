@@ -41,7 +41,7 @@ namespace AgroShop.API.Controllers
             if (!validationResult.IsValid)
                 return FromValidation(validationResult);
 
-            var result = await _authService.RegisterAsync(cancellationToken, registerUserDto);
+            var result = await _authService.RegisterAsync(registerUserDto, cancellationToken);
 
             if (result.IsFailure)
                 return result.Error.ToResponse();
@@ -59,7 +59,7 @@ namespace AgroShop.API.Controllers
             if (!validationResult.IsValid)
                 return FromValidation(validationResult);
 
-            var result = await _authService.LoginAsync(cancellationToken, loginUserDto);
+            var result = await _authService.LoginAsync(loginUserDto, cancellationToken);
 
             if (result.IsFailure)
                 return result.Error.ToResponse();
@@ -73,7 +73,7 @@ namespace AgroShop.API.Controllers
         public async Task<IActionResult> LogOut(CancellationToken cancellationToken)
         {
             var refreshToken = Request.Cookies[AuthCookieService.RefreshTokenCookie];
-            var result = await _authService.LogOutAsync(cancellationToken, refreshToken);
+            var result = await _authService.LogOutAsync(refreshToken, cancellationToken);
 
             if (result.IsFailure)
                 return result.Error.ToResponse();
@@ -87,7 +87,7 @@ namespace AgroShop.API.Controllers
         public async Task<IActionResult> RefreshTokens(CancellationToken cancellationToken)
         {
             var refreshToken = Request.Cookies[AuthCookieService.RefreshTokenCookie];
-            var result = await _authService.RefreshTokensAsync(cancellationToken, refreshToken);
+            var result = await _authService.RefreshTokensAsync(refreshToken, cancellationToken);
 
             if (result.IsFailure)
                 return result.Error.ToResponse();

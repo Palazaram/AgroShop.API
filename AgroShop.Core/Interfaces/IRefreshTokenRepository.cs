@@ -1,9 +1,9 @@
-﻿using AgroShop.Core.Entities;
+using AgroShop.Core.Entities;
 
 namespace AgroShop.Core.Interfaces
 {
     public interface IRefreshTokenRepository
     {
-        Task<RefreshToken?> GetRefreshTokenByHashAsync(CancellationToken cancellationToken, string tokenHash);
+        Task<RefreshToken?> GetRefreshTokenByHashAsync(string tokenHash, CancellationToken cancellationToken);
     }
 }

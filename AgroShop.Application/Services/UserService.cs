@@ -25,7 +25,7 @@ namespace AgroShop.Application.Services
             if(!Guid.TryParse(rawUserId, out var userGuidId))
                 return Result.Failure<UserResponse, Error>(Errors.General.IncorrectGuidError());
 
-            var user = await _userRepository.GetUserByIdAsync(cancellationToken, userGuidId);
+            var user = await _userRepository.GetUserByIdAsync(userGuidId, cancellationToken);
 
             if (user is null)
                 return Result.Failure<UserResponse, Error>(Errors.Authentication.Unauthorized());
@@ -37,7 +37,7 @@ namespace AgroShop.Application.Services
                 LastName = user.LastName.Value,
                 FirstName = user.FirstName.Value,
                 Patronymic = user.Patronymic?.Value,
-                Email = user.Email?.Value,
+                Email = user.Email.Value,
                 Role = user.Role.Name
             };
 

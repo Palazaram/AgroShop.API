@@ -15,7 +15,7 @@ namespace AgroShop.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Category>> GetCategoriesAsync(CancellationToken cancellationToken, bool asNoTracking = false, Func<IQueryable<Category>, IQueryable<Category>>? filter = null)
+        public async Task<IEnumerable<Category>> GetCategoriesAsync(bool asNoTracking = false, Func<IQueryable<Category>, IQueryable<Category>>? filter = null, CancellationToken cancellationToken = default)
         {
             var categoriesQuery = _context.Categories.IncludeAll();
 
@@ -32,7 +32,7 @@ namespace AgroShop.Persistence.Repositories
             return await categoriesQuery.ToListAsync(cancellationToken);
         }
 
-        public async Task<Category?> GetCategoryByIdAsync(Guid id, CancellationToken cancellationToken, bool asNoTracking = false)
+        public async Task<Category?> GetCategoryByIdAsync(Guid id, bool asNoTracking = false, CancellationToken cancellationToken = default)
         {
             var categoriesQuery = _context.Categories.IncludeAll();
 

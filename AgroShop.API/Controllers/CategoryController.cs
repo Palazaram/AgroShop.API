@@ -57,14 +57,14 @@ namespace AgroShop.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCategories(CancellationToken cancellationToken)
         {
-            var result = await _categoryService.GetCategoriesAsync(cancellationToken);
+            var result = await _categoryService.GetCategoriesAsync(cancellationToken: cancellationToken);
             return FromResult(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategoryById(string id, CancellationToken cancellationToken)
         {
-            var result = await _categoryService.GetCategoryByIdAsync(id, cancellationToken);
+            var result = await _categoryService.GetCategoryByIdAsync(id, cancellationToken: cancellationToken);
             return FromResult(result);
         }
     }

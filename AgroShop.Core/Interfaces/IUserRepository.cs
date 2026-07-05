@@ -1,13 +1,13 @@
-﻿using AgroShop.Core.Entities;
+using AgroShop.Core.Entities;
 
 namespace AgroShop.Core.Interfaces
 {
     public interface IUserRepository
     {
-        Task<bool> UserExistsByEmailAsync(CancellationToken cancellationToken, string? email);
-        Task<bool> UserExistsByPhoneAsync(CancellationToken cancellationToken, string phone);
-        Task<User?> GetUserByPhoneAsync(CancellationToken cancellationToken, string phone);
-        Task<User?> GetUserByIdAsync(CancellationToken cancellationToken, Guid Id);
-        Task AddAsync(CancellationToken cancellationToken, User user);
+        Task<bool> UserExistsByEmailAsync(string? email, CancellationToken cancellationToken);
+        Task<bool> UserExistsByPhoneAsync(string phone, CancellationToken cancellationToken);
+        Task<User?> GetUserByPhoneAsync(string phone, CancellationToken cancellationToken);
+        Task<User?> GetUserByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task AddAsync(User user, CancellationToken cancellationToken);
     }
 }

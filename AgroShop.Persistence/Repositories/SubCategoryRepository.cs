@@ -17,7 +17,7 @@ namespace AgroShop.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<SubCategory>> GetSubCategoriesAsync(CancellationToken cancellationToken, bool asNoTracking = false, Func<IQueryable<SubCategory>, IQueryable<SubCategory>>? filter = null)
+        public async Task<IEnumerable<SubCategory>> GetSubCategoriesAsync(bool asNoTracking = false, Func<IQueryable<SubCategory>, IQueryable<SubCategory>>? filter = null, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -36,7 +36,7 @@ namespace AgroShop.Persistence.Repositories
             return await subCategoriesQuery.ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<TDto>> GetSubCategoriesDTOAsync<TDto>(Expression<Func<SubCategory, TDto>> selector, CancellationToken cancellationToken, Func<IQueryable<SubCategory>, IQueryable<SubCategory>>? filter = null)
+        public async Task<IEnumerable<TDto>> GetSubCategoriesDTOAsync<TDto>(Expression<Func<SubCategory, TDto>> selector, Func<IQueryable<SubCategory>, IQueryable<SubCategory>>? filter = null, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -50,7 +50,7 @@ namespace AgroShop.Persistence.Repositories
             return await subCategoriesQuery.Select(selector).ToListAsync(cancellationToken);
         }
 
-        public async Task<SubCategory?> GetSubCategoryByIdAsync(Guid id, CancellationToken cancellationToken, bool asNoTracking = false)
+        public async Task<SubCategory?> GetSubCategoryByIdAsync(Guid id, bool asNoTracking = false, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 

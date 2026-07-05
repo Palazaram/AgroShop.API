@@ -14,10 +14,10 @@ namespace AgroShop.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<Role?> GetRoleByIdAsync(CancellationToken cancellationToken, Guid Id)
+        public async Task<Role?> GetRoleByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            return await _context.Roles.SingleOrDefaultAsync(r => r.Id == Id, cancellationToken);
+            return await _context.Roles.SingleOrDefaultAsync(r => r.Id == id, cancellationToken);
         }
     }
 }

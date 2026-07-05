@@ -62,7 +62,7 @@ namespace AgroShop.Application.Jwt
             cancellationToken.ThrowIfCancellationRequested();
 
             var tokenHash = HashToken(refreshToken);
-            var token = await _refreshTokenRepository.GetRefreshTokenByHashAsync(cancellationToken, tokenHash);
+            var token = await _refreshTokenRepository.GetRefreshTokenByHashAsync(tokenHash, cancellationToken);
 
             if (token != null)
             {
@@ -76,12 +76,12 @@ namespace AgroShop.Application.Jwt
             cancellationToken.ThrowIfCancellationRequested();
 
             var tokenHash = HashToken(refreshToken);
-            var token = await _refreshTokenRepository.GetRefreshTokenByHashAsync(cancellationToken, tokenHash);
+            var token = await _refreshTokenRepository.GetRefreshTokenByHashAsync(tokenHash, cancellationToken);
 
             if (token == null || token.IsRevoked || token.ExpiryDate < DateTime.UtcNow)
                 return Result.Failure<AuthResponse, Error>(Errors.Authentication.RefreshTokenIsInvalid());
 
-            var user = await _userRepository.GetUserByIdAsync(cancellationToken, token.UserId);
+            var user = await _userRepository.GetUserByIdAsync(token.UserId, cancellationToken);
 
             if (user == null)
                 return Result.Failure<AuthResponse, Error>(Errors.User.UserIsNullById());

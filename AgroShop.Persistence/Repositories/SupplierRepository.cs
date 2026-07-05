@@ -17,7 +17,7 @@ namespace AgroShop.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Supplier>> GetSuppliersAsync(CancellationToken cancellationToken, bool asNoTracking = false, Func<IQueryable<Supplier>, IQueryable<Supplier>>? filter = null)
+        public async Task<IEnumerable<Supplier>> GetSuppliersAsync(bool asNoTracking = false, Func<IQueryable<Supplier>, IQueryable<Supplier>>? filter = null, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -36,7 +36,7 @@ namespace AgroShop.Persistence.Repositories
             return await suppliersQuery.ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<TDto>> GetSuppliersDTOAsync<TDto>(Expression<Func<Supplier, TDto>> selector, CancellationToken cancellationToken, Func<IQueryable<Supplier>, IQueryable<Supplier>>? filter = null)
+        public async Task<IEnumerable<TDto>> GetSuppliersDTOAsync<TDto>(Expression<Func<Supplier, TDto>> selector, Func<IQueryable<Supplier>, IQueryable<Supplier>>? filter = null, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -50,7 +50,7 @@ namespace AgroShop.Persistence.Repositories
             return await suppliersQuery.Select(selector).ToListAsync(cancellationToken);
         }
 
-        public async Task<Supplier?> GetSupplierByIdAsync(Guid id, CancellationToken cancellationToken, bool asNoTracking = false)
+        public async Task<Supplier?> GetSupplierByIdAsync(Guid id, bool asNoTracking = false, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 

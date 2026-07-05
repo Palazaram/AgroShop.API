@@ -1,4 +1,4 @@
-﻿using AgroShop.Application.Dto.AuthDto;
+using AgroShop.Application.Dto.AuthDto;
 using AgroShop.Application.Jwt;
 using AgroShop.Application.Responses;
 using AgroShop.Application.Interfaces;
@@ -35,30 +35,45 @@ namespace AgroShop.Application.Services
             _logger = logger;
         }
 
-        public async Task<Result<AuthResponse, Error>> RegisterAsync(CancellationToken cancellationToken, RegisterUserDto registerUserDto)
+        public async Task<Result<AuthResponse, Error>> RegisterAsync(RegisterUserDto registerUserDto, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var userExistsByEmail = await _userRepository.UserExistsByEmailAsync(cancellationToken, registerUserDto.Email);
+            var userExistsByEmail = await _userRepository.UserExistsByEmailAsync(registerUserDto.Email, cancellationToken);
             if (userExistsByEmail)
                 return Result.Failure<AuthResponse, Error>(Errors.Authentication.UserIsAlreadyExistsByEmail());
 
-            var userExistsByPhone = await _userRepository.UserExistsByPhoneAsync(cancellationToken, registerUserDto.Phone);
+            var userExistsByPhone = await _userRepository.UserExistsByPhoneAsync(registerUserDto.Phone, cancellationToken);
             if (userExistsByPhone)
                 return Result.Failure<AuthResponse, Error>(Errors.Authentication.UserIsAlreadyExistsByPhone());
 
-            var lastNameResult = LastName.Create(registerUserDto.LastName).Value;
-            var firstNameResult = FirstName.Create(registerUserDto.FirstName).Value;
-            var patronymicResult = Patronymic.Create(registerUserDto.Patronymic).Value;
-            var emailResult = Email.Create(registerUserDto.Email).Value;
-            var phoneResult = Phone.Create(registerUserDto.Phone).Value;
-            var user = User.Create(lastNameResult, firstNameResult, patronymicResult,
-                emailResult, phoneResult, HashPassword(registerUserDto.Password), RoleConstants.CustomerId);
+            var lastNameResult = LastName.Create(registerUserDto.LastName);
+            if (lastNameResult.IsFailure)
+                return Result.Failure<AuthResponse, Error>(lastNameResult.Error);
 
-            await _userRepository.AddAsync(cancellationToken, user);
+            var firstNameResult = FirstName.Create(registerUserDto.FirstName);
+            if (firstNameResult.IsFailure)
+                return Result.Failure<AuthResponse, Error>(firstNameResult.Error);
+
+            var patronymicResult = Patronymic.Create(registerUserDto.Patronymic);
+            if (patronymicResult.IsFailure)
+                return Result.Failure<AuthResponse, Error>(patronymicResult.Error);
+
+            var emailResult = Email.Create(registerUserDto.Email);
+            if (emailResult.IsFailure)
+                return Result.Failure<AuthResponse, Error>(emailResult.Error);
+
+            var phoneResult = Phone.Create(registerUserDto.Phone);
+            if (phoneResult.IsFailure)
+                return Result.Failure<AuthResponse, Error>(phoneResult.Error);
+
+            var user = User.Create(lastNameResult.Value, firstNameResult.Value, patronymicResult.Value,
+                emailResult.Value, phoneResult.Value, HashPassword(registerUserDto.Password), RoleConstants.CustomerId);
+
+            await _userRepository.AddAsync(user, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            var role = await _roleRepository.GetRoleByIdAsync(cancellationToken, user.RoleId);
+            var role = await _roleRepository.GetRoleByIdAsync(user.RoleId, cancellationToken);
             user.AssignRole(role!);
 
             var authResponse = await _jwtTokenHandler.GenerateTokensAsync(user, cancellationToken);
@@ -68,11 +83,11 @@ namespace AgroShop.Application.Services
             return Result.Success<AuthResponse, Error>(authResponse);
         }
 
-        public async Task<Result<AuthResponse, Error>> LoginAsync(CancellationToken cancellationToken, LoginUserDto loginUserDto)
+        public async Task<Result<AuthResponse, Error>> LoginAsync(LoginUserDto loginUserDto, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var user = await _userRepository.GetUserByPhoneAsync(cancellationToken, loginUserDto.Phone);
+            var user = await _userRepository.GetUserByPhoneAsync(loginUserDto.Phone, cancellationToken);
             if (user is null)
             {
                 _logger.LogWarning("Failed login attempt: no user found for the provided phone number");
@@ -89,7 +104,7 @@ namespace AgroShop.Application.Services
             return Result.Success<AuthResponse, Error>(authResponse);
         }
 
-        public async Task<UnitResult<Error>> LogOutAsync(CancellationToken cancellationToken, string? refreshToken)
+        public async Task<UnitResult<Error>> LogOutAsync(string? refreshToken, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -102,7 +117,7 @@ namespace AgroShop.Application.Services
             return UnitResult.Success<Error>();
         }
 
-        public async Task<Result<AuthResponse, Error>> RefreshTokensAsync(CancellationToken cancellationToken, string? refreshToken)
+        public async Task<Result<AuthResponse, Error>> RefreshTokensAsync(string? refreshToken, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -114,7 +129,7 @@ namespace AgroShop.Application.Services
 
         private static string HashPassword(string password) => _passwordHasher.HashPassword(null!, password);
 
-        private static bool VerifyPassword(string password, string hash) => 
+        private static bool VerifyPassword(string password, string hash) =>
             _passwordHasher.VerifyHashedPassword(null!, hash, password) == PasswordVerificationResult.Success;
     }
 }
