@@ -71,11 +71,12 @@ namespace AgroShop.Application.Services
                 emailResult.Value, phoneResult.Value, HashPassword(registerUserDto.Password), RoleConstants.CustomerId);
 
             await _userRepository.AddAsync(user, cancellationToken);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             var role = await _roleRepository.GetRoleByIdAsync(user.RoleId, cancellationToken);
             user.AssignRole(role!);
 
+            // The new user and their refresh token are persisted together in a single
+            // SaveChanges inside GenerateTokensAsync, so registration is one atomic transaction.
             var authResponse = await _jwtTokenHandler.GenerateTokensAsync(user, cancellationToken);
 
             _logger.LogInformation("New user registered with id {UserId}", user.Id);
