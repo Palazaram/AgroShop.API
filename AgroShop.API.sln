@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.Persistence", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.Application", "src\AgroShop.Application\AgroShop.Application.csproj", "{8FF73E31-348A-47B2-8ED6-5EF6B24832B7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FA70289A-882C-404E-9CA3-283051418C20}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FA70289A-882C-404E-9CA3-283051418C20}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
 		.env.example = .env.example
@@ -46,6 +46,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7E8A507E-D31E-42F7-BFF3-C3618DBC9210} = {FA70289A-882C-404E-9CA3-283051418C20}
+		{EF2788F1-F92C-472C-A9AE-3087E25E2048} = {FA70289A-882C-404E-9CA3-283051418C20}
+		{D26D8596-DCC9-4341-9BD4-F16751195C02} = {FA70289A-882C-404E-9CA3-283051418C20}
+		{8FF73E31-348A-47B2-8ED6-5EF6B24832B7} = {FA70289A-882C-404E-9CA3-283051418C20}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8B2E2FF1-8640-4E88-A9F4-818B2BF95F20}
