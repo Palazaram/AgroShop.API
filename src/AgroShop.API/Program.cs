@@ -50,7 +50,6 @@ namespace AgroShop.API
 
             app.MapControllers();
 
-
             app.Run();
         }
     }
