@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.API", "AgroShop.API\AgroShop.API.csproj", "{7E8A507E-D31E-42F7-BFF3-C3618DBC9210}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.API", "src\AgroShop.API\AgroShop.API.csproj", "{7E8A507E-D31E-42F7-BFF3-C3618DBC9210}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.Core", "AgroShop.Core\AgroShop.Core.csproj", "{EF2788F1-F92C-472C-A9AE-3087E25E2048}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.Core", "src\AgroShop.Core\AgroShop.Core.csproj", "{EF2788F1-F92C-472C-A9AE-3087E25E2048}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.Persistence", "AgroShop.Persistence\AgroShop.Persistence.csproj", "{D26D8596-DCC9-4341-9BD4-F16751195C02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.Persistence", "src\AgroShop.Persistence\AgroShop.Persistence.csproj", "{D26D8596-DCC9-4341-9BD4-F16751195C02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.Application", "AgroShop.Application\AgroShop.Application.csproj", "{8FF73E31-348A-47B2-8ED6-5EF6B24832B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.Application", "src\AgroShop.Application\AgroShop.Application.csproj", "{8FF73E31-348A-47B2-8ED6-5EF6B24832B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
