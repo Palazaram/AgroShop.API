@@ -2,7 +2,6 @@
 using AgroShop.API.Responses;
 using AgroShop.Core.Shared;
 using CSharpFunctionalExtensions;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroShop.API.Controllers
@@ -29,11 +28,6 @@ namespace AgroShop.API.Controllers
             }
 
             return result.Error.ToResponse();
-        }
-
-        protected IActionResult FromValidation(ValidationResult validationResult)
-        {
-            return validationResult.ToValidationErrorResponse();
         }
     }
 }

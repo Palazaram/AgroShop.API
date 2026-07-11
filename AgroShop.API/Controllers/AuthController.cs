@@ -3,7 +3,6 @@ using AgroShop.API.Responses;
 using AgroShop.API.Services;
 using AgroShop.Application.Dto.AuthDto;
 using AgroShop.Application.Interfaces;
-using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -15,32 +14,21 @@ namespace AgroShop.API.Controllers
         private readonly IAuthService _authService;
         private readonly IUserService _userService;
         private readonly IAuthCookieService _authCookieService;
-        private readonly IValidator<LoginUserDto> _loginUserDtoValidator;
-        private readonly IValidator<RegisterUserDto> _registerUserDtoValidator;
 
         public AuthController(
             IAuthService authService,
             IUserService userService,
-            IAuthCookieService authCookieService,
-            IValidator<LoginUserDto> loginUserDtoValidator,
-            IValidator<RegisterUserDto> registerUserDtoValidator)
+            IAuthCookieService authCookieService)
         {
             _authService = authService;
             _userService = userService;
             _authCookieService = authCookieService;
-            _loginUserDtoValidator = loginUserDtoValidator;
-            _registerUserDtoValidator = registerUserDtoValidator;
         }
 
         [AllowAnonymous]
         [HttpPost("registration")]
         public async Task<IActionResult> Registration([FromBody] RegisterUserDto registerUserDto, CancellationToken cancellationToken)
         {
-            var validationResult = await _registerUserDtoValidator.ValidateAsync(registerUserDto, cancellationToken);
-
-            if (!validationResult.IsValid)
-                return FromValidation(validationResult);
-
             var result = await _authService.RegisterAsync(registerUserDto, cancellationToken);
 
             if (result.IsFailure)
@@ -54,11 +42,6 @@ namespace AgroShop.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto, CancellationToken cancellationToken)
         {
-            var validationResult = await _loginUserDtoValidator.ValidateAsync(loginUserDto, cancellationToken);
-
-            if (!validationResult.IsValid)
-                return FromValidation(validationResult);
-
             var result = await _authService.LoginAsync(loginUserDto, cancellationToken);
 
             if (result.IsFailure)

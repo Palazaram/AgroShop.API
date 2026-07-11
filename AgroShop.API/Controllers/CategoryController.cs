@@ -1,6 +1,5 @@
 ﻿using AgroShop.Application.Dto.CategoryDto;
 using AgroShop.Application.Interfaces;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroShop.API.Controllers
@@ -8,27 +7,15 @@ namespace AgroShop.API.Controllers
     public class CategoryController : ApplicationController
     {
         private readonly ICategoryService _categoryService;
-        private readonly IValidator<AddCategoryDto> _addCategoryDtoValidator;
-        private readonly IValidator<UpdateCategoryDto> _updateCategoryDtoValidator;
 
-        public CategoryController(
-            ICategoryService categoryService,
-            IValidator<AddCategoryDto> addCategoryDtoValidator,
-            IValidator<UpdateCategoryDto> updateCategoryDtoValidator)
+        public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
-            _addCategoryDtoValidator = addCategoryDtoValidator;
-            _updateCategoryDtoValidator = updateCategoryDtoValidator;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddCategory(AddCategoryDto addCategoryDto, CancellationToken cancellationToken)
         {
-            var validationResult = await _addCategoryDtoValidator.ValidateAsync(addCategoryDto, cancellationToken);
-
-            if (!validationResult.IsValid)
-                return FromValidation(validationResult);
-
             var result = await _categoryService.AddAsync(addCategoryDto, cancellationToken);
 
             return FromResult(result);
@@ -37,11 +24,6 @@ namespace AgroShop.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategory(string id, UpdateCategoryDto updateCategoryDto, CancellationToken cancellationToken)
         {
-            var validationResult = await _updateCategoryDtoValidator.ValidateAsync(updateCategoryDto, cancellationToken);
-
-            if (!validationResult.IsValid)
-                return FromValidation(validationResult);
-
             var result = await _categoryService.UpdateAsync(id, updateCategoryDto, cancellationToken);
 
             return FromResult(result);

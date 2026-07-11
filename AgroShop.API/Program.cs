@@ -1,7 +1,6 @@
-﻿using AgroShop.Persistence.Data;
-using Microsoft.EntityFrameworkCore;
-using AgroShop.API.Extensions;
-using AgroShop.API.Middlewares;
+﻿using AgroShop.API.Middlewares;
+using AgroShop.Application;
+using AgroShop.Persistence;
 using Microsoft.AspNetCore.CookiePolicy;
 
 namespace AgroShop.API
@@ -12,38 +11,13 @@ namespace AgroShop.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            
-            builder.Services.AddDbContext<AgroShopDbContext>(options =>
-                options.UseNpgsql(connectionString, sqlOption => sqlOption.MigrationsAssembly("AgroShop.Persistence")));
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-            builder.Services.AddControllers();
-
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            // Application services, repositories and validators
-            builder.Services.AddApplicationServices();
-
-            // Unit of work
-            builder.Services.AddUnitOfWork();
-
-            // JWT authentication
-            builder.Services.AddJwtAuthentication(builder.Configuration);
-
-            // CORS
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowReact",
-                    policy =>
-                    {
-                        policy.WithOrigins("http://localhost:5173")
-                              .AllowAnyHeader()
-                              .AllowAnyMethod()
-                              .AllowCredentials();
-                    });
-            });
+            builder.Services
+                .AddPersistence(connectionString)
+                .AddApplication()
+                .AddPresentation(builder.Configuration);
 
             var app = builder.Build();
 
@@ -68,7 +42,7 @@ namespace AgroShop.API
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseCors("AllowReact");
+            app.UseCors(DependencyInjection.CorsPolicyName);
 
             app.UseAuthentication();
             app.UseAuthorization();

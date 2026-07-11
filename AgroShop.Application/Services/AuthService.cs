@@ -17,20 +17,17 @@ namespace AgroShop.Application.Services
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IJwtTokenHandler _jwtTokenHandler;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<AuthService> _logger;
         private static readonly PasswordHasher<User> _passwordHasher = new();
 
         public AuthService(
             IUserRepository userRepository,
             IJwtTokenHandler jwtTokenHandler,
-            IUnitOfWork unitOfWork,
             IRoleRepository roleRepository,
             ILogger<AuthService> logger)
         {
             _userRepository = userRepository;
             _jwtTokenHandler = jwtTokenHandler;
-            _unitOfWork = unitOfWork;
             _roleRepository = roleRepository;
             _logger = logger;
         }
