@@ -36,7 +36,7 @@ namespace AgroShop.Application.Services
                 Phone = user.Phone.Value,
                 LastName = user.LastName.Value,
                 FirstName = user.FirstName.Value,
-                Patronymic = user.Patronymic?.Value,
+                Patronymic = user.Patronymic.Value,
                 Email = user.Email.Value,
                 Role = user.Role.Name
             };

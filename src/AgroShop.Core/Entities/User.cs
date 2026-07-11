@@ -10,7 +10,7 @@ namespace AgroShop.Core.Entities
         public Guid Id { get; private set; }
         public LastName LastName { get; private set; } = null!;
         public FirstName FirstName { get; private set; } = null!;
-        public Patronymic? Patronymic { get; private set; }
+        public Patronymic Patronymic { get; private set; } = null!;
         public Email Email { get; private set; } = null!;
         public Phone Phone { get; private set; } = null!;
         public string PasswordHash { get; private set; } = null!;
@@ -20,7 +20,7 @@ namespace AgroShop.Core.Entities
         public Role Role { get; private set; } = null!;
 
         public static User Create(
-            LastName lastName, FirstName firstName, Patronymic? patronymic,
+            LastName lastName, FirstName firstName, Patronymic patronymic,
             Email email, Phone phone, string passwordHash, Guid roleId)
         {
             var user = new User

@@ -33,8 +33,9 @@ namespace AgroShop.Persistence.Configurations
                 patronymicBuilder.Property(p => p.Value)
                     .HasMaxLength(50)
                     .HasColumnName("Patronymic")
-                    .IsRequired(false);
+                    .IsRequired();
             });
+            builder.Navigation(u => u.Patronymic).IsRequired();
 
             builder.OwnsOne(u => u.Email, emailBuilder =>
             {

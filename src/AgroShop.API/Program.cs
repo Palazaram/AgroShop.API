@@ -42,8 +42,6 @@ namespace AgroShop.API
                 Secure = CookieSecurePolicy.Always
             });
 
-            app.UseStaticFiles();
-
             app.UseRouting();
             app.UseCors(DependencyInjection.CorsPolicyName);
 

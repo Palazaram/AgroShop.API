@@ -6,12 +6,12 @@ namespace AgroShop.Core.ValueObjects
 {
     public class Patronymic : ValueObject
     {
-        public string? Value { get; }
+        public string Value { get; }
 
         protected static int minLength = 2;
         protected static int maxLength = 50;
 
-        private Patronymic(string? value)
+        private Patronymic(string value)
         {
             Value = value;
         }
@@ -19,7 +19,7 @@ namespace AgroShop.Core.ValueObjects
         public static Result<Patronymic, Error> Create(string? patronymic)
         {
             if (string.IsNullOrWhiteSpace(patronymic))
-                return Result.Success<Patronymic, Error>(new Patronymic(null));
+                return Result.Failure<Patronymic, Error>(Errors.Patronymic.PatronymicCantBeEmpty());
 
             patronymic = patronymic.Trim();
 
@@ -40,7 +40,7 @@ namespace AgroShop.Core.ValueObjects
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return Value ?? string.Empty;
+            yield return Value;
         }
     }
 }

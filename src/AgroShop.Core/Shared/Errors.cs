@@ -84,6 +84,7 @@
 
         public static class Patronymic
         {
+            public static Error PatronymicCantBeEmpty() => Error.Validation("patronymic.cant.be.empty", "По-батькові є обов’язковим");
             public static Error PatronymicInvalidMinLength() => Error.Validation("patronymic.invalid.min.length", $"По-батькові має містити принаймні 2 символи");
             public static Error PatronymicInvalidMaxLength() => Error.Validation("patronymic.invalid.max.length", $"По-батькові не має перевищувати 50 символів");
             public static Error PatronymicInvalidFormat() => Error.Validation("patronymic.invalid.format", $"Допустимі лише літери, пробіл, дефіс та апостроф");
