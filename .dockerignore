@@ -1,0 +1,23 @@
+# Build artifacts
+**/bin/
+**/obj/
+
+# IDE / VCS
+.git/
+.gitignore
+.vs/
+**/.vscode/
+
+# Docker / env
+.dockerignore
+docker-compose*.yml
+.env
+.env.example
+
+# Local development secrets must never be baked into the image.
+# In Docker the app runs as Production and reads config from environment variables.
+**/appsettings.Development.json
+
+# Misc
+README.md
+**/*.user
