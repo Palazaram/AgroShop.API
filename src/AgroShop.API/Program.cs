@@ -21,6 +21,9 @@ namespace AgroShop.API
 
             var app = builder.Build();
 
+            // Bring the database schema up to date on startup.
+            app.Services.ApplyMigrations();
+
             app.UseMiddleware<ExceptionHandler>();
 
             // Configure the HTTP request pipeline.

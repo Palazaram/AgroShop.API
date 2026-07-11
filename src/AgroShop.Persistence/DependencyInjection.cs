@@ -26,5 +26,16 @@ namespace AgroShop.Persistence
 
             return services;
         }
+
+        /// <summary>
+        /// Applies any pending EF Core migrations. Called on startup so a fresh database
+        /// (e.g. the one created by the Docker Compose Postgres service) is brought up to date.
+        /// </summary>
+        public static void ApplyMigrations(this IServiceProvider services)
+        {
+            using var scope = services.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<AgroShopDbContext>();
+            context.Database.Migrate();
+        }
     }
 }
