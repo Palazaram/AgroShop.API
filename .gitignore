@@ -364,3 +364,8 @@ FodyWeavers.xsd
 
 # Local environment secrets (Docker). Keep .env.example tracked as a template.
 .env
+
+# local only
+graphify-out/cost.json
+# optional: commit for speed, skip to keep repo small
+graphify-out/cache/
