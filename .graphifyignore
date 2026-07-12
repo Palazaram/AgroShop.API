@@ -1,9 +1,0 @@
-# Extra exclusions for the Graphify knowledge graph.
-# These are merged on top of .gitignore (which already drops bin/, obj/, .env,
-# graphify-out/, etc.). Patterns use gitignore syntax and can only exclude more.
-
-# Auto-generated EF Core migrations — noise that doesn't help understand the code.
-src/AgroShop.Persistence/Data/Migrations/
-
-# Graphify's own skill and reference files.
-.claude/

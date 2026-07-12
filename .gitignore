@@ -364,6 +364,3 @@ FodyWeavers.xsd
 
 # Local environment secrets (Docker). Keep .env.example tracked as a template.
 .env
-
-# Graphify generated knowledge graph output
-graphify-out/
