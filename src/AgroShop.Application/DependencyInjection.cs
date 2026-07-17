@@ -1,8 +1,6 @@
 using AgroShop.Application.Interfaces;
 using AgroShop.Application.Jwt;
 using AgroShop.Application.Services;
-using AgroShop.Application.Validators.ProductValidators;
-using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AgroShop.Application
@@ -17,9 +15,6 @@ namespace AgroShop.Application
             services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();
-
-            // Register every validator defined in this assembly (product validators).
-            services.AddValidatorsFromAssemblyContaining<CreateProductValidator>();
 
             return services;
         }

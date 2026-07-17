@@ -53,7 +53,7 @@ namespace AgroShop.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("logout")]
-        public async Task<IActionResult> LogOut(CancellationToken cancellationToken)
+        public async Task<IActionResult> Logout(CancellationToken cancellationToken)
         {
             var refreshToken = Request.Cookies[AuthCookieService.RefreshTokenCookie];
             var result = await _authService.LogOutAsync(refreshToken, cancellationToken);
