@@ -11,11 +11,8 @@ namespace AgroShop.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
             builder.Services
-                .AddPersistence(connectionString)
+                .AddPersistence(builder.Configuration)
                 .AddApplication()
                 .AddPresentation(builder.Configuration);
 

@@ -79,7 +79,7 @@ namespace AgroShop.API
                     policy =>
                     {
                         policy.WithOrigins("http://localhost:5173")
-                              .AllowAnyHeader()
+                              .AllowAnyHeader()                    
                               .AllowAnyMethod()
                               .AllowCredentials();
                     });
