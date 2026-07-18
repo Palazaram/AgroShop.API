@@ -1,9 +1,9 @@
-﻿using AgroShop.Application.Dto.CategoryDto;
+using AgroShop.Application.Dto.CategoryDto;
 using AgroShop.Application.Extensions;
 using AgroShop.Core.ValueObjects;
 using FluentValidation;
 
-namespace AgroShop.API.Validators.CategoryValidators
+namespace AgroShop.Application.Validators.CategoryValidators
 {
     public class AddCategoryDtoValidator : AbstractValidator<AddCategoryDto>
     {

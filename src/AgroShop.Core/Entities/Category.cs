@@ -1,4 +1,6 @@
-﻿using AgroShop.Core.ValueObjects;
+﻿using AgroShop.Core.Shared;
+using AgroShop.Core.ValueObjects;
+using CSharpFunctionalExtensions;
 
 namespace AgroShop.Core.Entities
 {
@@ -12,18 +14,21 @@ namespace AgroShop.Core.Entities
 
         public IReadOnlyCollection<SubCategory> SubCategories => _subCategories;
 
-        public static Category Create(CategoryName name)
+        public static Result<Category, Error> Create(string name)
         {
-            return new Category
-            {
-                Id = Guid.NewGuid(),
-                Name = name
-            };
+            return CategoryName.Create(name)
+                .Map(categoryName => new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Name = categoryName
+                });
         }
 
-        public void Update(CategoryName name)
+        public Result<Category, Error> Update(string name)
         {
-            Name = name;
+            return CategoryName.Create(name)
+                .Tap(categoryName => Name = categoryName)
+                .Map(_ => this);
         }
     }
 }

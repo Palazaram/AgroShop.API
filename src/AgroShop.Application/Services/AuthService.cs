@@ -4,7 +4,6 @@ using AgroShop.Application.Responses;
 using AgroShop.Application.Interfaces;
 using AgroShop.Core.Entities;
 using AgroShop.Core.Shared;
-using AgroShop.Core.ValueObjects;
 using AgroShop.Core.Interfaces;
 using CSharpFunctionalExtensions;
 using Microsoft.AspNetCore.Identity;
@@ -44,29 +43,15 @@ namespace AgroShop.Application.Services
             if (userExistsByPhone)
                 return Result.Failure<AuthResponse, Error>(Errors.Authentication.UserIsAlreadyExistsByPhone());
 
-            var lastNameResult = LastName.Create(registerUserDto.LastName);
-            if (lastNameResult.IsFailure)
-                return Result.Failure<AuthResponse, Error>(lastNameResult.Error);
+            var userResult = User.Create(
+                registerUserDto.LastName, registerUserDto.FirstName, registerUserDto.Patronymic,
+                registerUserDto.Email, registerUserDto.Phone, HashPassword(registerUserDto.Password),
+                RoleConstants.CustomerId);
 
-            var firstNameResult = FirstName.Create(registerUserDto.FirstName);
-            if (firstNameResult.IsFailure)
-                return Result.Failure<AuthResponse, Error>(firstNameResult.Error);
+            if (userResult.IsFailure)
+                return Result.Failure<AuthResponse, Error>(userResult.Error);
 
-            var patronymicResult = Patronymic.Create(registerUserDto.Patronymic);
-            if (patronymicResult.IsFailure)
-                return Result.Failure<AuthResponse, Error>(patronymicResult.Error);
-
-            var emailResult = Email.Create(registerUserDto.Email);
-            if (emailResult.IsFailure)
-                return Result.Failure<AuthResponse, Error>(emailResult.Error);
-
-            var phoneResult = Phone.Create(registerUserDto.Phone);
-            if (phoneResult.IsFailure)
-                return Result.Failure<AuthResponse, Error>(phoneResult.Error);
-
-            var user = User.Create(lastNameResult.Value, firstNameResult.Value, patronymicResult.Value,
-                emailResult.Value, phoneResult.Value, HashPassword(registerUserDto.Password), RoleConstants.CustomerId);
-
+            var user = userResult.Value;
             await _userRepository.AddAsync(user, cancellationToken);
 
             var role = await _roleRepository.GetRoleByIdAsync(user.RoleId, cancellationToken);

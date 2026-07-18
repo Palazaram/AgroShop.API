@@ -1,9 +1,9 @@
-﻿using FluentValidation;
+using FluentValidation;
 using AgroShop.Application.Extensions;
 using AgroShop.Core.ValueObjects;
 using AgroShop.Application.Dto.AuthDto;
 
-namespace AgroShop.API.Validators.AuthenticationValidators
+namespace AgroShop.Application.Validators.AuthenticationValidators
 {
     public class LoginUserDtoValidator : AbstractValidator<LoginUserDto>
     {

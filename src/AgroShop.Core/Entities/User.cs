@@ -1,4 +1,6 @@
-﻿using AgroShop.Core.ValueObjects;
+﻿using AgroShop.Core.Shared;
+using AgroShop.Core.ValueObjects;
+using CSharpFunctionalExtensions;
 
 namespace AgroShop.Core.Entities
 {
@@ -19,23 +21,26 @@ namespace AgroShop.Core.Entities
         public IReadOnlyCollection<RefreshToken> RefreshTokens => _refreshTokens;
         public Role Role { get; private set; } = null!;
 
-        public static User Create(
-            LastName lastName, FirstName firstName, Patronymic patronymic,
-            Email email, Phone phone, string passwordHash, Guid roleId)
+        public static Result<User, Error> Create(
+            string lastName, string firstName, string patronymic,
+            string email, string phone, string passwordHash, Guid roleId)
         {
-            var user = new User
-            {
-                Id = Guid.NewGuid(),
-                LastName = lastName,
-                FirstName = firstName,
-                Patronymic = patronymic,
-                Email = email,
-                Phone = phone,
-                PasswordHash = passwordHash,
-                RoleId = roleId
-            };
-
-            return user;
+            return LastName.Create(lastName).Bind(ln =>
+                FirstName.Create(firstName).Bind(fn =>
+                Patronymic.Create(patronymic).Bind(pt =>
+                Email.Create(email).Bind(em =>
+                Phone.Create(phone).Map(ph =>
+                new User
+                {
+                    Id = Guid.NewGuid(),
+                    LastName = ln,
+                    FirstName = fn,
+                    Patronymic = pt,
+                    Email = em,
+                    Phone = ph,
+                    PasswordHash = passwordHash,
+                    RoleId = roleId
+                })))));
         }
 
         public void AssignRole(Role role)

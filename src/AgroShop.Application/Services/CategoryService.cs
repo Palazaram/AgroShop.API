@@ -3,7 +3,6 @@ using AgroShop.Application.Interfaces;
 using AgroShop.Core.Entities;
 using AgroShop.Core.Interfaces;
 using AgroShop.Core.Shared;
-using AgroShop.Core.ValueObjects;
 using CSharpFunctionalExtensions;
 
 namespace AgroShop.Application.Services
@@ -46,12 +45,11 @@ namespace AgroShop.Application.Services
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var categoryNameResult = CategoryName.Create(categoryDto.Name);
-            if (categoryNameResult.IsFailure)
-                return UnitResult.Failure(categoryNameResult.Error);
+            var categoryResult = Category.Create(categoryDto.Name);
+            if (categoryResult.IsFailure)
+                return UnitResult.Failure(categoryResult.Error);
 
-            var category = Category.Create(categoryNameResult.Value);
-            await _categoryRepository.AddAsync(category, cancellationToken);
+            await _categoryRepository.AddAsync(categoryResult.Value, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return UnitResult.Success<Error>();
         }
@@ -67,11 +65,10 @@ namespace AgroShop.Application.Services
             if (category == null)
                 return Result.Failure<Category, Error>(Errors.Category.CategoryIsNullById());
 
-            var categoryNameResult = CategoryName.Create(categoryDto.Name);
-            if (categoryNameResult.IsFailure)
-                return Result.Failure<Category, Error>(categoryNameResult.Error);
+            var updateResult = category.Update(categoryDto.Name);
+            if (updateResult.IsFailure)
+                return Result.Failure<Category, Error>(updateResult.Error);
 
-            category.Update(categoryNameResult.Value);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result.Success<Category, Error>(category);

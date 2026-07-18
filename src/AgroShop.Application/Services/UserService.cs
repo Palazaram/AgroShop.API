@@ -30,18 +30,7 @@ namespace AgroShop.Application.Services
             if (user is null)
                 return Result.Failure<UserResponse, Error>(Errors.Authentication.Unauthorized());
 
-            var response = new UserResponse
-            {
-                Id = user.Id,
-                Phone = user.Phone.Value,
-                LastName = user.LastName.Value,
-                FirstName = user.FirstName.Value,
-                Patronymic = user.Patronymic.Value,
-                Email = user.Email.Value,
-                Role = user.Role.Name
-            };
-
-            return Result.Success<UserResponse, Error>(response);
+            return Result.Success<UserResponse, Error>(UserResponse.FromEntity(user));
         }
     }
 }

@@ -1,8 +1,8 @@
+using AgroShop.API.Extensions;
 using AgroShop.API.Filters;
 using AgroShop.API.Services;
-using AgroShop.API.Validators.CategoryValidators;
-using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -17,13 +17,22 @@ namespace AgroShop.API
             services.AddControllers(options =>
             {
                 options.Filters.Add<ValidationFilter>();
+
+                // Drops the synthetic "The <param> field is required" error added for non-nullable
+                // reference type parameters when the body fails to bind - it's noise on top of the
+                // real per-property error (e.g. a JSON type-conversion failure).
+                options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+            })
+            .ConfigureApiBehaviorOptions(options =>
+            {
+                // [ApiController]'s automatic model-state validation runs before ValidationFilter
+                // or the action itself, so it needs its own conversion to the Envelope error shape.
+                options.InvalidModelStateResponseFactory = context =>
+                    context.ModelState.ToValidationErrorResponse();
             });
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
-
-            // Register every validator defined in this assembly (authentication and category validators).
-            services.AddValidatorsFromAssemblyContaining<AddCategoryDtoValidator>();
 
             services.AddScoped<IAuthCookieService, AuthCookieService>();
 
