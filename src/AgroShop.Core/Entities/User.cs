@@ -32,7 +32,7 @@ namespace AgroShop.Core.Entities
                 Phone.Create(phone).Map(ph =>
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.CreateVersion7(),
                     LastName = ln,
                     FirstName = fn,
                     Patronymic = pt,

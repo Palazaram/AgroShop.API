@@ -18,7 +18,7 @@ namespace AgroShop.Core.Entities
 
             return new Supplier
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.CreateVersion7(),
                 Name = name.Trim()
             };
         }

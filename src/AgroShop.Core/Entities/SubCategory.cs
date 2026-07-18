@@ -26,7 +26,7 @@ namespace AgroShop.Core.Entities
 
             return new SubCategory
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.CreateVersion7(),
                 Name = name.Trim(),
                 CategoryId = categoryId
             };

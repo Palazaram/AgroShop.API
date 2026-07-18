@@ -29,7 +29,7 @@ namespace AgroShop.Core.Entities
 
             return new ProductAttributeValue
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.CreateVersion7(),
                 Value = value.Trim(),
                 ProductAttributeId = productAttributeId,
                 ProductId = productId

@@ -26,7 +26,7 @@ namespace AgroShop.Core.Entities
 
             return new ProductAttribute
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.CreateVersion7(),
                 SubCategoryId = subCategoryId,
                 AttributeId = attributeId
             };

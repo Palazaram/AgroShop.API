@@ -19,7 +19,7 @@ namespace AgroShop.Core.Entities
             return CategoryName.Create(name)
                 .Map(categoryName => new Category
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.CreateVersion7(),
                     Name = categoryName
                 });
         }

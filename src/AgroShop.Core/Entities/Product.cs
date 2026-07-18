@@ -42,7 +42,7 @@ namespace AgroShop.Core.Entities
 
             return new Product
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.CreateVersion7(),
                 Name = name.Trim(),
                 Description = description?.Trim(),
                 Price = price,
