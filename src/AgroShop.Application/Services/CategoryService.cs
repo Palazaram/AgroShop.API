@@ -9,15 +9,20 @@ namespace AgroShop.Application.Services
 {
     public class CategoryService : ICategoryService
     {
+        private const string ImagesSubfolder = "categories";
+
         private readonly ICategoryRepository _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IImageStorageService _imageStorageService;
 
         public CategoryService(
             ICategoryRepository categoryRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IImageStorageService imageStorageService)
         {
             _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;
+            _imageStorageService = imageStorageService;
         }
 
         public async Task<Result<IEnumerable<Category>, Error>> GetCategoriesAsync(bool asNoTracking = false, Func<IQueryable<Category>, IQueryable<Category>>? filter = null, CancellationToken cancellationToken = default)
@@ -45,7 +50,9 @@ namespace AgroShop.Application.Services
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var categoryResult = Category.Create(categoryDto.Name);
+            var imagePath = await _imageStorageService.SaveAsync(categoryDto.Image, ImagesSubfolder, cancellationToken);
+
+            var categoryResult = Category.Create(categoryDto.Name, imagePath);
             if (categoryResult.IsFailure)
                 return UnitResult.Failure(categoryResult.Error);
 
@@ -65,11 +72,21 @@ namespace AgroShop.Application.Services
             if (category == null)
                 return Result.Failure<Category, Error>(Errors.Category.CategoryIsNullById());
 
-            var updateResult = category.Update(categoryDto.Name);
+            var previousImagePath = category.ImagePath;
+
+            string? imagePath = null;
+            if (categoryDto.Image != null)
+                imagePath = await _imageStorageService.SaveAsync(categoryDto.Image, ImagesSubfolder, cancellationToken);
+
+            var updateResult = category.Update(categoryDto.Name, imagePath);
             if (updateResult.IsFailure)
                 return Result.Failure<Category, Error>(updateResult.Error);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+            // Only drop the old file once the new one is safely persisted.
+            if (imagePath != null)
+                await _imageStorageService.DeleteAsync(previousImagePath, cancellationToken);
 
             return Result.Success<Category, Error>(category);
         }
@@ -87,6 +104,7 @@ namespace AgroShop.Application.Services
 
             _categoryRepository.Delete(category);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _imageStorageService.DeleteAsync(category.ImagePath, cancellationToken);
             return UnitResult.Success<Error>();
         }
     }

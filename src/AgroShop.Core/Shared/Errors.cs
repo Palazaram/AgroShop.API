@@ -32,6 +32,12 @@
             public static Error CategoryIsNullById() => Error.Validation("category.is.null.by.id", "Категорію з даним ID не знайдено");
         }
 
+        public static class Image
+        {
+            public static Error InvalidFormat() => Error.Validation("image.invalid.format", "Дозволені лише зображення формату JPG, PNG або WEBP");
+            public static Error InvalidSize(int maxMegabytes) => Error.Validation("image.invalid.size", $"Розмір зображення не має перевищувати {maxMegabytes} МБ");
+        }
+
         public static class Email
         {
             public static Error EmailCantBeEmpty() => Error.Validation("email.cant.be.empty", "Електронна адреса є обов'язковою");

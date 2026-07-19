@@ -9,6 +9,11 @@ namespace AgroShop.API
     {
         public static void Main(string[] args)
         {
+            // Must exist before WebApplication resolves WebRootPath/the static files
+            // provider below - otherwise both stay null/unusable for the app's whole
+            // lifetime, even after ImageStorageService creates the folder later at runtime.
+            Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"));
+
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services
@@ -32,7 +37,10 @@ namespace AgroShop.API
 
             app.UseHttpsRedirection();
 
-            app.UseCookiePolicy(new CookiePolicyOptions 
+            // Serves uploaded category/product images from wwwroot (e.g. /images/categories/...).
+            app.UseStaticFiles();
+
+            app.UseCookiePolicy(new CookiePolicyOptions
             {
                 MinimumSameSitePolicy = SameSiteMode.None,
                 HttpOnly = HttpOnlyPolicy.Always,

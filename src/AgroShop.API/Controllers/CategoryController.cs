@@ -14,18 +14,16 @@ namespace AgroShop.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCategory(AddCategoryDto addCategoryDto, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddCategory([FromForm] AddCategoryDto addCategoryDto, CancellationToken cancellationToken)
         {
             var result = await _categoryService.AddAsync(addCategoryDto, cancellationToken);
-
             return FromResult(result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCategory(string id, UpdateCategoryDto updateCategoryDto, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateCategory(string id, [FromForm] UpdateCategoryDto updateCategoryDto, CancellationToken cancellationToken)
         {
             var result = await _categoryService.UpdateAsync(id, updateCategoryDto, cancellationToken);
-
             return FromResult(result);
         }
 

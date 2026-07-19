@@ -10,6 +10,7 @@ namespace AgroShop.Application.Validators.CategoryValidators
         public UpdateCategoryDtoValidator()
         {
             RuleFor(x => x.Name).MustBeValueObject(CategoryName.Create);
+            RuleFor(x => x.Image).MustBeValidImage();
         }
     }
 }

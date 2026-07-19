@@ -28,9 +28,12 @@ services:
       JwtSettings__SecretKey: ${JWT_SECRET_KEY}
     ports:
       - "8080:8080"
+    volumes:
+      - agroshop_uploads:/app/wwwroot/images
     depends_on:
       db:
         condition: service_healthy
 
 volumes:
   agroshop_data:
+  agroshop_uploads:

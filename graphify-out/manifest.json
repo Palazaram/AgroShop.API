@@ -25,13 +25,13 @@
     "semantic_hash": "b2f0cf96459c1324c4122d555c0dab9d"
   },
   "src/AgroShop.API/Controllers/CategoryController.cs": {
-    "mtime": 1783762320.828437,
-    "ast_hash": "a9851be0c35a8613cbf7ba765a4e4b03",
-    "semantic_hash": "a9851be0c35a8613cbf7ba765a4e4b03"
+    "mtime": 1784476217.9088001,
+    "ast_hash": "821cb980b49df821181515104503e983",
+    "semantic_hash": ""
   },
   "src/AgroShop.API/DependencyInjection.cs": {
-    "mtime": 1784364400.2122374,
-    "ast_hash": "620ed37e499b4185b692d51eb102f7c5",
+    "mtime": 1784474188.592796,
+    "ast_hash": "f980f4df29fea1eab3e6de58036ba36c",
     "semantic_hash": ""
   },
   "src/AgroShop.API/Extensions/ResponseExtensions.cs": {
@@ -50,9 +50,9 @@
     "semantic_hash": "dd59757671b271523e352cabdd39e9cf"
   },
   "src/AgroShop.API/Program.cs": {
-    "mtime": 1784316687.3396587,
-    "ast_hash": "f45851955a5a1ad3ed68e80f0a1afb95",
-    "semantic_hash": "f45851955a5a1ad3ed68e80f0a1afb95"
+    "mtime": 1784476788.1909218,
+    "ast_hash": "1e0b794b094cf382f8dda3282f583fca",
+    "semantic_hash": ""
   },
   "src/AgroShop.API/Properties/launchSettings.json": {
     "mtime": 1783247769.4746702,
@@ -110,19 +110,19 @@
     "semantic_hash": "531ff3eb0c1962812443d225e247f3fd"
   },
   "src/AgroShop.Application/Dto/CategoryDto/AddCategoryDto.cs": {
-    "mtime": 1782655474.4149082,
-    "ast_hash": "b530d2d7de264ab7589af2379f69322b",
-    "semantic_hash": "b530d2d7de264ab7589af2379f69322b"
+    "mtime": 1784474863.7218373,
+    "ast_hash": "4fa4b4e681c57dc0d19d1cdaf0c14966",
+    "semantic_hash": ""
   },
   "src/AgroShop.Application/Dto/CategoryDto/UpdateCategoryDto.cs": {
-    "mtime": 1782655474.4149082,
-    "ast_hash": "c62c5fe02d869bf2c2cfe313560e3150",
-    "semantic_hash": "c62c5fe02d869bf2c2cfe313560e3150"
+    "mtime": 1784474099.8051305,
+    "ast_hash": "abd7aae4fab76ff074a32dcbc6e5912f",
+    "semantic_hash": ""
   },
   "src/AgroShop.Application/Extensions/ValidationExtensions.cs": {
-    "mtime": 1782655474.4149082,
-    "ast_hash": "a37db63b83b3549643b3af1375ab9117",
-    "semantic_hash": "a37db63b83b3549643b3af1375ab9117"
+    "mtime": 1784474123.764694,
+    "ast_hash": "43d283722aaef9c8ce7115718ad599f2",
+    "semantic_hash": ""
   },
   "src/AgroShop.Application/Interfaces/IAuthService.cs": {
     "mtime": 1783251393.659197,
@@ -175,8 +175,8 @@
     "semantic_hash": ""
   },
   "src/AgroShop.Application/Services/CategoryService.cs": {
-    "mtime": 1784361390.1737757,
-    "ast_hash": "56daa0b0d3152ae5bf11c90b5bbb1082",
+    "mtime": 1784474881.2050052,
+    "ast_hash": "bab4989833013da28207ff954a1bb38c",
     "semantic_hash": ""
   },
   "src/AgroShop.Application/Services/SubCategoryService.cs": {
@@ -205,8 +205,8 @@
     "semantic_hash": ""
   },
   "src/AgroShop.Core/Entities/Category.cs": {
-    "mtime": 1784367583.5707495,
-    "ast_hash": "0ff878289da3e420aa6da794179e6e16",
+    "mtime": 1784475181.8638422,
+    "ast_hash": "9fa269a58c57759f2d74bef55847b1db",
     "semantic_hash": ""
   },
   "src/AgroShop.Core/Entities/Product.cs": {
@@ -295,9 +295,9 @@
     "semantic_hash": "fcf0bb810bed795d93967e143d5670bb"
   },
   "src/AgroShop.Core/Shared/Errors.cs": {
-    "mtime": 1783769983.583645,
-    "ast_hash": "87fe6938404139ced373423d49221353",
-    "semantic_hash": "87fe6938404139ced373423d49221353"
+    "mtime": 1784474062.4579906,
+    "ast_hash": "01280afa80ac8aa37a91d3a68050aff6",
+    "semantic_hash": ""
   },
   "src/AgroShop.Core/Shared/IUnitOfWork.cs": {
     "mtime": 1782655474.4306552,
@@ -355,9 +355,9 @@
     "semantic_hash": "d76cadb8aae3e639c8c2207a9746dc25"
   },
   "src/AgroShop.Persistence/Configurations/CategoryConfiguration.cs": {
-    "mtime": 1782655474.4306552,
-    "ast_hash": "8e69d222ae70787a93dbe5cb57a61dac",
-    "semantic_hash": "8e69d222ae70787a93dbe5cb57a61dac"
+    "mtime": 1784475195.635974,
+    "ast_hash": "1b5e3c8388f9b8e319d41b41052040e8",
+    "semantic_hash": ""
   },
   "src/AgroShop.Persistence/Configurations/ProductAttributeConfiguration.cs": {
     "mtime": 1782655474.4306552,
@@ -520,9 +520,9 @@
     "semantic_hash": "32afa1e11f95a5af2a5a67d2ff9c2e4c"
   },
   "src/AgroShop.Persistence/Data/Migrations/AgroShopDbContextModelSnapshot.cs": {
-    "mtime": 1783770090.3894517,
-    "ast_hash": "c4e2996a0cb6111fc6ee45567009be89",
-    "semantic_hash": "c4e2996a0cb6111fc6ee45567009be89"
+    "mtime": 1784475221.5920293,
+    "ast_hash": "cf1625aa3915e9f0131fa5b76f788ba0",
+    "semantic_hash": ""
   },
   "src/AgroShop.Persistence/DependencyInjection.cs": {
     "mtime": 1784316700.6062958,
@@ -615,8 +615,8 @@
     "semantic_hash": "8479efdf06e2d26e053d27ffa6964185"
   },
   "src/AgroShop.API/obj/Debug/net10.0/AgroShop.API.AssemblyInfo.cs": {
-    "mtime": 1784367603.0539763,
-    "ast_hash": "96cc6ca482748ab7fd068729a197152f",
+    "mtime": 1784367926.471018,
+    "ast_hash": "7ec52ee09ba135c4b8d329d3d73c44c0",
     "semantic_hash": ""
   },
   "src/AgroShop.API/obj/Debug/net10.0/AgroShop.API.GlobalUsings.g.cs": {
@@ -630,28 +630,28 @@
     "semantic_hash": "d4126212fdb8f60d730dbeff86b965b9"
   },
   "src/AgroShop.API/obj/Debug/net10.0/AgroShop.API.sourcelink.json": {
-    "mtime": 1784367603.1058455,
-    "ast_hash": "2a896f8c5235b76c8cb36fed65790577",
+    "mtime": 1784367926.4787745,
+    "ast_hash": "7febf68487cecb5190838fa8811f9473",
     "semantic_hash": ""
   },
   "src/AgroShop.API/obj/Debug/net10.0/ApiEndpoints.json": {
-    "mtime": 1784364444.4479594,
-    "ast_hash": "e20feb1706e68b82110aef8d1d0970b2",
-    "semantic_hash": "e20feb1706e68b82110aef8d1d0970b2"
+    "mtime": 1784476592.232397,
+    "ast_hash": "fa17106b29ad542e7b4ca32e31e22a01",
+    "semantic_hash": ""
   },
   "src/AgroShop.API/obj/Debug/net10.0/EndpointInfo/AgroShop.API.json": {
-    "mtime": 1784364444.5661716,
-    "ast_hash": "1bcb12c836d9d38445fb6acc71435ba5",
-    "semantic_hash": "1bcb12c836d9d38445fb6acc71435ba5"
+    "mtime": 1784476592.343385,
+    "ast_hash": "3674b6b2628eb612ef3b50ae0560f0fe",
+    "semantic_hash": ""
   },
   "src/AgroShop.API/obj/Debug/net10.0/rjsmcshtml.dswa.cache.json": {
-    "mtime": 1784367604.2174947,
-    "ast_hash": "8a8a1d0ed5e694f559d15bea0b70c87d",
+    "mtime": 1784476806.3125036,
+    "ast_hash": "49971ac137c9d36db5dd6fddbc0d76a4",
     "semantic_hash": ""
   },
   "src/AgroShop.API/obj/Debug/net10.0/rjsmrazor.dswa.cache.json": {
-    "mtime": 1784367604.2174947,
-    "ast_hash": "3065c938c582525d4cb8a2dc033fb323",
+    "mtime": 1784476806.3125036,
+    "ast_hash": "c4495d6a4628c4d9836e49e688dea214",
     "semantic_hash": ""
   },
   "src/AgroShop.API/obj/Debug/net10.0/rpswa.dswa.cache.json": {
@@ -665,9 +665,9 @@
     "semantic_hash": "f44ca44dd881261586b84442f2201257"
   },
   "src/AgroShop.API/obj/Debug/net10.0/staticwebassets.build.json": {
-    "mtime": 1784317082.0126288,
-    "ast_hash": "40667b410667b5e74d92c5d0dfa5ff99",
-    "semantic_hash": "40667b410667b5e74d92c5d0dfa5ff99"
+    "mtime": 1784476977.7526114,
+    "ast_hash": "d3662e6c0d88cf5ac4ecc4b71ec19448",
+    "semantic_hash": ""
   },
   "src/AgroShop.API/obj/Release/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs": {
     "mtime": 1783767593.7871606,
@@ -705,8 +705,8 @@
     "semantic_hash": "8479efdf06e2d26e053d27ffa6964185"
   },
   "src/AgroShop.Application/obj/Debug/net10.0/AgroShop.Application.AssemblyInfo.cs": {
-    "mtime": 1784367600.936272,
-    "ast_hash": "fcba19708df153e80e512f14e008e098",
+    "mtime": 1784367923.1481242,
+    "ast_hash": "25f31252f4b6f0846e3c4b5579e531d2",
     "semantic_hash": ""
   },
   "src/AgroShop.Application/obj/Debug/net10.0/AgroShop.Application.GlobalUsings.g.cs": {
@@ -715,8 +715,8 @@
     "semantic_hash": "9706b2dbf69f7db452e8b0d5baf54dcf"
   },
   "src/AgroShop.Application/obj/Debug/net10.0/AgroShop.Application.sourcelink.json": {
-    "mtime": 1784367601.0008907,
-    "ast_hash": "2a896f8c5235b76c8cb36fed65790577",
+    "mtime": 1784367923.1561618,
+    "ast_hash": "7febf68487cecb5190838fa8811f9473",
     "semantic_hash": ""
   },
   "src/AgroShop.Application/obj/Release/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs": {
@@ -755,8 +755,8 @@
     "semantic_hash": "8479efdf06e2d26e053d27ffa6964185"
   },
   "src/AgroShop.Core/obj/Debug/net10.0/AgroShop.Core.AssemblyInfo.cs": {
-    "mtime": 1784367599.2696497,
-    "ast_hash": "9d95365a3f63f20aa209e8902c9f0f76",
+    "mtime": 1784367919.683821,
+    "ast_hash": "b98802e8daaad02505e6b44043a78992",
     "semantic_hash": ""
   },
   "src/AgroShop.Core/obj/Debug/net10.0/AgroShop.Core.GlobalUsings.g.cs": {
@@ -765,8 +765,8 @@
     "semantic_hash": "9706b2dbf69f7db452e8b0d5baf54dcf"
   },
   "src/AgroShop.Core/obj/Debug/net10.0/AgroShop.Core.sourcelink.json": {
-    "mtime": 1784367599.330297,
-    "ast_hash": "2a896f8c5235b76c8cb36fed65790577",
+    "mtime": 1784367919.7174683,
+    "ast_hash": "7febf68487cecb5190838fa8811f9473",
     "semantic_hash": ""
   },
   "src/AgroShop.Core/obj/Release/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs": {
@@ -820,8 +820,8 @@
     "semantic_hash": "8479efdf06e2d26e053d27ffa6964185"
   },
   "src/AgroShop.Persistence/obj/Debug/net10.0/AgroShop.Persistence.AssemblyInfo.cs": {
-    "mtime": 1784367600.900759,
-    "ast_hash": "384ee8f4fdbb5aab0999cabc5c9acacd",
+    "mtime": 1784367923.7829924,
+    "ast_hash": "b981942b40ec5c7a07f40676d970bab0",
     "semantic_hash": ""
   },
   "src/AgroShop.Persistence/obj/Debug/net10.0/AgroShop.Persistence.GlobalUsings.g.cs": {
@@ -830,8 +830,8 @@
     "semantic_hash": "9706b2dbf69f7db452e8b0d5baf54dcf"
   },
   "src/AgroShop.Persistence/obj/Debug/net10.0/AgroShop.Persistence.sourcelink.json": {
-    "mtime": 1784367600.955992,
-    "ast_hash": "2a896f8c5235b76c8cb36fed65790577",
+    "mtime": 1784367923.8206995,
+    "ast_hash": "7febf68487cecb5190838fa8811f9473",
     "semantic_hash": ""
   },
   "src/AgroShop.Persistence/obj/Release/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs": {
@@ -855,8 +855,8 @@
     "semantic_hash": "a6acb956169df1a6e1949000ee2d2c37"
   },
   "src/AgroShop.API/obj/Debug/net10.0/AgroShop.API.csproj.FileListAbsolute.txt": {
-    "mtime": 1784365152.8642335,
-    "ast_hash": "41ed1377b56b5ceace94fe760c87d466",
+    "mtime": 1784476977.8262882,
+    "ast_hash": "5838384e5e3f1416cd174a7487c3bf09",
     "semantic_hash": ""
   },
   "src/AgroShop.API/obj/Debug/net10.0/staticwebassets.references.upToDateCheck.txt": {
@@ -895,13 +895,53 @@
     "semantic_hash": ""
   },
   "src/AgroShop.Application/Validators/CategoryValidators/AddCategoryDtoValidator.cs": {
-    "mtime": 1784362846.5857823,
-    "ast_hash": "ce652c0b2639112cb9f6ab596ad7bc8e",
+    "mtime": 1784474819.8869956,
+    "ast_hash": "5e6355577c1d3e41674f890bc3e025f0",
     "semantic_hash": ""
   },
   "src/AgroShop.Application/Validators/CategoryValidators/UpdateCategoryDtoValidator.cs": {
-    "mtime": 1784362849.6262653,
-    "ast_hash": "3f332b75d73096febe9fecd17431c0f6",
+    "mtime": 1784474137.2017457,
+    "ast_hash": "fdbf38347977cc4eb2e0bea803f012cc",
+    "semantic_hash": ""
+  },
+  "src/AgroShop.API/Services/ImageStorageService.cs": {
+    "mtime": 1784476752.766721,
+    "ast_hash": "8894a3beff0304cbbb35f3f532d3ca28",
+    "semantic_hash": ""
+  },
+  "src/AgroShop.Application/Interfaces/IImageStorageService.cs": {
+    "mtime": 1784474111.9280362,
+    "ast_hash": "c9fd31dd2c913d311ec1c50e2e0b7895",
+    "semantic_hash": ""
+  },
+  "src/AgroShop.Persistence/Data/Migrations/20260719151836_AddCategoryImagePath.Designer.cs": {
+    "mtime": 1784474316.8820596,
+    "ast_hash": "c375a1f75df22c5b7c2abf5b8724a71b",
+    "semantic_hash": ""
+  },
+  "src/AgroShop.Persistence/Data/Migrations/20260719151836_AddCategoryImagePath.cs": {
+    "mtime": 1784474316.8820596,
+    "ast_hash": "a3d02268c10ff08723906e72ed839c7f",
+    "semantic_hash": ""
+  },
+  "src/AgroShop.Persistence/Data/Migrations/20260719153341_MakeCategoryImagePathRequired.Designer.cs": {
+    "mtime": 1784475221.5920293,
+    "ast_hash": "d80fcb47bb144e1b297ee794a64d48b4",
+    "semantic_hash": ""
+  },
+  "src/AgroShop.Persistence/Data/Migrations/20260719153341_MakeCategoryImagePathRequired.cs": {
+    "mtime": 1784475221.5920293,
+    "ast_hash": "e19b26ddffd6b22ac9f89d13fe295cf1",
+    "semantic_hash": ""
+  },
+  "src/AgroShop.API/bin/Debug/net10.0/AgroShop.API.staticwebassets.runtime.json": {
+    "mtime": 1784476977.7801752,
+    "ast_hash": "9e5379b39abceada608e8fbbcd065a71",
+    "semantic_hash": ""
+  },
+  "src/AgroShop.API/obj/Debug/net10.0/staticwebassets.development.json": {
+    "mtime": 1784476977.7801752,
+    "ast_hash": "9e5379b39abceada608e8fbbcd065a71",
     "semantic_hash": ""
   }
 }

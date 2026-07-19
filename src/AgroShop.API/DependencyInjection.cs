@@ -1,6 +1,7 @@
 using AgroShop.API.Extensions;
 using AgroShop.API.Filters;
 using AgroShop.API.Services;
+using AgroShop.Application.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -35,6 +36,7 @@ namespace AgroShop.API
             services.AddSwaggerGen();
 
             services.AddScoped<IAuthCookieService, AuthCookieService>();
+            services.AddScoped<IImageStorageService, ImageStorageService>();
 
             services.AddJwtAuthentication(configuration);
             services.AddCorsPolicy();

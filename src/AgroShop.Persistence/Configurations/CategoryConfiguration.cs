@@ -24,6 +24,10 @@ namespace AgroShop.Persistence.Configurations
                     .IsUnique();
             });
 
+            builder.Property(c => c.ImagePath)
+                .HasMaxLength(500)
+                .IsRequired();
+
             builder.HasMany(c => c.SubCategories)
                 .WithOne(sc => sc.Category)
                 .HasForeignKey(sc => sc.CategoryId)

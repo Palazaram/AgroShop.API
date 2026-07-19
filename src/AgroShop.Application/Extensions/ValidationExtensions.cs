@@ -1,11 +1,37 @@
 ﻿using AgroShop.Core.Shared;
 using CSharpFunctionalExtensions;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 
 namespace AgroShop.Application.Extensions
 {
     public static class ValidationExtensions
     {
+        private static readonly string[] AllowedImageExtensions = [".jpg", ".jpeg", ".png", ".webp"];
+
+        public static IRuleBuilderOptionsConditions<T, IFormFile?> MustBeValidImage<T>(
+            this IRuleBuilder<T, IFormFile?> ruleBuilder,
+            int maxMegabytes = 5)
+        {
+            return ruleBuilder.Custom((file, context) =>
+            {
+                if (file is null)
+                    return;
+
+                var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+                if (!AllowedImageExtensions.Contains(extension))
+                {
+                    context.AddFailure(Errors.Image.InvalidFormat().Serialize());
+                    return;
+                }
+
+                if (file.Length > maxMegabytes * 1024 * 1024)
+                {
+                    context.AddFailure(Errors.Image.InvalidSize(maxMegabytes).Serialize());
+                }
+            });
+        }
+
         public static IRuleBuilderOptions<T, TProperty> NotEmptyCustom<T, TProperty>(this IRuleBuilder<T, TProperty> ruleBuilder)
         {
             return DefaultValidatorExtensions.NotEmpty(ruleBuilder)
