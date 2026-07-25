@@ -16,24 +16,18 @@ services:
       timeout: 5s
       retries: 5
 
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  # Pure cache - no volume, losing it on restart just means the next read
+  # repopulates it.
+  redis:
+    image: redis:7-alpine
     restart: unless-stopped
-    environment:
-      ASPNETCORE_ENVIRONMENT: Production
-      # Composed from the secrets in .env; overrides the empty values in appsettings.json.
-      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}"
-      JwtSettings__SecretKey: ${JWT_SECRET_KEY}
     ports:
-      - "8080:8080"
-    volumes:
-      - agroshop_uploads:/app/wwwroot/images
-    depends_on:
-      db:
-        condition: service_healthy
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   agroshop_data:
-  agroshop_uploads:

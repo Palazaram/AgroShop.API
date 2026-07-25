@@ -90,8 +90,5 @@
   "88": "20260719153341_MakeCategoryImagePathRequired.Designer.cs",
   "89": "IQueryable",
   "90": "UnitResult",
-  "91": "Guid",
-  "92": "IReadOnlyCollection",
-  "93": "List",
-  "94": "EntityTypeBuilder"
+  "91": "Guid"
 }

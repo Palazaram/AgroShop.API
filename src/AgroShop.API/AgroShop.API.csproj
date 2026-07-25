@@ -24,6 +24,7 @@
     <ProjectReference Include="..\AgroShop.Application\AgroShop.Application.csproj" />
     <ProjectReference Include="..\AgroShop.Core\AgroShop.Core.csproj" />
     <ProjectReference Include="..\AgroShop.Persistence\AgroShop.Persistence.csproj" />
+    <ProjectReference Include="..\AgroShop.Infrastructure\AgroShop.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

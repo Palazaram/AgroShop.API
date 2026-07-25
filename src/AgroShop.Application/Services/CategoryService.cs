@@ -12,25 +12,42 @@ namespace AgroShop.Application.Services
     {
         private const string ImagesSubfolder = "categories";
 
+        // Backstop only - Add/Update/Delete below invalidate this explicitly, so the
+        // TTL just bounds how stale the cache can get if an invalidation is ever missed.
+        private const string CategoriesCacheKey = "categories:all";
+        private static readonly TimeSpan CategoriesCacheDuration = TimeSpan.FromMinutes(15);
+
         private readonly ICategoryRepository _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IImageStorageService _imageStorageService;
+        private readonly ICacheService _cacheService;
 
         public CategoryService(
             ICategoryRepository categoryRepository,
             IUnitOfWork unitOfWork,
-            IImageStorageService imageStorageService)
+            IImageStorageService imageStorageService,
+            ICacheService cacheService)
         {
             _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;
             _imageStorageService = imageStorageService;
+            _cacheService = cacheService;
         }
 
         public async Task<Result<IEnumerable<CategoryDto>, Error>> GetCategoriesAsync(bool asNoTracking = false, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
+
+            var cached = await _cacheService.GetAsync<List<CategoryDto>>(CategoriesCacheKey, cancellationToken);
+            if (cached != null)
+                return Result.Success<IEnumerable<CategoryDto>, Error>(cached);
+
             var categories = await _categoryRepository.GetCategoriesAsync(asNoTracking, cancellationToken);
-            return Result.Success<IEnumerable<CategoryDto>, Error>(categories.ToDto().OrderBy(c => c.Name));
+            var categoryDtos = categories.ToDto().OrderBy(c => c.Name).ToList();
+
+            await _cacheService.SetAsync(CategoriesCacheKey, categoryDtos, CategoriesCacheDuration, cancellationToken);
+
+            return Result.Success<IEnumerable<CategoryDto>, Error>(categoryDtos);
         }
 
         public async Task<Result<CategoryDto, Error>> GetCategoryByIdAsync(string id, bool asNoTracking = false, CancellationToken cancellationToken = default)
@@ -59,6 +76,7 @@ namespace AgroShop.Application.Services
 
             await _categoryRepository.AddAsync(categoryResult.Value, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _cacheService.RemoveAsync(CategoriesCacheKey, cancellationToken);
             return UnitResult.Success<Error>();
         }
 
@@ -84,6 +102,7 @@ namespace AgroShop.Application.Services
                 return Result.Failure<CategoryDto, Error>(updateResult.Error);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _cacheService.RemoveAsync(CategoriesCacheKey, cancellationToken);
 
             // Only drop the old file once the new one is safely persisted.
             if (imagePath != null)
@@ -105,6 +124,7 @@ namespace AgroShop.Application.Services
 
             _categoryRepository.Delete(category);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _cacheService.RemoveAsync(CategoriesCacheKey, cancellationToken);
             await _imageStorageService.DeleteAsync(category.ImagePath, cancellationToken);
             return UnitResult.Success<Error>();
         }

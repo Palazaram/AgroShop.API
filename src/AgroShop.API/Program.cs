@@ -1,5 +1,6 @@
 ﻿using AgroShop.API.Middlewares;
 using AgroShop.Application;
+using AgroShop.Infrastructure;
 using AgroShop.Persistence;
 using Microsoft.AspNetCore.CookiePolicy;
 
@@ -19,6 +20,7 @@ namespace AgroShop.API
             builder.Services
                 .AddPersistence(builder.Configuration)
                 .AddApplication()
+                .AddInfrastructure(builder.Configuration)
                 .AddPresentation(builder.Configuration);
 
             var app = builder.Build();
