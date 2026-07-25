@@ -56,7 +56,7 @@
   "54": "LastName",
   "55": "MakeCategoryImagePathRequired",
   "56": "AuthController HttpGet Attribute",
-  "57": "AuthController HttpPost Attribute",
+  "57": "ExceptionHandler",
   "58": "AuthController IActionResult Type",
   "59": "AuthController Task Type",
   "60": "DependencyInjection String Type",
@@ -90,5 +90,16 @@
   "88": "20260719153341_MakeCategoryImagePathRequired.Designer.cs",
   "89": "IQueryable",
   "90": "UnitResult",
-  "91": "Guid"
+  "91": "Guid",
+  "92": "RedisCacheService",
+  "93": "ProductAttribute",
+  "94": "ProductAttributeValue",
+  "95": "CategoryRepository",
+  "96": ".GetCategoryByIdAsync",
+  "97": ".GetSubCategoryByIdAsync",
+  "98": "_10",
+  "99": "AlignCategoryNameMaxLengthWithDomain",
+  "101": "20260127152943_5.Designer.cs",
+  "102": "20260308131958_9.Designer.cs",
+  "103": "20260719153341_MakeCategoryImagePathRequired.Designer.cs"
 }

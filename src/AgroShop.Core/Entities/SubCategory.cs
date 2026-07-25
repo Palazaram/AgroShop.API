@@ -1,4 +1,6 @@
-﻿using AgroShop.Core.ValueObjects;
+using AgroShop.Core.Shared;
+using AgroShop.Core.ValueObjects;
+using CSharpFunctionalExtensions;
 
 namespace AgroShop.Core.Entities
 {
@@ -8,7 +10,7 @@ namespace AgroShop.Core.Entities
 
         public Guid Id { get; private set; }
 
-        public string Name { get; private set; } = default!;
+        public SubCategoryName Name { get; private set; } = default!;
 
         public Guid CategoryId { get; private set; }
         public virtual Category Category { get; private set; } = null!;
@@ -16,28 +18,39 @@ namespace AgroShop.Core.Entities
         public virtual ICollection<Product> Products { get; private set; } = new List<Product>();
         public virtual ICollection<ProductAttribute> ProductAttributes { get; private set; } = new List<ProductAttribute>();
 
-        public static SubCategory Create(string name, Guid categoryId)
+        public static Result<SubCategory, Error> Create(string name, Guid categoryId)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Назва підкатегорії не може бути порожньою.", nameof(name));
-
             if (categoryId == Guid.Empty)
-                throw new ArgumentException("Категорія є обов’язковою.", nameof(categoryId));
+                return Result.Failure<SubCategory, Error>(Errors.General.ValueIsRequired("Категорія"));
 
-            return new SubCategory
-            {
-                Id = Guid.CreateVersion7(),
-                Name = name.Trim(),
-                CategoryId = categoryId
-            };
+            return SubCategoryName.Create(name)
+                .Map(subCategoryName => new SubCategory
+                {
+                    Id = Guid.CreateVersion7(),
+                    Name = subCategoryName,
+                    CategoryId = categoryId
+                });
         }
 
-        public void Update(string name)
+        // CategoryId is editable here (unlike Category, which has no parent to
+        // reassign) - SubCategories already carry Products/ProductAttributes,
+        // so re-parenting one shouldn't require deleting and recreating it.
+        public Result<SubCategory, Error> Update(string name, Guid categoryId)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Назва підкатегорії не може бути порожньою.", nameof(name));
+            if (categoryId == Guid.Empty)
+                return Result.Failure<SubCategory, Error>(Errors.General.ValueIsRequired("Категорія"));
 
-            Name = name.Trim();
+            return SubCategoryName.Create(name)
+                .Tap(subCategoryName => Name = subCategoryName)
+                .Tap(_ =>
+                {
+                    if (CategoryId != categoryId)
+                    {
+                        CategoryId = categoryId;
+                        Category = null!;
+                    }
+                })
+                .Map(_ => this);
         }
     }
 }

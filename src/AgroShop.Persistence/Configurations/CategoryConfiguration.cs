@@ -15,7 +15,7 @@ namespace AgroShop.Persistence.Configurations
             builder.OwnsOne(c => c.Name, nameBuilder =>
             {
                 nameBuilder.Property(n => n.Value)
-                    .HasMaxLength(60)
+                    .HasMaxLength(50)
                     .HasColumnName("Name")
                     .IsRequired();
 

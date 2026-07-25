@@ -32,6 +32,21 @@
             public static Error CategoryIsNullById() => Error.Validation("category.is.null.by.id", "Категорію з даним ID не знайдено");
         }
 
+        public static class SubCategory
+        {
+            public static Error SubCategoryIsNullById() => Error.Validation("sub.category.is.null.by.id", "Підкатегорію з даним ID не знайдено");
+            public static Error SubCategoryNameAlreadyExistsInCategory() => Error.Validation("sub.category.name.already.exists.in.category", "Підкатегорія з такою назвою вже існує в цій категорії");
+        }
+
+        public static class SubCategoryName
+        {
+            public static Error SubCategoryNameCantBeEmpty() => Error.Validation("sub.category.name.cant.be.empty", "Назва підкатегорії є обов'язковою");
+            public static Error SubCategoryNameInvalidMinLength() => Error.Validation("sub.category.name.invalid.min.length", $"Назва підкатегорії має містити принаймні 2 символи");
+            public static Error SubCategoryNameInvalidMaxLength() => Error.Validation("sub.category.name.invalid.max.length", $"Назва підкатегорії не має перевищувати 50 символів");
+            public static Error SubCategoryNameInvalidFormat() => Error.Validation("sub.category.name.invalid.format", $"Допустимі лише літери, пробіл, дефіс та апостроф");
+            public static Error SubCategoryNameInvalidLanguage() => Error.Validation("sub.category.name.invalid.language", $"Назва підкатегорії має бути введене українською мовою");
+        }
+
         public static class Image
         {
             public static Error InvalidFormat() => Error.Validation("image.invalid.format", "Дозволені лише зображення формату JPG, PNG або WEBP");
