@@ -30,7 +30,7 @@ namespace AgroShop.Application.Services
         {
             cancellationToken.ThrowIfCancellationRequested();
             var categories = await _categoryRepository.GetCategoriesAsync(asNoTracking, cancellationToken);
-            return Result.Success<IEnumerable<CategoryDto>, Error>(categories.ToDto());
+            return Result.Success<IEnumerable<CategoryDto>, Error>(categories.ToDto().OrderBy(c => c.Name));
         }
 
         public async Task<Result<CategoryDto, Error>> GetCategoryByIdAsync(string id, bool asNoTracking = false, CancellationToken cancellationToken = default)
