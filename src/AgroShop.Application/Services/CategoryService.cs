@@ -1,5 +1,6 @@
 using AgroShop.Application.Dto.CategoryDto;
 using AgroShop.Application.Interfaces;
+using AgroShop.Application.Mappers;
 using AgroShop.Core.Entities;
 using AgroShop.Core.Interfaces;
 using AgroShop.Core.Shared;
@@ -25,25 +26,25 @@ namespace AgroShop.Application.Services
             _imageStorageService = imageStorageService;
         }
 
-        public async Task<Result<IEnumerable<Category>, Error>> GetCategoriesAsync(bool asNoTracking = false, Func<IQueryable<Category>, IQueryable<Category>>? filter = null, CancellationToken cancellationToken = default)
+        public async Task<Result<IEnumerable<CategoryDto>, Error>> GetCategoriesAsync(bool asNoTracking = false, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var categories = await _categoryRepository.GetCategoriesAsync(asNoTracking, filter, cancellationToken);
-            return Result.Success<IEnumerable<Category>, Error>(categories);
+            var categories = await _categoryRepository.GetCategoriesAsync(asNoTracking, cancellationToken);
+            return Result.Success<IEnumerable<CategoryDto>, Error>(categories.ToDto());
         }
 
-        public async Task<Result<Category, Error>> GetCategoryByIdAsync(string id, bool asNoTracking = false, CancellationToken cancellationToken = default)
+        public async Task<Result<CategoryDto, Error>> GetCategoryByIdAsync(string id, bool asNoTracking = false, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (!Guid.TryParse(id, out var categoryId))
-                return Result.Failure<Category, Error>(Errors.General.IncorrectGuidError());
+                return Result.Failure<CategoryDto, Error>(Errors.General.IncorrectGuidError());
 
             var category = await _categoryRepository.GetCategoryByIdAsync(categoryId, asNoTracking, cancellationToken);
 
             if (category == null)
-                return Result.Failure<Category, Error>(Errors.Category.CategoryIsNullById());
+                return Result.Failure<CategoryDto, Error>(Errors.Category.CategoryIsNullById());
 
-            return Result.Success<Category, Error>(category);
+            return Result.Success<CategoryDto, Error>(category.ToDto());
         }
 
         public async Task<UnitResult<Error>> AddAsync(AddCategoryDto categoryDto, CancellationToken cancellationToken)
@@ -61,16 +62,16 @@ namespace AgroShop.Application.Services
             return UnitResult.Success<Error>();
         }
 
-        public async Task<Result<Category, Error>> UpdateAsync(string id, UpdateCategoryDto categoryDto, CancellationToken cancellationToken)
+        public async Task<Result<CategoryDto, Error>> UpdateAsync(string id, UpdateCategoryDto categoryDto, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (!Guid.TryParse(id, out var categoryId))
-                return Result.Failure<Category, Error>(Errors.General.IncorrectGuidError());
+                return Result.Failure<CategoryDto, Error>(Errors.General.IncorrectGuidError());
 
             var category = await _categoryRepository.GetCategoryByIdAsync(categoryId, cancellationToken: cancellationToken);
 
             if (category == null)
-                return Result.Failure<Category, Error>(Errors.Category.CategoryIsNullById());
+                return Result.Failure<CategoryDto, Error>(Errors.Category.CategoryIsNullById());
 
             var previousImagePath = category.ImagePath;
 
@@ -80,7 +81,7 @@ namespace AgroShop.Application.Services
 
             var updateResult = category.Update(categoryDto.Name, imagePath);
             if (updateResult.IsFailure)
-                return Result.Failure<Category, Error>(updateResult.Error);
+                return Result.Failure<CategoryDto, Error>(updateResult.Error);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
@@ -88,7 +89,7 @@ namespace AgroShop.Application.Services
             if (imagePath != null)
                 await _imageStorageService.DeleteAsync(previousImagePath, cancellationToken);
 
-            return Result.Success<Category, Error>(category);
+            return Result.Success<CategoryDto, Error>(category.ToDto());
         }
 
         public async Task<UnitResult<Error>> DeleteAsync(string id, CancellationToken cancellationToken)
