@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace AgroShop.API
 {
@@ -30,6 +31,14 @@ namespace AgroShop.API
                 // or the action itself, so it needs its own conversion to the Envelope error shape.
                 options.InvalidModelStateResponseFactory = context =>
                     context.ModelState.ToValidationErrorResponse();
+            })
+            .AddJsonOptions(options =>
+            {
+                // Enums serialize/bind as their name ("SingleSelect"), not the ordinal -
+                // matches how they're already stored in the database (HasConversion<string>)
+                // and means a [FromBody] JSON payload is self-documenting instead of
+                // requiring the caller to know which number means what.
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
 
             services.AddEndpointsApiExplorer();

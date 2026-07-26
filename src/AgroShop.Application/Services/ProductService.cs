@@ -49,20 +49,61 @@ namespace AgroShop.Application.Services
             _cacheService = cacheService;
         }
 
-        public async Task<Result<IEnumerable<ProductDto>, Error>> GetProductsAsync(bool asNoTracking = false, CancellationToken cancellationToken = default)
+        public async Task<Result<IEnumerable<ProductDto>, Error>> GetProductsAsync(
+            bool asNoTracking = false,
+            Guid? subCategoryId = null,
+            IEnumerable<Guid>? attributeOptionIds = null,
+            CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var cached = await _cacheService.GetAsync<List<ProductDto>>(ProductsCacheKey, cancellationToken);
-            if (cached != null)
-                return Result.Success<IEnumerable<ProductDto>, Error>(cached);
+            var optionIds = attributeOptionIds?.Distinct().ToList() ?? [];
+            var isFiltered = subCategoryId.HasValue || optionIds.Count > 0;
 
+            if (!isFiltered)
+            {
+                var cached = await _cacheService.GetAsync<List<ProductDto>>(ProductsCacheKey, cancellationToken);
+                if (cached != null)
+                    return Result.Success<IEnumerable<ProductDto>, Error>(cached);
+
+                var allProducts = await _productRepository.GetProductsAsync(asNoTracking, cancellationToken);
+                var allProductDtos = allProducts.ToDto().OrderBy(p => p.Name).ToList();
+
+                await _cacheService.SetAsync(ProductsCacheKey, allProductDtos, ProductsCacheDuration, cancellationToken);
+
+                return Result.Success<IEnumerable<ProductDto>, Error>(allProductDtos);
+            }
+
+            // Filtered results aren't cached under ProductsCacheKey - the
+            // combinations of subCategoryId + selected options are too varied
+            // to key sensibly, and this path is already excluded from the
+            // cache invalidated by Add/Update/Delete above.
             var products = await _productRepository.GetProductsAsync(asNoTracking, cancellationToken);
-            var productDtos = products.ToDto().OrderBy(p => p.Name).ToList();
 
-            await _cacheService.SetAsync(ProductsCacheKey, productDtos, ProductsCacheDuration, cancellationToken);
+            if (subCategoryId.HasValue)
+                products = products.Where(p => p.SubCategoryId == subCategoryId.Value);
 
-            return Result.Success<IEnumerable<ProductDto>, Error>(productDtos);
+            if (optionIds.Count > 0)
+            {
+                var allOptions = await _attributeOptionRepository.GetAttributeOptionsAsync(asNoTracking: true, cancellationToken);
+                var optionsById = allOptions.ToDictionary(o => o.Id);
+
+                // Same faceted-search semantics as the reference site: OR
+                // between options of the same attribute ("Томат" or "Картопля"),
+                // AND across different attributes (must also match "До сходів").
+                var optionGroupsByAttributeId = optionIds
+                    .Where(optionsById.ContainsKey)
+                    .GroupBy(id => optionsById[id].AttributeId)
+                    .Select(g => g.ToHashSet())
+                    .ToList();
+
+                products = products.Where(p =>
+                    optionGroupsByAttributeId.All(group =>
+                        p.ProductAttributeValues.Any(pav => group.Contains(pav.AttributeOptionId))));
+            }
+
+            var filteredProductDtos = products.ToDto().OrderBy(p => p.Name).ToList();
+            return Result.Success<IEnumerable<ProductDto>, Error>(filteredProductDtos);
         }
 
         public async Task<Result<ProductDto, Error>> GetProductByIdAsync(string id, bool asNoTracking = false, CancellationToken cancellationToken = default)

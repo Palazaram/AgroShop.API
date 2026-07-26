@@ -132,10 +132,10 @@
   "130": "20260711114130_11.Designer.cs",
   "131": "20260726130523_AddPackageSizeToProduct.Designer.cs",
   "132": "Product",
-  "133": "IUserRepository",
+  "133": "Phone",
   "134": ".GetRefreshTokenByHashAsync",
   "135": "EntityTypeBuilder",
-  "136": ".GetSupplierByIdAsync",
+  "136": "ProductDescription",
   "137": "AlignCategoryNameMaxLengthWithDomain",
   "138": "ReworkAttributeSystemWithOptions",
   "139": "SubCategoryName",
@@ -145,6 +145,8 @@
   "143": "20260726132842_ReworkAttributeSystemWithOptions.Designer.cs",
   "144": "AddProductDto",
   "145": "SubCategory",
-  "149": "ProductAttributeValue",
-  "150": "ProductDescription"
+  "146": "20260725201921_ReworkSubCategoryNameAndUniqueness.Designer.cs",
+  "147": "DependencyInjection",
+  "148": "Product",
+  "149": "ProductAttributeValue"
 }
