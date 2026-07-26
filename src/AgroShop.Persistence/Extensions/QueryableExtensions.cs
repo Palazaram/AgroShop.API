@@ -10,7 +10,8 @@ namespace AgroShop.Persistence.Extensions
         {
             return query
                    .Include(p => p.SubCategory).ThenInclude(sc => sc.Category)
-                   .Include(p => p.Supplier);
+                   .Include(p => p.Supplier)
+                   .Include(p => p.ProductAttributeValues).ThenInclude(pav => pav.AttributeOption).ThenInclude(o => o.Attribute);
         }
 
         public static IQueryable<Category> IncludeAll(this IQueryable<Category> query)
@@ -55,6 +56,12 @@ namespace AgroShop.Persistence.Extensions
             return query
                    .Include(pa => pa.SubCategory)
                    .Include(pa => pa.Attribute);
+        }
+
+        public static IQueryable<ProductAttributeValue> IncludeAll(this IQueryable<ProductAttributeValue> query)
+        {
+            return query
+                   .Include(pav => pav.AttributeOption).ThenInclude(o => o.Attribute);
         }
     }
 }

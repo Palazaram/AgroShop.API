@@ -2,6 +2,7 @@ using AgroShop.Application.Dto.ProductDto;
 using AgroShop.Application.Interfaces;
 using AgroShop.Application.Mappers;
 using AgroShop.Core.Entities;
+using AgroShop.Core.Enums;
 using AgroShop.Core.Interfaces;
 using AgroShop.Core.Shared;
 using CSharpFunctionalExtensions;
@@ -19,6 +20,9 @@ namespace AgroShop.Application.Services
         private readonly IProductRepository _productRepository;
         private readonly ISubCategoryRepository _subCategoryRepository;
         private readonly ISupplierRepository _supplierRepository;
+        private readonly IAttributeOptionRepository _attributeOptionRepository;
+        private readonly IProductAttributeRepository _productAttributeRepository;
+        private readonly IProductAttributeValueRepository _productAttributeValueRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IImageStorageService _imageStorageService;
         private readonly ICacheService _cacheService;
@@ -27,6 +31,9 @@ namespace AgroShop.Application.Services
             IProductRepository productRepository,
             ISubCategoryRepository subCategoryRepository,
             ISupplierRepository supplierRepository,
+            IAttributeOptionRepository attributeOptionRepository,
+            IProductAttributeRepository productAttributeRepository,
+            IProductAttributeValueRepository productAttributeValueRepository,
             IUnitOfWork unitOfWork,
             IImageStorageService imageStorageService,
             ICacheService cacheService)
@@ -34,6 +41,9 @@ namespace AgroShop.Application.Services
             _productRepository = productRepository;
             _subCategoryRepository = subCategoryRepository;
             _supplierRepository = supplierRepository;
+            _attributeOptionRepository = attributeOptionRepository;
+            _productAttributeRepository = productAttributeRepository;
+            _productAttributeValueRepository = productAttributeValueRepository;
             _unitOfWork = unitOfWork;
             _imageStorageService = imageStorageService;
             _cacheService = cacheService;
@@ -81,6 +91,10 @@ namespace AgroShop.Application.Services
             if (supplier == null)
                 return UnitResult.Failure(Errors.Supplier.SupplierIsNullById());
 
+            var selectionResult = await ValidateAttributeSelectionsAsync(productDto.SubCategoryId, productDto.AttributeOptionIds, cancellationToken);
+            if (selectionResult.IsFailure)
+                return UnitResult.Failure(selectionResult.Error);
+
             var imagePath = await _imageStorageService.SaveAsync(productDto.Image, ImagesSubfolder, cancellationToken);
 
             var productResult = Product.Create(
@@ -98,7 +112,18 @@ namespace AgroShop.Application.Services
             if (productResult.IsFailure)
                 return UnitResult.Failure(productResult.Error);
 
-            await _productRepository.AddAsync(productResult.Value, cancellationToken);
+            var product = productResult.Value;
+            await _productRepository.AddAsync(product, cancellationToken);
+
+            foreach (var (productAttributeId, option) in selectionResult.Value)
+            {
+                var valueResult = ProductAttributeValue.Create(productAttributeId, product.Id, option.Id);
+                if (valueResult.IsFailure)
+                    return UnitResult.Failure(valueResult.Error);
+
+                await _productAttributeValueRepository.AddAsync(valueResult.Value, cancellationToken);
+            }
+
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             await _cacheService.RemoveAsync(ProductsCacheKey, cancellationToken);
             return UnitResult.Success<Error>();
@@ -122,6 +147,10 @@ namespace AgroShop.Application.Services
             if (supplier == null)
                 return Result.Failure<ProductDto, Error>(Errors.Supplier.SupplierIsNullById());
 
+            var selectionResult = await ValidateAttributeSelectionsAsync(productDto.SubCategoryId, productDto.AttributeOptionIds, cancellationToken);
+            if (selectionResult.IsFailure)
+                return Result.Failure<ProductDto, Error>(selectionResult.Error);
+
             var previousImagePath = product.ImagePath;
 
             string? imagePath = null;
@@ -143,6 +172,31 @@ namespace AgroShop.Application.Services
 
             if (updateResult.IsFailure)
                 return Result.Failure<ProductDto, Error>(updateResult.Error);
+
+            // Reconcile: no Update on ProductAttributeValue by design (see the
+            // entity) - existing rows not in the new selection are removed,
+            // rows for newly-selected options are added, matches left alone.
+            var existingValues = await _productAttributeValueRepository.GetByProductIdAsync(productId, cancellationToken: cancellationToken);
+            var selectedOptionIds = selectionResult.Value.Select(s => s.Option.Id).ToHashSet();
+
+            foreach (var existingValue in existingValues)
+            {
+                if (!selectedOptionIds.Contains(existingValue.AttributeOptionId))
+                    _productAttributeValueRepository.Delete(existingValue);
+            }
+
+            var existingOptionIds = existingValues.Select(v => v.AttributeOptionId).ToHashSet();
+            foreach (var (productAttributeId, option) in selectionResult.Value)
+            {
+                if (existingOptionIds.Contains(option.Id))
+                    continue;
+
+                var valueResult = ProductAttributeValue.Create(productAttributeId, productId, option.Id);
+                if (valueResult.IsFailure)
+                    return Result.Failure<ProductDto, Error>(valueResult.Error);
+
+                await _productAttributeValueRepository.AddAsync(valueResult.Value, cancellationToken);
+            }
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             await _cacheService.RemoveAsync(ProductsCacheKey, cancellationToken);
@@ -172,7 +226,14 @@ namespace AgroShop.Application.Services
                 SubCategoryId = product.SubCategoryId,
                 SubCategoryName = subCategory.Name.Value,
                 SupplierId = product.SupplierId,
-                SupplierName = supplier.Name.Value
+                SupplierName = supplier.Name.Value,
+                AttributeValues = selectionResult.Value.Select(s => new ProductAttributeValueDto
+                {
+                    AttributeOptionId = s.Option.Id,
+                    AttributeId = s.Option.AttributeId,
+                    AttributeName = s.Option.Attribute.Name.Value,
+                    Value = s.Option.Value.Value
+                }).ToList()
             });
         }
 
@@ -191,6 +252,58 @@ namespace AgroShop.Application.Services
             await _cacheService.RemoveAsync(ProductsCacheKey, cancellationToken);
             await _imageStorageService.DeleteAsync(product.ImagePath, cancellationToken);
             return UnitResult.Success<Error>();
+        }
+
+        // Validates that every selected option exists, belongs to an attribute
+        // actually linked to this subcategory, respects SingleSelect's
+        // one-value limit, and that every attribute configured for the
+        // subcategory has at least one selected value (attribute values are
+        // required - see the earlier decision). Returns each selection paired
+        // with the ProductAttribute it satisfies, ready to persist.
+        private async Task<Result<List<(Guid ProductAttributeId, AttributeOption Option)>, Error>> ValidateAttributeSelectionsAsync(
+            Guid subCategoryId,
+            IEnumerable<Guid> selectedOptionIds,
+            CancellationToken cancellationToken)
+        {
+            var distinctOptionIds = selectedOptionIds.Distinct().ToList();
+
+            var subCategoryAttributes = (await _productAttributeRepository.GetProductAttributesAsync(asNoTracking: true, cancellationToken))
+                .Where(pa => pa.SubCategoryId == subCategoryId)
+                .ToList();
+
+            var allOptions = await _attributeOptionRepository.GetAttributeOptionsAsync(asNoTracking: true, cancellationToken);
+            var optionsById = allOptions.ToDictionary(o => o.Id);
+
+            var selections = new List<(Guid ProductAttributeId, AttributeOption Option)>();
+
+            foreach (var optionId in distinctOptionIds)
+            {
+                if (!optionsById.TryGetValue(optionId, out var option))
+                    return Result.Failure<List<(Guid, AttributeOption)>, Error>(Errors.AttributeOption.AttributeOptionIsNullById());
+
+                var productAttribute = subCategoryAttributes.FirstOrDefault(pa => pa.AttributeId == option.AttributeId);
+                if (productAttribute == null)
+                    return Result.Failure<List<(Guid, AttributeOption)>, Error>(Errors.ProductAttributeValue.AttributeOptionDoesNotBelongToProductAttribute());
+
+                selections.Add((productAttribute.Id, option));
+            }
+
+            var selectionsByProductAttributeId = selections.ToLookup(s => s.ProductAttributeId);
+
+            foreach (var productAttribute in subCategoryAttributes)
+            {
+                var selectedForThisAttribute = selectionsByProductAttributeId[productAttribute.Id].ToList();
+
+                if (selectedForThisAttribute.Count == 0)
+                    return Result.Failure<List<(Guid, AttributeOption)>, Error>(
+                        Errors.ProductAttributeValue.RequiredAttributeMissingValue(productAttribute.Attribute.Name.Value));
+
+                if (productAttribute.Attribute.ValueType == AttributeValueType.SingleSelect && selectedForThisAttribute.Count > 1)
+                    return Result.Failure<List<(Guid, AttributeOption)>, Error>(
+                        Errors.ProductAttributeValue.TooManyValuesForSingleSelectAttribute(productAttribute.Attribute.Name.Value));
+            }
+
+            return Result.Success<List<(Guid, AttributeOption)>, Error>(selections);
         }
     }
 }

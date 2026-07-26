@@ -16,5 +16,7 @@ namespace AgroShop.Application.Dto.ProductDto
         public required Guid SupplierId { get; set; }
         public required bool IsActive { get; set; }
         public IFormFile? Image { get; set; }
+
+        public List<Guid> AttributeOptionIds { get; set; } = [];
     }
 }

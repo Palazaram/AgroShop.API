@@ -25,7 +25,14 @@ namespace AgroShop.Application.Mappers
                 SubCategoryId = product.SubCategoryId,
                 SubCategoryName = product.SubCategory.Name.Value,
                 SupplierId = product.SupplierId,
-                SupplierName = product.Supplier.Name.Value
+                SupplierName = product.Supplier.Name.Value,
+                AttributeValues = product.ProductAttributeValues.Select(pav => new ProductAttributeValueDto
+                {
+                    AttributeOptionId = pav.AttributeOptionId,
+                    AttributeId = pav.AttributeOption.AttributeId,
+                    AttributeName = pav.AttributeOption.Attribute.Name.Value,
+                    Value = pav.AttributeOption.Value.Value
+                }).ToList()
             };
         }
 

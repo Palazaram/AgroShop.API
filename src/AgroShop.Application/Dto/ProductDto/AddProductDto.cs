@@ -15,5 +15,10 @@ namespace AgroShop.Application.Dto.ProductDto
         public required Guid SubCategoryId { get; set; }
         public required Guid SupplierId { get; set; }
         public required IFormFile Image { get; set; }
+
+        // Completeness (one value per ProductAttribute configured for the
+        // subcategory) is enforced in ProductService, not by required-ness
+        // here - an empty list is a valid C# value but not a valid product.
+        public List<Guid> AttributeOptionIds { get; set; } = [];
     }
 }

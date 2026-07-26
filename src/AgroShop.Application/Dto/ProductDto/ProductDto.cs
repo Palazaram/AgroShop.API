@@ -25,5 +25,7 @@ namespace AgroShop.Application.Dto.ProductDto
 
         public Guid SupplierId { get; set; }
         public string SupplierName { get; set; } = default!;
+
+        public List<ProductAttributeValueDto> AttributeValues { get; set; } = [];
     }
 }

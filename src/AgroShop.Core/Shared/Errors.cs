@@ -135,7 +135,9 @@
 
         public static class ProductAttributeValue
         {
-            public static Error AttributeOptionDoesNotBelongToProductAttribute() => Error.Validation("product.attribute.value.option.mismatch", "Обраний варіант не належить атрибуту цього товару");
+            public static Error AttributeOptionDoesNotBelongToProductAttribute() => Error.Validation("product.attribute.value.option.mismatch", "Обраний варіант не належить жодному атрибуту підкатегорії цього товару");
+            public static Error RequiredAttributeMissingValue(string attributeName) => Error.Validation("product.attribute.value.required.missing", $"Потрібно вказати значення для атрибуту «{attributeName}»");
+            public static Error TooManyValuesForSingleSelectAttribute(string attributeName) => Error.Validation("product.attribute.value.too.many.for.single.select", $"Атрибут «{attributeName}» допускає лише одне значення");
         }
 
         public static class Image

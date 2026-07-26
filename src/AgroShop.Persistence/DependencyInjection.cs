@@ -30,6 +30,7 @@ namespace AgroShop.Persistence
             services.AddScoped<IAttributeRepository, AttributeRepository>();
             services.AddScoped<IAttributeOptionRepository, AttributeOptionRepository>();
             services.AddScoped<IProductAttributeRepository, ProductAttributeRepository>();
+            services.AddScoped<IProductAttributeValueRepository, ProductAttributeValueRepository>();
 
             return services;
         }
