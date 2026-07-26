@@ -22,6 +22,9 @@ namespace AgroShop.Persistence.Configurations
                 nameBuilder.HasIndex(n => n.Value).IsUnique();
             });
 
+            builder.Property(s => s.ImagePath)
+                .HasMaxLength(500);
+
             builder.HasMany(s => s.Products).WithOne(p => p.Supplier).HasForeignKey(p => p.SupplierId).OnDelete(DeleteBehavior.Restrict);
         }
     }

@@ -10,6 +10,7 @@ namespace AgroShop.Application.Validators.SupplierValidators
         public UpdateSupplierDtoValidator()
         {
             RuleFor(x => x.Name).MustBeValueObject(SupplierName.Create);
+            RuleFor(x => x.Image).MustBeValidImage();
         }
     }
 }

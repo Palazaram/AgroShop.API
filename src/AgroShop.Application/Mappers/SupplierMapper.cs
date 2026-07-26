@@ -10,7 +10,8 @@ namespace AgroShop.Application.Mappers
             return new SupplierDto
             {
                 Id = supplier.Id,
-                Name = supplier.Name.Value
+                Name = supplier.Name.Value,
+                ImagePath = supplier.ImagePath
             };
         }
 

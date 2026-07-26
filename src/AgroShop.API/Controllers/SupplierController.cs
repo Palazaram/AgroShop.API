@@ -14,14 +14,14 @@ namespace AgroShop.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddSupplier([FromBody] AddSupplierDto addSupplierDto, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddSupplier([FromForm] AddSupplierDto addSupplierDto, CancellationToken cancellationToken)
         {
             var result = await _supplierService.AddAsync(addSupplierDto, cancellationToken);
             return FromResult(result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSupplier(string id, [FromBody] UpdateSupplierDto updateSupplierDto, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateSupplier(string id, [FromForm] UpdateSupplierDto updateSupplierDto, CancellationToken cancellationToken)
         {
             var result = await _supplierService.UpdateAsync(id, updateSupplierDto, cancellationToken);
             return FromResult(result);

@@ -10,21 +10,26 @@ namespace AgroShop.Application.Services
 {
     public class SupplierService : ISupplierService
     {
+        private const string ImagesSubfolder = "suppliers";
+
         // Backstop only - Add/Update/Delete below invalidate this explicitly.
         private const string SuppliersCacheKey = "suppliers:all";
         private static readonly TimeSpan SuppliersCacheDuration = TimeSpan.FromMinutes(15);
 
         private readonly ISupplierRepository _supplierRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IImageStorageService _imageStorageService;
         private readonly ICacheService _cacheService;
 
         public SupplierService(
             ISupplierRepository supplierRepository,
             IUnitOfWork unitOfWork,
+            IImageStorageService imageStorageService,
             ICacheService cacheService)
         {
             _supplierRepository = supplierRepository;
             _unitOfWork = unitOfWork;
+            _imageStorageService = imageStorageService;
             _cacheService = cacheService;
         }
 
@@ -62,7 +67,11 @@ namespace AgroShop.Application.Services
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var supplierResult = Supplier.Create(supplierDto.Name);
+            string? imagePath = null;
+            if (supplierDto.Image != null)
+                imagePath = await _imageStorageService.SaveAsync(supplierDto.Image, ImagesSubfolder, cancellationToken);
+
+            var supplierResult = Supplier.Create(supplierDto.Name, imagePath);
             if (supplierResult.IsFailure)
                 return UnitResult.Failure(supplierResult.Error);
 
@@ -82,12 +91,22 @@ namespace AgroShop.Application.Services
             if (supplier == null)
                 return Result.Failure<SupplierDto, Error>(Errors.Supplier.SupplierIsNullById());
 
-            var updateResult = supplier.Update(supplierDto.Name);
+            var previousImagePath = supplier.ImagePath;
+
+            string? imagePath = null;
+            if (supplierDto.Image != null)
+                imagePath = await _imageStorageService.SaveAsync(supplierDto.Image, ImagesSubfolder, cancellationToken);
+
+            var updateResult = supplier.Update(supplierDto.Name, imagePath);
             if (updateResult.IsFailure)
                 return Result.Failure<SupplierDto, Error>(updateResult.Error);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             await _cacheService.RemoveAsync(SuppliersCacheKey, cancellationToken);
+
+            // Only drop the old file once the new one is safely persisted.
+            if (imagePath != null)
+                await _imageStorageService.DeleteAsync(previousImagePath, cancellationToken);
 
             return Result.Success<SupplierDto, Error>(supplier.ToDto());
         }
@@ -105,6 +124,7 @@ namespace AgroShop.Application.Services
             _supplierRepository.Delete(supplier);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             await _cacheService.RemoveAsync(SuppliersCacheKey, cancellationToken);
+            await _imageStorageService.DeleteAsync(supplier.ImagePath, cancellationToken);
             return UnitResult.Success<Error>();
         }
     }

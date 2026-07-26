@@ -141,12 +141,8 @@
   "139": "SubCategoryName",
   "140": "AgroShop.Application.Dto.SubCategoryDto",
   "141": "20260222150331_7.Designer.cs",
-  "142": ".SaveAsync",
   "143": "20260726132842_ReworkAttributeSystemWithOptions.Designer.cs",
-  "144": "AddProductDto",
   "145": "SubCategory",
-  "146": "20260725201921_ReworkSubCategoryNameAndUniqueness.Designer.cs",
-  "147": "DependencyInjection",
-  "148": "Product",
-  "149": "ProductAttributeValue"
+  "150": "Image",
+  "151": "SubCategory"
 }
