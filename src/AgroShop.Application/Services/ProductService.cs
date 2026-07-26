@@ -53,12 +53,14 @@ namespace AgroShop.Application.Services
             bool asNoTracking = false,
             Guid? subCategoryId = null,
             IEnumerable<Guid>? attributeOptionIds = null,
+            IEnumerable<Guid>? supplierIds = null,
             CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
             var optionIds = attributeOptionIds?.Distinct().ToList() ?? [];
-            var isFiltered = subCategoryId.HasValue || optionIds.Count > 0;
+            var supplierIdSet = supplierIds?.Distinct().ToHashSet() ?? [];
+            var isFiltered = subCategoryId.HasValue || optionIds.Count > 0 || supplierIdSet.Count > 0;
 
             if (!isFiltered)
             {
@@ -82,6 +84,10 @@ namespace AgroShop.Application.Services
 
             if (subCategoryId.HasValue)
                 products = products.Where(p => p.SubCategoryId == subCategoryId.Value);
+
+            // OR between selected suppliers, same checkbox-facet semantics as attributeOptionIds.
+            if (supplierIdSet.Count > 0)
+                products = products.Where(p => supplierIdSet.Contains(p.SupplierId));
 
             if (optionIds.Count > 0)
             {
@@ -298,29 +304,42 @@ namespace AgroShop.Application.Services
         // Not cached - it's derived from product data that changes on every
         // Add/Update/Delete, and there's no per-subcategory invalidation
         // hook yet to keep a cached version correct.
-        public async Task<Result<IEnumerable<ProductFilterGroupDto>, Error>> GetFiltersBySubCategoryAsync(string subCategoryId, CancellationToken cancellationToken = default)
+        public async Task<Result<ProductFiltersDto, Error>> GetFiltersBySubCategoryAsync(string subCategoryId, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (!Guid.TryParse(subCategoryId, out var subCategoryGuid))
-                return Result.Failure<IEnumerable<ProductFilterGroupDto>, Error>(Errors.General.IncorrectGuidError());
+                return Result.Failure<ProductFiltersDto, Error>(Errors.General.IncorrectGuidError());
 
             var subCategory = await _subCategoryRepository.GetSubCategoryByIdAsync(subCategoryGuid, asNoTracking: true, cancellationToken: cancellationToken);
             if (subCategory == null)
-                return Result.Failure<IEnumerable<ProductFilterGroupDto>, Error>(Errors.SubCategory.SubCategoryIsNullById());
+                return Result.Failure<ProductFiltersDto, Error>(Errors.SubCategory.SubCategoryIsNullById());
+
+            var products = (await _productRepository.GetProductsAsync(asNoTracking: true, cancellationToken))
+                .Where(p => p.SubCategoryId == subCategoryGuid)
+                .ToList();
+
+            // How many distinct products currently carry each supplier - same
+            // "(81)" style counts as the attribute options below.
+            var supplierOptions = products
+                .GroupBy(p => p.SupplierId)
+                .Select(g => new ProductFilterSupplierOptionDto
+                {
+                    SupplierId = g.Key,
+                    Name = g.First().Supplier.Name.Value,
+                    ProductCount = g.Select(p => p.Id).Distinct().Count()
+                })
+                .OrderByDescending(o => o.ProductCount)
+                .ToList();
 
             var productAttributes = (await _productAttributeRepository.GetProductAttributesAsync(asNoTracking: true, cancellationToken))
                 .Where(pa => pa.SubCategoryId == subCategoryGuid)
                 .ToList();
 
             if (productAttributes.Count == 0)
-                return Result.Success<IEnumerable<ProductFilterGroupDto>, Error>([]);
+                return Result.Success<ProductFiltersDto, Error>(new ProductFiltersDto { SupplierOptions = supplierOptions });
 
             var allOptions = await _attributeOptionRepository.GetAttributeOptionsAsync(asNoTracking: true, cancellationToken);
             var optionsByAttributeId = allOptions.ToLookup(o => o.AttributeId);
-
-            var products = (await _productRepository.GetProductsAsync(asNoTracking: true, cancellationToken))
-                .Where(p => p.SubCategoryId == subCategoryGuid)
-                .ToList();
 
             // How many distinct products currently carry each option - the
             // "(81)" style counts next to each filter checkbox on the reference site.
@@ -329,7 +348,7 @@ namespace AgroShop.Application.Services
                 .GroupBy(x => x.AttributeOptionId)
                 .ToDictionary(g => g.Key, g => g.Select(x => x.Id).Distinct().Count());
 
-            var filterGroups = productAttributes
+            var attributeGroups = productAttributes
                 .Select(pa => new ProductFilterGroupDto
                 {
                     AttributeId = pa.AttributeId,
@@ -351,7 +370,7 @@ namespace AgroShop.Application.Services
                 .Where(g => g.Options.Count > 0)
                 .ToList();
 
-            return Result.Success<IEnumerable<ProductFilterGroupDto>, Error>(filterGroups);
+            return Result.Success<ProductFiltersDto, Error>(new ProductFiltersDto { AttributeGroups = attributeGroups, SupplierOptions = supplierOptions });
         }
 
         // Validates that every selected option exists, belongs to an attribute

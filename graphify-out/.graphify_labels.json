@@ -141,8 +141,16 @@
   "139": "SubCategoryName",
   "140": "AgroShop.Application.Dto.SubCategoryDto",
   "141": "20260222150331_7.Designer.cs",
+  "142": "Envelope",
   "143": "20260726132842_ReworkAttributeSystemWithOptions.Designer.cs",
+  "144": "ImageStorageService",
   "145": "SubCategory",
+  "146": ".GetRefreshTokenByHashAsync",
+  "147": "AlignCategoryNameMaxLengthWithDomain",
+  "148": "AddAttributeOptionDto",
+  "149": "ProductAttributeValue",
   "150": "Image",
-  "151": "SubCategory"
+  "151": "SubCategory",
+  "152": "ProductDescription",
+  "153": "UpdateAttributeOptionDto"
 }

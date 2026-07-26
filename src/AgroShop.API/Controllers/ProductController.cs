@@ -38,11 +38,13 @@ namespace AgroShop.API.Controllers
         public async Task<IActionResult> GetProducts(
             [FromQuery] Guid? subCategoryId,
             [FromQuery] Guid[]? attributeOptionIds,
+            [FromQuery] Guid[]? supplierIds,
             CancellationToken cancellationToken)
         {
             var result = await _productService.GetProductsAsync(
                 subCategoryId: subCategoryId,
                 attributeOptionIds: attributeOptionIds,
+                supplierIds: supplierIds,
                 cancellationToken: cancellationToken);
             return FromResult(result);
         }
