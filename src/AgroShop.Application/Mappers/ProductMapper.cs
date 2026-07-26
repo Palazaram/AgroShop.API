@@ -15,6 +15,8 @@ namespace AgroShop.Application.Mappers
                 Price = product.Price.Value,
                 Sku = product.Sku.Value,
                 StockQuantity = product.StockQuantity.Value,
+                PackageAmount = product.PackageSize.Amount,
+                PackageUnit = product.PackageSize.Unit.ToString(),
                 IsActive = product.IsActive,
                 IsAvailable = product.IsAvailable,
                 ImagePath = product.ImagePath,

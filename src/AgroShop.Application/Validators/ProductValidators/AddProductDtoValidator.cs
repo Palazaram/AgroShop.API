@@ -15,6 +15,9 @@ namespace AgroShop.Application.Validators.ProductValidators
             RuleFor(x => x.Price).MustBeValueObject(Money.Create);
             RuleFor(x => x.Sku).MustBeValueObject(Sku.Create);
             RuleFor(x => x.StockQuantity).MustBeValueObject(StockQuantity.Create);
+            RuleFor(x => x.PackageAmount)
+                .GreaterThan(0)
+                .WithMessage(Errors.PackageSize.PackageAmountMustBePositive().Serialize());
             RuleFor(x => x.SubCategoryId).NotEmptyCustom();
             RuleFor(x => x.SupplierId).NotEmptyCustom();
             RuleFor(x => x.Image)

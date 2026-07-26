@@ -9,6 +9,8 @@ namespace AgroShop.Application.Dto.ProductDto
         public decimal Price { get; set; }
         public string Sku { get; set; } = default!;
         public int StockQuantity { get; set; }
+        public decimal PackageAmount { get; set; }
+        public string PackageUnit { get; set; } = default!;
 
         public bool IsActive { get; set; }
         public bool IsAvailable { get; set; }

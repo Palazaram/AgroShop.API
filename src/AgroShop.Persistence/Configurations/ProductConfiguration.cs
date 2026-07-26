@@ -58,6 +58,22 @@ namespace AgroShop.Persistence.Configurations
                     .IsRequired();
             });
 
+            builder.OwnsOne(p => p.PackageSize, packageSizeBuilder =>
+            {
+                packageSizeBuilder.Property(ps => ps.Amount)
+                    .HasColumnName("PackageAmount")
+                    .HasColumnType("DECIMAL(18,3)")
+                    .IsRequired();
+
+                // Stored as text (not the int ordinal) so the value stays readable
+                // and stable even if enum members get reordered later.
+                packageSizeBuilder.Property(ps => ps.Unit)
+                    .HasColumnName("PackageUnit")
+                    .HasConversion<string>()
+                    .HasMaxLength(20)
+                    .IsRequired();
+            });
+
             builder.Property(p => p.IsActive).IsRequired().HasColumnType("BOOLEAN");
             builder.Property(p => p.ImagePath).HasColumnType("VARCHAR(200)").IsRequired();
 

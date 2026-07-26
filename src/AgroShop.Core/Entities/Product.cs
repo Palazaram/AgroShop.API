@@ -1,3 +1,4 @@
+using AgroShop.Core.Enums;
 using AgroShop.Core.Shared;
 using AgroShop.Core.ValueObjects;
 using CSharpFunctionalExtensions;
@@ -15,6 +16,7 @@ namespace AgroShop.Core.Entities
         public Money Price { get; private set; } = default!;
         public Sku Sku { get; private set; } = default!;
         public StockQuantity StockQuantity { get; private set; } = default!;
+        public PackageSize PackageSize { get; private set; } = default!;
 
         public bool IsActive { get; private set; } = true;
 
@@ -40,6 +42,8 @@ namespace AgroShop.Core.Entities
             decimal price,
             string sku,
             int stockQuantity,
+            decimal packageAmount,
+            PackageUnit packageUnit,
             Guid subCategoryId,
             Guid supplierId,
             string imagePath)
@@ -55,19 +59,21 @@ namespace AgroShop.Core.Entities
                     .Bind(productDescription => Sku.Create(sku)
                         .Bind(skuVo => Money.Create(price)
                             .Bind(money => StockQuantity.Create(stockQuantity)
-                                .Map(stock => new Product
-                                {
-                                    Id = Guid.CreateVersion7(),
-                                    Name = productName,
-                                    Description = productDescription,
-                                    Price = money,
-                                    Sku = skuVo,
-                                    StockQuantity = stock,
-                                    SubCategoryId = subCategoryId,
-                                    SupplierId = supplierId,
-                                    ImagePath = imagePath,
-                                    IsActive = true
-                                })))));
+                                .Bind(stock => PackageSize.Create(packageAmount, packageUnit)
+                                    .Map(packageSize => new Product
+                                    {
+                                        Id = Guid.CreateVersion7(),
+                                        Name = productName,
+                                        Description = productDescription,
+                                        Price = money,
+                                        Sku = skuVo,
+                                        StockQuantity = stock,
+                                        PackageSize = packageSize,
+                                        SubCategoryId = subCategoryId,
+                                        SupplierId = supplierId,
+                                        ImagePath = imagePath,
+                                        IsActive = true
+                                    }))))));
         }
 
         public Result<Product, Error> Update(
@@ -76,6 +82,8 @@ namespace AgroShop.Core.Entities
             decimal price,
             string sku,
             int stockQuantity,
+            decimal packageAmount,
+            PackageUnit packageUnit,
             Guid subCategoryId,
             Guid supplierId,
             bool isActive,
@@ -92,34 +100,36 @@ namespace AgroShop.Core.Entities
                     .Bind(productDescription => Sku.Create(sku)
                         .Bind(skuVo => Money.Create(price)
                             .Bind(money => StockQuantity.Create(stockQuantity)
-                                .Tap(stock =>
-                                {
-                                    Name = productName;
-                                    Description = productDescription;
-                                    Price = money;
-                                    Sku = skuVo;
-                                    StockQuantity = stock;
-                                    IsActive = isActive;
-                                    UpdatedUtc = DateTime.UtcNow;
-
-                                    if (SubCategoryId != subCategoryId)
+                                .Bind(stock => PackageSize.Create(packageAmount, packageUnit)
+                                    .Tap(packageSize =>
                                     {
-                                        SubCategoryId = subCategoryId;
-                                        SubCategory = null!;
-                                    }
+                                        Name = productName;
+                                        Description = productDescription;
+                                        Price = money;
+                                        Sku = skuVo;
+                                        StockQuantity = stock;
+                                        PackageSize = packageSize;
+                                        IsActive = isActive;
+                                        UpdatedUtc = DateTime.UtcNow;
 
-                                    if (SupplierId != supplierId)
-                                    {
-                                        SupplierId = supplierId;
-                                        Supplier = null!;
-                                    }
+                                        if (SubCategoryId != subCategoryId)
+                                        {
+                                            SubCategoryId = subCategoryId;
+                                            SubCategory = null!;
+                                        }
 
-                                    // Only overwrite when a new image was actually uploaded
-                                    // (same convention as Category.Update).
-                                    if (!string.IsNullOrWhiteSpace(imagePath))
-                                        ImagePath = imagePath;
-                                })
-                                .Map(_ => this)))));
+                                        if (SupplierId != supplierId)
+                                        {
+                                            SupplierId = supplierId;
+                                            Supplier = null!;
+                                        }
+
+                                        // Only overwrite when a new image was actually uploaded
+                                        // (same convention as Category.Update).
+                                        if (!string.IsNullOrWhiteSpace(imagePath))
+                                            ImagePath = imagePath;
+                                    })
+                                    .Map(_ => this))))));
         }
     }
 }

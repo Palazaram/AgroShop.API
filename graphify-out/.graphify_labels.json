@@ -126,14 +126,12 @@
   "124": "StockQuantity",
   "125": "_2",
   "126": "MakeProductDescriptionRequired",
-  "127": "AgroShop.Core.Enums",
+  "127": "20251026152202_4.Designer.cs",
   "128": ".AddInfrastructure",
   "129": "20260222150331_7.Designer.cs",
   "130": "20260711114130_11.Designer.cs",
-  "131": "Product",
-  "132": "ValueObject",
-  "133": ".SaveChangesAsync",
-  "134": "RegisterUserDto",
-  "135": "Image",
-  "136": "RoleConstants.cs"
+  "131": "20260726130523_AddPackageSizeToProduct.Designer.cs",
+  "132": "Product",
+  "133": "RoleConstants.cs",
+  "134": ".GetRefreshTokenByHashAsync"
 }

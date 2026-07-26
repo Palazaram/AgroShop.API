@@ -82,6 +82,11 @@
             public static Error StockQuantityCantBeNegative() => Error.Validation("stock.quantity.cant.be.negative", "Кількість на складі не може бути від'ємною");
         }
 
+        public static class PackageSize
+        {
+            public static Error PackageAmountMustBePositive() => Error.Validation("package.amount.must.be.positive", "Розмір фасовки повинен бути більшим за нуль");
+        }
+
         public static class Money
         {
             public static Error MoneyMustBePositive() => Error.Validation("money.must.be.positive", "Сума повинна бути більшою за нуль");
