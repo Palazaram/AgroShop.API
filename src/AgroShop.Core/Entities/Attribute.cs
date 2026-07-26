@@ -1,4 +1,7 @@
-﻿using AgroShop.Core.ValueObjects;
+using AgroShop.Core.Enums;
+using AgroShop.Core.Shared;
+using AgroShop.Core.ValueObjects;
+using CSharpFunctionalExtensions;
 
 namespace AgroShop.Core.Entities
 {
@@ -8,28 +11,32 @@ namespace AgroShop.Core.Entities
 
         public Guid Id { get; private set; }
 
-        public string Name { get; private set; } = default!;
+        public AttributeName Name { get; private set; } = default!;
+        public AttributeValueType ValueType { get; private set; }
 
         public virtual ICollection<ProductAttribute> ProductAttributes { get; private set; } = new List<ProductAttribute>();
+        public virtual ICollection<AttributeOption> Options { get; private set; } = new List<AttributeOption>();
 
-        public static Attribute Create(string name)
+        public static Result<Attribute, Error> Create(string name, AttributeValueType valueType)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Назва атрибуту не може бути порожньою.", nameof(name));
-
-            return new Attribute
-            {
-                Id = Guid.CreateVersion7(),
-                Name = name.Trim()
-            };
+            return AttributeName.Create(name)
+                .Map(attributeName => new Attribute
+                {
+                    Id = Guid.CreateVersion7(),
+                    Name = attributeName,
+                    ValueType = valueType
+                });
         }
 
-        public void Update(string name)
+        // ValueType is deliberately not editable here - changing it after
+        // options/values already exist under the old type would leave the
+        // existing data (e.g. multiple values recorded for what used to be
+        // SingleSelect) meaningless without a separate migration of that data.
+        public Result<Attribute, Error> Update(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Назва атрибуту не може бути порожньою.", nameof(name));
-
-            Name = name.Trim();
+            return AttributeName.Create(name)
+                .Tap(attributeName => Name = attributeName)
+                .Map(_ => this);
         }
     }
 }

@@ -16,6 +16,9 @@ namespace AgroShop.Application
             services.AddScoped<ISubCategoryService, SubCategoryService>();
             services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IAttributeService, AttributeService>();
+            services.AddScoped<IAttributeOptionService, AttributeOptionService>();
+            services.AddScoped<IProductAttributeService, ProductAttributeService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();
 

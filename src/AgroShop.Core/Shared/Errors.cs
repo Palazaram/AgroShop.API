@@ -105,6 +105,39 @@
             public static Error SupplierNameInvalidMaxLength(int maxLength) => Error.Validation("supplier.name.invalid.max.length", $"Назва постачальника не має перевищувати {maxLength} символів");
         }
 
+        public static class Attribute
+        {
+            public static Error AttributeIsNullById() => Error.Validation("attribute.is.null.by.id", "Атрибут з даним ID не знайдено");
+        }
+
+        public static class AttributeName
+        {
+            public static Error AttributeNameCantBeEmpty() => Error.Validation("attribute.name.cant.be.empty", "Назва атрибуту є обов'язковою");
+            public static Error AttributeNameInvalidMinLength(int minLength) => Error.Validation("attribute.name.invalid.min.length", $"Назва атрибуту має містити принаймні {minLength} символи");
+            public static Error AttributeNameInvalidMaxLength(int maxLength) => Error.Validation("attribute.name.invalid.max.length", $"Назва атрибуту не має перевищувати {maxLength} символів");
+            public static Error AttributeNameInvalidFormat() => Error.Validation("attribute.name.invalid.format", "Допустимі лише літери, пробіл, дефіс та апостроф");
+            public static Error AttributeNameInvalidLanguage() => Error.Validation("attribute.name.invalid.language", "Назва атрибуту має бути введене українською мовою");
+        }
+
+        public static class AttributeOption
+        {
+            public static Error AttributeOptionIsNullById() => Error.Validation("attribute.option.is.null.by.id", "Варіант атрибуту з даним ID не знайдено");
+            public static Error AttributeOptionValueCantBeEmpty() => Error.Validation("attribute.option.value.cant.be.empty", "Значення варіанту атрибуту є обов'язковим");
+            public static Error AttributeOptionValueInvalidMaxLength(int maxLength) => Error.Validation("attribute.option.value.invalid.max.length", $"Значення варіанту атрибуту не має перевищувати {maxLength} символів");
+            public static Error AttributeOptionAlreadyExistsForAttribute() => Error.Validation("attribute.option.already.exists.for.attribute", "Такий варіант вже існує для цього атрибуту");
+        }
+
+        public static class ProductAttribute
+        {
+            public static Error ProductAttributeIsNullById() => Error.Validation("product.attribute.is.null.by.id", "Атрибут підкатегорії з даним ID не знайдено");
+            public static Error ProductAttributeAlreadyExistsForSubCategory() => Error.Validation("product.attribute.already.exists.for.sub.category", "Цей атрибут вже прив'язаний до цієї підкатегорії");
+        }
+
+        public static class ProductAttributeValue
+        {
+            public static Error AttributeOptionDoesNotBelongToProductAttribute() => Error.Validation("product.attribute.value.option.mismatch", "Обраний варіант не належить атрибуту цього товару");
+        }
+
         public static class Image
         {
             public static Error InvalidFormat() => Error.Validation("image.invalid.format", "Дозволені лише зображення формату JPG, PNG або WEBP");

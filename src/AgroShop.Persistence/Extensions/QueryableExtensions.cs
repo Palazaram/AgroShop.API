@@ -1,5 +1,6 @@
 ﻿using AgroShop.Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using Attribute = AgroShop.Core.Entities.Attribute;
 
 namespace AgroShop.Persistence.Extensions
 {
@@ -35,6 +36,25 @@ namespace AgroShop.Persistence.Extensions
             return query
                    .Include(u => u.Role)
                    .Include(s => s.RefreshTokens);
+        }
+
+        public static IQueryable<Attribute> IncludeAll(this IQueryable<Attribute> query)
+        {
+            return query
+                   .Include(a => a.Options);
+        }
+
+        public static IQueryable<AttributeOption> IncludeAll(this IQueryable<AttributeOption> query)
+        {
+            return query
+                   .Include(o => o.Attribute);
+        }
+
+        public static IQueryable<ProductAttribute> IncludeAll(this IQueryable<ProductAttribute> query)
+        {
+            return query
+                   .Include(pa => pa.SubCategory)
+                   .Include(pa => pa.Attribute);
         }
     }
 }

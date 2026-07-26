@@ -1,4 +1,5 @@
-﻿using AgroShop.Core.ValueObjects;
+using AgroShop.Core.Shared;
+using CSharpFunctionalExtensions;
 
 namespace AgroShop.Core.Entities
 {
@@ -14,44 +15,32 @@ namespace AgroShop.Core.Entities
         public Guid ProductId { get; private set; }
         public virtual Product Product { get; private set; } = null!;
 
-        public string Value { get; private set; } = default!;
+        public Guid AttributeOptionId { get; private set; }
+        public virtual AttributeOption AttributeOption { get; private set; } = null!;
 
-        public static ProductAttributeValue Create(string value, Guid productAttributeId, Guid productId)
+        public static Result<ProductAttributeValue, Error> Create(Guid productAttributeId, Guid productId, Guid attributeOptionId)
         {
-            if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException("Значення атрибуту не може бути порожнім.", nameof(value));
-
             if (productAttributeId == Guid.Empty)
-                throw new ArgumentException("Атрибут є обов’язковим.", nameof(productAttributeId));
+                return Result.Failure<ProductAttributeValue, Error>(Errors.General.ValueIsRequired("Атрибут"));
 
             if (productId == Guid.Empty)
-                throw new ArgumentException("Продукт є обов’язковим.", nameof(productId));
+                return Result.Failure<ProductAttributeValue, Error>(Errors.General.ValueIsRequired("Товар"));
 
-            return new ProductAttributeValue
+            if (attributeOptionId == Guid.Empty)
+                return Result.Failure<ProductAttributeValue, Error>(Errors.General.ValueIsRequired("Варіант атрибуту"));
+
+            return Result.Success<ProductAttributeValue, Error>(new ProductAttributeValue
             {
                 Id = Guid.CreateVersion7(),
-                Value = value.Trim(),
                 ProductAttributeId = productAttributeId,
-                ProductId = productId
-            };
+                ProductId = productId,
+                AttributeOptionId = attributeOptionId
+            });
         }
 
-        public void Update(string value, Guid productAttributeId, Guid productId)
-        {
-            if (ProductAttributeId != productAttributeId)
-            {
-                ProductAttributeId = productAttributeId;
-                ProductAttribute = null!;
-            }
-
-            if (ProductId != productId)
-            {
-                ProductId = productId;
-                Product = null!;
-            }
-
-            Value = value.Trim();
-        }
-
+        // No Update - this row's identity is the (Product, ProductAttribute,
+        // AttributeOption) triple. For MultiSelect attributes a product can
+        // have several of these rows at once; changing the selection means
+        // deleting some rows and creating others, not editing one in place.
     }
 }

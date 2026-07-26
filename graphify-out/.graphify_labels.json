@@ -133,5 +133,17 @@
   "131": "20260726130523_AddPackageSizeToProduct.Designer.cs",
   "132": "Product",
   "133": "RoleConstants.cs",
-  "134": ".GetRefreshTokenByHashAsync"
+  "134": ".GetRefreshTokenByHashAsync",
+  "135": "EntityTypeBuilder",
+  "136": "MigrationBuilder",
+  "137": "AlignCategoryNameMaxLengthWithDomain",
+  "138": "ReworkAttributeSystemWithOptions",
+  "139": "AddAttributeOptionDto",
+  "140": "Phone",
+  "141": "20260222150331_7.Designer.cs",
+  "142": "20260725201921_ReworkSubCategoryNameAndUniqueness.Designer.cs",
+  "143": "20260726132842_ReworkAttributeSystemWithOptions.Designer.cs",
+  "144": "UpdateAttributeOptionDto",
+  "145": ".ToDto",
+  "146": "Image"
 }

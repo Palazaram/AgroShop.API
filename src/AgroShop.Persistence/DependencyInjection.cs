@@ -27,6 +27,9 @@ namespace AgroShop.Persistence
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<IAttributeRepository, AttributeRepository>();
+            services.AddScoped<IAttributeOptionRepository, AttributeOptionRepository>();
+            services.AddScoped<IProductAttributeRepository, ProductAttributeRepository>();
 
             return services;
         }

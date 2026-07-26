@@ -1,4 +1,5 @@
-﻿using AgroShop.Core.ValueObjects;
+using AgroShop.Core.Shared;
+using CSharpFunctionalExtensions;
 
 namespace AgroShop.Core.Entities
 {
@@ -16,35 +17,25 @@ namespace AgroShop.Core.Entities
 
         public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; private set; } = new List<ProductAttributeValue>();
 
-        public static ProductAttribute Create(Guid subCategoryId, Guid attributeId)
+        public static Result<ProductAttribute, Error> Create(Guid subCategoryId, Guid attributeId)
         {
             if (subCategoryId == Guid.Empty)
-                throw new ArgumentException("Підкатегорія є обов’язковою.", nameof(subCategoryId));
+                return Result.Failure<ProductAttribute, Error>(Errors.General.ValueIsRequired("Підкатегорія"));
 
             if (attributeId == Guid.Empty)
-                throw new ArgumentException("Атрибут є обов’язковим.", nameof(attributeId));
+                return Result.Failure<ProductAttribute, Error>(Errors.General.ValueIsRequired("Атрибут"));
 
-            return new ProductAttribute
+            return Result.Success<ProductAttribute, Error>(new ProductAttribute
             {
                 Id = Guid.CreateVersion7(),
                 SubCategoryId = subCategoryId,
                 AttributeId = attributeId
-            };
+            });
         }
 
-        public void Update(Guid subCategoryId, Guid attributeId)
-        {
-            if (SubCategoryId != subCategoryId)
-            {
-                SubCategoryId = subCategoryId;
-                SubCategory = null!;
-            }
-
-            if (AttributeId != attributeId)
-            {
-                AttributeId = attributeId;
-                Attribute = null!;
-            }
-        }
+        // No Update - this row's entire identity is the (SubCategory, Attribute)
+        // pair; "editing" either half makes it a different link, not a change
+        // to this one. Re-pointing it in place would also silently reinterpret
+        // every ProductAttributeValue already recorded against it.
     }
 }

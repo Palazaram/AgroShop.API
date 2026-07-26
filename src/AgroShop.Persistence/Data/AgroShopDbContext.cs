@@ -19,6 +19,7 @@ namespace AgroShop.Persistence.Data
         public DbSet<SubCategory> SubCategories => Set<SubCategory>();
         public DbSet<Supplier> Suppliers => Set<Supplier>();
         public DbSet<Attribute> Attributes => Set<Attribute>();
+        public DbSet<AttributeOption> AttributeOptions => Set<AttributeOption>();
         public DbSet<ProductAttribute> ProductAttributes => Set<ProductAttribute>();
         public DbSet<ProductAttributeValue> ProductAttributeValues => Set<ProductAttributeValue>();
         public DbSet<User> Users => Set<User>();
