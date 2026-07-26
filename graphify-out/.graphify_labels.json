@@ -122,6 +122,7 @@
   "120": "20260726111737_ReworkProductAndSupplier.Designer.cs",
   "121": "Image",
   "122": "PackageSize",
+  "123": "ISubCategoryService",
   "124": "StockQuantity",
   "125": "CategoryName",
   "126": "MakeProductDescriptionRequired",
@@ -131,12 +132,19 @@
   "130": "20260711114130_11.Designer.cs",
   "131": "20260726130523_AddPackageSizeToProduct.Designer.cs",
   "132": "Product",
+  "133": "IUserRepository",
   "134": ".GetRefreshTokenByHashAsync",
   "135": "EntityTypeBuilder",
+  "136": ".GetSupplierByIdAsync",
   "137": "AlignCategoryNameMaxLengthWithDomain",
   "138": "ReworkAttributeSystemWithOptions",
   "139": "SubCategoryName",
+  "140": "AgroShop.Application.Dto.SubCategoryDto",
   "141": "20260222150331_7.Designer.cs",
+  "142": ".SaveAsync",
   "143": "20260726132842_ReworkAttributeSystemWithOptions.Designer.cs",
-  "145": "SubCategory"
+  "144": "AddProductDto",
+  "145": "SubCategory",
+  "149": "ProductAttributeValue",
+  "150": "ProductDescription"
 }

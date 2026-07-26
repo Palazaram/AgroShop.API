@@ -11,5 +11,6 @@ namespace AgroShop.Application.Interfaces
         Task<UnitResult<Error>> AddAsync(AddProductDto productDto, CancellationToken cancellationToken);
         Task<Result<ProductDto, Error>> UpdateAsync(string id, UpdateProductDto productDto, CancellationToken cancellationToken);
         Task<UnitResult<Error>> DeleteAsync(string id, CancellationToken cancellationToken);
+        Task<Result<IEnumerable<ProductFilterGroupDto>, Error>> GetFiltersBySubCategoryAsync(string subCategoryId, CancellationToken cancellationToken = default);
     }
 }

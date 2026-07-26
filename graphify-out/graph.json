@@ -135,7 +135,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:cd139f5afe742a36",
-      "community": 20,
+      "community": 107,
       "norm_label": "agroshop.api.controllers"
     },
     {
@@ -151,7 +151,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_applicationcontroller_agroshop_api_controllers_applicationcontroller",
-      "community": 1,
+      "community": 43,
       "norm_label": "applicationcontroller"
     },
     {
@@ -161,7 +161,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "controllerbase",
-      "community": 1,
+      "community": 43,
       "norm_label": "controllerbase"
     },
     {
@@ -177,7 +177,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_applicationcontroller_agroshop_api_controllers_applicationcontroller_fromresult",
-      "community": 1,
+      "community": 43,
       "norm_label": ".fromresult()"
     },
     {
@@ -187,7 +187,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_applicationcontroller_cs_result",
-      "community": 1,
+      "community": 43,
       "norm_label": "result"
     },
     {
@@ -197,7 +197,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_applicationcontroller_cs_iactionresult",
-      "community": 1,
+      "community": 43,
       "norm_label": "iactionresult"
     },
     {
@@ -207,7 +207,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_applicationcontroller_cs_unitresult",
-      "community": 1,
+      "community": 43,
       "norm_label": "unitresult"
     },
     {
@@ -217,7 +217,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributecontroller",
-      "community": 20,
+      "community": 107,
       "norm_label": "attributecontroller.cs"
     },
     {
@@ -393,7 +393,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller",
-      "community": 20,
+      "community": 107,
       "norm_label": "attributeoptioncontroller.cs"
     },
     {
@@ -409,7 +409,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller_agroshop_api_controllers_attributeoptioncontroller",
-      "community": 1,
+      "community": 43,
       "norm_label": "attributeoptioncontroller"
     },
     {
@@ -425,7 +425,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller_agroshop_api_controllers_attributeoptioncontroller_addattributeoption",
-      "community": 1,
+      "community": 43,
       "norm_label": ".addattributeoption()"
     },
     {
@@ -435,7 +435,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller_cs_cancellationtoken",
-      "community": 1,
+      "community": 43,
       "norm_label": "cancellationtoken"
     },
     {
@@ -445,7 +445,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller_cs_task",
-      "community": 1,
+      "community": 43,
       "norm_label": "task"
     },
     {
@@ -455,7 +455,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller_cs_iactionresult",
-      "community": 1,
+      "community": 43,
       "norm_label": "iactionresult"
     },
     {
@@ -465,7 +465,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller_cs_httppost",
-      "community": 1,
+      "community": 43,
       "norm_label": "httppost"
     },
     {
@@ -481,7 +481,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller_agroshop_api_controllers_attributeoptioncontroller_updateattributeoption",
-      "community": 1,
+      "community": 43,
       "norm_label": ".updateattributeoption()"
     },
     {
@@ -491,7 +491,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller_cs_httpput",
-      "community": 1,
+      "community": 43,
       "norm_label": "httpput"
     },
     {
@@ -507,7 +507,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller_agroshop_api_controllers_attributeoptioncontroller_deleteattributeoption",
-      "community": 1,
+      "community": 43,
       "norm_label": ".deleteattributeoption()"
     },
     {
@@ -517,7 +517,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller_cs_httpdelete",
-      "community": 1,
+      "community": 43,
       "norm_label": "httpdelete"
     },
     {
@@ -533,7 +533,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller_agroshop_api_controllers_attributeoptioncontroller_getattributeoptions",
-      "community": 1,
+      "community": 43,
       "norm_label": ".getattributeoptions()"
     },
     {
@@ -543,7 +543,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller_cs_httpget",
-      "community": 1,
+      "community": 43,
       "norm_label": "httpget"
     },
     {
@@ -559,7 +559,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_attributeoptioncontroller_agroshop_api_controllers_attributeoptioncontroller_getattributeoptionbyid",
-      "community": 1,
+      "community": 43,
       "norm_label": ".getattributeoptionbyid()"
     },
     {
@@ -745,7 +745,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_categorycontroller",
-      "community": 20,
+      "community": 107,
       "norm_label": "categorycontroller.cs"
     },
     {
@@ -761,7 +761,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_categorycontroller_agroshop_api_controllers_categorycontroller",
-      "community": 92,
+      "community": 59,
       "norm_label": "categorycontroller"
     },
     {
@@ -921,7 +921,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_productattributecontroller",
-      "community": 20,
+      "community": 107,
       "norm_label": "productattributecontroller.cs"
     },
     {
@@ -1071,7 +1071,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_productcontroller",
-      "community": 20,
+      "community": 107,
       "norm_label": "productcontroller.cs"
     },
     {
@@ -1241,13 +1241,29 @@
       "norm_label": ".getproductbyid()"
     },
     {
+      "label": ".GetFilters()",
+      "file_type": "code",
+      "source_file": "src/AgroShop.API/Controllers/ProductController.cs",
+      "source_location": "L51",
+      "metadata": {
+        "namespace": "AgroShop.API.Controllers",
+        "scope_chain": [
+          "s115"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller_getfilters",
+      "community": 127,
+      "norm_label": ".getfilters()"
+    },
+    {
       "label": "SubCategoryController.cs",
       "file_type": "code",
       "source_file": "src/AgroShop.API/Controllers/SubCategoryController.cs",
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller",
-      "community": 20,
+      "community": 107,
       "norm_label": "subcategorycontroller.cs"
     },
     {
@@ -1263,7 +1279,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller_agroshop_api_controllers_subcategorycontroller",
-      "community": 113,
+      "community": 31,
       "norm_label": "subcategorycontroller"
     },
     {
@@ -1279,7 +1295,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller_agroshop_api_controllers_subcategorycontroller_addsubcategory",
-      "community": 113,
+      "community": 31,
       "norm_label": ".addsubcategory()"
     },
     {
@@ -1289,7 +1305,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller_cs_cancellationtoken",
-      "community": 113,
+      "community": 31,
       "norm_label": "cancellationtoken"
     },
     {
@@ -1299,7 +1315,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller_cs_task",
-      "community": 113,
+      "community": 31,
       "norm_label": "task"
     },
     {
@@ -1309,7 +1325,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller_cs_iactionresult",
-      "community": 113,
+      "community": 31,
       "norm_label": "iactionresult"
     },
     {
@@ -1319,7 +1335,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller_cs_httppost",
-      "community": 113,
+      "community": 31,
       "norm_label": "httppost"
     },
     {
@@ -1335,7 +1351,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller_agroshop_api_controllers_subcategorycontroller_updatesubcategory",
-      "community": 113,
+      "community": 31,
       "norm_label": ".updatesubcategory()"
     },
     {
@@ -1345,7 +1361,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller_cs_httpput",
-      "community": 113,
+      "community": 31,
       "norm_label": "httpput"
     },
     {
@@ -1361,7 +1377,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller_agroshop_api_controllers_subcategorycontroller_deletesubcategory",
-      "community": 113,
+      "community": 31,
       "norm_label": ".deletesubcategory()"
     },
     {
@@ -1371,7 +1387,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller_cs_httpdelete",
-      "community": 113,
+      "community": 31,
       "norm_label": "httpdelete"
     },
     {
@@ -1387,7 +1403,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller_agroshop_api_controllers_subcategorycontroller_getsubcategories",
-      "community": 113,
+      "community": 31,
       "norm_label": ".getsubcategories()"
     },
     {
@@ -1397,7 +1413,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller_cs_httpget",
-      "community": 113,
+      "community": 31,
       "norm_label": "httpget"
     },
     {
@@ -1413,7 +1429,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_subcategorycontroller_agroshop_api_controllers_subcategorycontroller_getsubcategorybyid",
-      "community": 113,
+      "community": 31,
       "norm_label": ".getsubcategorybyid()"
     },
     {
@@ -1423,7 +1439,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_api_controllers_suppliercontroller",
-      "community": 20,
+      "community": 107,
       "norm_label": "suppliercontroller.cs"
     },
     {
@@ -1614,7 +1630,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:af4086fdcf5afde0",
-      "community": 107,
+      "community": 57,
       "norm_label": "agroshop.api"
     },
     {
@@ -1821,7 +1837,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_api_filters_validationfilter",
-      "community": 27,
+      "community": 107,
       "norm_label": "validationfilter.cs"
     },
     {
@@ -1836,7 +1852,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:5234b39a872d35f2",
-      "community": 27,
+      "community": 107,
       "norm_label": "agroshop.api.filters"
     },
     {
@@ -1918,7 +1934,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_api_middlewares_exceptionhandler",
-      "community": 107,
+      "community": 57,
       "norm_label": "exceptionhandler.cs"
     },
     {
@@ -1933,7 +1949,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:f211937cb7cde86a",
-      "community": 107,
+      "community": 57,
       "norm_label": "agroshop.api.middlewares"
     },
     {
@@ -2051,7 +2067,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_api_program",
-      "community": 107,
+      "community": 57,
       "norm_label": "program.cs"
     },
     {
@@ -2067,7 +2083,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_program_agroshop_api_program",
-      "community": 107,
+      "community": 57,
       "norm_label": "program"
     },
     {
@@ -2083,7 +2099,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_program_agroshop_api_program_main",
-      "community": 107,
+      "community": 57,
       "norm_label": ".main()"
     },
     {
@@ -2442,7 +2458,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_api_services_authcookieservice",
-      "community": 107,
+      "community": 14,
       "norm_label": "authcookieservice.cs"
     },
     {
@@ -2649,7 +2665,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_api_services_imagestorageservice",
-      "community": 34,
+      "community": 107,
       "norm_label": "imagestorageservice.cs"
     },
     {
@@ -2665,7 +2681,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_services_imagestorageservice_agroshop_api_services_imagestorageservice",
-      "community": 34,
+      "community": 59,
       "norm_label": "imagestorageservice"
     },
     {
@@ -2675,7 +2691,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_services_imagestorageservice_cs_iwebhostenvironment",
-      "community": 34,
+      "community": 59,
       "norm_label": "iwebhostenvironment"
     },
     {
@@ -2691,7 +2707,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_services_imagestorageservice_agroshop_api_services_imagestorageservice_saveasync",
-      "community": 34,
+      "community": 59,
       "norm_label": ".saveasync()"
     },
     {
@@ -2701,7 +2717,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_services_imagestorageservice_cs_iformfile",
-      "community": 34,
+      "community": 59,
       "norm_label": "iformfile"
     },
     {
@@ -2711,7 +2727,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_services_imagestorageservice_cs_cancellationtoken",
-      "community": 34,
+      "community": 59,
       "norm_label": "cancellationtoken"
     },
     {
@@ -2721,7 +2737,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_api_services_imagestorageservice_cs_task",
-      "community": 34,
+      "community": 59,
       "norm_label": "task"
     },
     {
@@ -2737,7 +2753,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_api_services_imagestorageservice_agroshop_api_services_imagestorageservice_deleteasync",
-      "community": 34,
+      "community": 59,
       "norm_label": ".deleteasync()"
     },
     {
@@ -2867,7 +2883,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_dependencyinjection",
-      "community": 107,
+      "community": 53,
       "norm_label": "dependencyinjection.cs"
     },
     {
@@ -2882,7 +2898,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:629e1d00e0ccbac7",
-      "community": 107,
+      "community": 57,
       "norm_label": "agroshop.application"
     },
     {
@@ -2898,7 +2914,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dependencyinjection_agroshop_application_dependencyinjection",
-      "community": 107,
+      "community": 53,
       "norm_label": "dependencyinjection"
     },
     {
@@ -2914,7 +2930,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dependencyinjection_agroshop_application_dependencyinjection_addapplication",
-      "community": 107,
+      "community": 53,
       "norm_label": ".addapplication()"
     },
     {
@@ -2924,7 +2940,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dependencyinjection_cs_iservicecollection",
-      "community": 107,
+      "community": 53,
       "norm_label": "iservicecollection"
     },
     {
@@ -2934,7 +2950,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_attributedto_addattributedto",
-      "community": 29,
+      "community": 56,
       "norm_label": "addattributedto.cs"
     },
     {
@@ -2949,7 +2965,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:c0ca43d0e8053a1d",
-      "community": 20,
+      "community": 56,
       "norm_label": "agroshop.application.dto.attributedto"
     },
     {
@@ -2965,7 +2981,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_attributedto_addattributedto_agroshop_application_dto_attributedto_addattributedto",
-      "community": 29,
+      "community": 56,
       "norm_label": "addattributedto"
     },
     {
@@ -2975,7 +2991,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_attributedto_attributedto",
-      "community": 20,
+      "community": 38,
       "norm_label": "attributedto.cs"
     },
     {
@@ -2991,7 +3007,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_attributedto_attributedto_agroshop_application_dto_attributedto_attributedto",
-      "community": 135,
+      "community": 38,
       "norm_label": "attributedto"
     },
     {
@@ -3001,7 +3017,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_attributedto_attributedto_cs_guid",
-      "community": 135,
+      "community": 38,
       "norm_label": "guid"
     },
     {
@@ -3011,7 +3027,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_attributedto_attributedto_cs_list",
-      "community": 135,
+      "community": 38,
       "norm_label": "list"
     },
     {
@@ -3047,7 +3063,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_attributeoptiondto_addattributeoptiondto",
-      "community": 1,
+      "community": 20,
       "norm_label": "addattributeoptiondto.cs"
     },
     {
@@ -3078,7 +3094,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_attributeoptiondto_addattributeoptiondto_agroshop_application_dto_attributeoptiondto_addattributeoptiondto",
-      "community": 1,
+      "community": 20,
       "norm_label": "addattributeoptiondto"
     },
     {
@@ -3088,7 +3104,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_attributeoptiondto_addattributeoptiondto_cs_guid",
-      "community": 1,
+      "community": 20,
       "norm_label": "guid"
     },
     {
@@ -3134,7 +3150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_attributeoptiondto_updateattributeoptiondto",
-      "community": 1,
+      "community": 20,
       "norm_label": "updateattributeoptiondto.cs"
     },
     {
@@ -3150,7 +3166,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_attributeoptiondto_updateattributeoptiondto_agroshop_application_dto_attributeoptiondto_updateattributeoptiondto",
-      "community": 1,
+      "community": 20,
       "norm_label": "updateattributeoptiondto"
     },
     {
@@ -3175,7 +3191,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:ae75dd086396ce16",
-      "community": 107,
+      "community": 121,
       "norm_label": "agroshop.application.dto.authdto"
     },
     {
@@ -3242,7 +3258,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:4689b355deae4330",
-      "community": 20,
+      "community": 29,
       "norm_label": "agroshop.application.dto.categorydto"
     },
     {
@@ -3278,7 +3294,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_categorydto_categorydto",
-      "community": 92,
+      "community": 59,
       "norm_label": "categorydto.cs"
     },
     {
@@ -3294,7 +3310,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_categorydto_categorydto_agroshop_application_dto_categorydto_categorydto",
-      "community": 92,
+      "community": 59,
       "norm_label": "categorydto"
     },
     {
@@ -3304,7 +3320,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_categorydto_categorydto_cs_guid",
-      "community": 92,
+      "community": 59,
       "norm_label": "guid"
     },
     {
@@ -3314,7 +3330,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_categorydto_updatecategorydto",
-      "community": 100,
+      "community": 59,
       "norm_label": "updatecategorydto.cs"
     },
     {
@@ -3330,7 +3346,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_categorydto_updatecategorydto_agroshop_application_dto_categorydto_updatecategorydto",
-      "community": 100,
+      "community": 59,
       "norm_label": "updatecategorydto"
     },
     {
@@ -3340,7 +3356,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_categorydto_updatecategorydto_cs_iformfile",
-      "community": 100,
+      "community": 59,
       "norm_label": "iformfile"
     },
     {
@@ -3365,7 +3381,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:2524ae3b195d3157",
-      "community": 20,
+      "community": 107,
       "norm_label": "agroshop.application.dto.productattributedto"
     },
     {
@@ -3468,7 +3484,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_addproductdto_agroshop_application_dto_productdto_addproductdto",
-      "community": 127,
+      "community": 144,
       "norm_label": "addproductdto"
     },
     {
@@ -3478,7 +3494,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_addproductdto_cs_guid",
-      "community": 127,
+      "community": 144,
       "norm_label": "guid"
     },
     {
@@ -3488,7 +3504,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_addproductdto_cs_iformfile",
-      "community": 127,
+      "community": 144,
       "norm_label": "iformfile"
     },
     {
@@ -3498,7 +3514,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_addproductdto_cs_list",
-      "community": 127,
+      "community": 144,
       "norm_label": "list"
     },
     {
@@ -3508,7 +3524,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_productattributevaluedto",
-      "community": 127,
+      "community": 92,
       "norm_label": "productattributevaluedto.cs"
     },
     {
@@ -3524,7 +3540,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_productattributevaluedto_agroshop_application_dto_productdto_productattributevaluedto",
-      "community": 127,
+      "community": 92,
       "norm_label": "productattributevaluedto"
     },
     {
@@ -3534,7 +3550,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_productattributevaluedto_cs_guid",
-      "community": 127,
+      "community": 92,
       "norm_label": "guid"
     },
     {
@@ -3544,7 +3560,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_productdto",
-      "community": 127,
+      "community": 92,
       "norm_label": "productdto.cs"
     },
     {
@@ -3560,7 +3576,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_productdto_agroshop_application_dto_productdto_productdto",
-      "community": 127,
+      "community": 92,
       "norm_label": "productdto"
     },
     {
@@ -3570,7 +3586,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_productdto_cs_guid",
-      "community": 127,
+      "community": 92,
       "norm_label": "guid"
     },
     {
@@ -3580,7 +3596,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_productdto_cs_datetime",
-      "community": 127,
+      "community": 92,
       "norm_label": "datetime"
     },
     {
@@ -3590,8 +3606,90 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_productdto_cs_list",
-      "community": 127,
+      "community": 92,
       "norm_label": "list"
+    },
+    {
+      "label": "ProductFilterGroupDto.cs",
+      "file_type": "code",
+      "source_file": "src/AgroShop.Application/Dto/ProductDto/ProductFilterGroupDto.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_agroshop_application_dto_productdto_productfiltergroupdto",
+      "community": 140,
+      "norm_label": "productfiltergroupdto.cs"
+    },
+    {
+      "label": "ProductFilterGroupDto",
+      "file_type": "code",
+      "source_file": "src/AgroShop.Application/Dto/ProductDto/ProductFilterGroupDto.cs",
+      "source_location": "L3",
+      "metadata": {
+        "namespace": "AgroShop.Application.Dto.ProductDto",
+        "scope_chain": [
+          "s0"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_agroshop_application_dto_productdto_productfiltergroupdto_agroshop_application_dto_productdto_productfiltergroupdto",
+      "community": 140,
+      "norm_label": "productfiltergroupdto"
+    },
+    {
+      "label": "Guid",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_agroshop_application_dto_productdto_productfiltergroupdto_cs_guid",
+      "community": 140,
+      "norm_label": "guid"
+    },
+    {
+      "label": "List",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_agroshop_application_dto_productdto_productfiltergroupdto_cs_list",
+      "community": 140,
+      "norm_label": "list"
+    },
+    {
+      "label": "ProductFilterOptionDto.cs",
+      "file_type": "code",
+      "source_file": "src/AgroShop.Application/Dto/ProductDto/ProductFilterOptionDto.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_agroshop_application_dto_productdto_productfilteroptiondto",
+      "community": 140,
+      "norm_label": "productfilteroptiondto.cs"
+    },
+    {
+      "label": "ProductFilterOptionDto",
+      "file_type": "code",
+      "source_file": "src/AgroShop.Application/Dto/ProductDto/ProductFilterOptionDto.cs",
+      "source_location": "L3",
+      "metadata": {
+        "namespace": "AgroShop.Application.Dto.ProductDto",
+        "scope_chain": [
+          "s0"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_agroshop_application_dto_productdto_productfilteroptiondto_agroshop_application_dto_productdto_productfilteroptiondto",
+      "community": 140,
+      "norm_label": "productfilteroptiondto"
+    },
+    {
+      "label": "Guid",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_agroshop_application_dto_productdto_productfilteroptiondto_cs_guid",
+      "community": 140,
+      "norm_label": "guid"
     },
     {
       "label": "UpdateProductDto.cs",
@@ -3616,7 +3714,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_updateproductdto_agroshop_application_dto_productdto_updateproductdto",
-      "community": 127,
+      "community": 144,
       "norm_label": "updateproductdto"
     },
     {
@@ -3626,7 +3724,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_updateproductdto_cs_guid",
-      "community": 127,
+      "community": 144,
       "norm_label": "guid"
     },
     {
@@ -3636,7 +3734,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_updateproductdto_cs_iformfile",
-      "community": 127,
+      "community": 144,
       "norm_label": "iformfile"
     },
     {
@@ -3646,7 +3744,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_productdto_updateproductdto_cs_list",
-      "community": 127,
+      "community": 144,
       "norm_label": "list"
     },
     {
@@ -3656,7 +3754,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_subcategorydto_addsubcategorydto",
-      "community": 113,
+      "community": 31,
       "norm_label": "addsubcategorydto.cs"
     },
     {
@@ -3671,7 +3769,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:57ccd0db1de4c0c7",
-      "community": 20,
+      "community": 107,
       "norm_label": "agroshop.application.dto.subcategorydto"
     },
     {
@@ -3687,7 +3785,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_subcategorydto_addsubcategorydto_agroshop_application_dto_subcategorydto_addsubcategorydto",
-      "community": 113,
+      "community": 31,
       "norm_label": "addsubcategorydto"
     },
     {
@@ -3697,7 +3795,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_subcategorydto_addsubcategorydto_cs_guid",
-      "community": 113,
+      "community": 31,
       "norm_label": "guid"
     },
     {
@@ -3707,7 +3805,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_subcategorydto_subcategorydto",
-      "community": 113,
+      "community": 23,
       "norm_label": "subcategorydto.cs"
     },
     {
@@ -3723,7 +3821,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_subcategorydto_subcategorydto_agroshop_application_dto_subcategorydto_subcategorydto",
-      "community": 113,
+      "community": 23,
       "norm_label": "subcategorydto"
     },
     {
@@ -3733,7 +3831,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_subcategorydto_subcategorydto_cs_guid",
-      "community": 113,
+      "community": 23,
       "norm_label": "guid"
     },
     {
@@ -3743,7 +3841,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_subcategorydto_updatesubcategorydto",
-      "community": 113,
+      "community": 144,
       "norm_label": "updatesubcategorydto.cs"
     },
     {
@@ -3759,7 +3857,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_subcategorydto_updatesubcategorydto_agroshop_application_dto_subcategorydto_updatesubcategorydto",
-      "community": 113,
+      "community": 144,
       "norm_label": "updatesubcategorydto"
     },
     {
@@ -3769,7 +3867,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_subcategorydto_updatesubcategorydto_cs_guid",
-      "community": 113,
+      "community": 144,
       "norm_label": "guid"
     },
     {
@@ -3794,7 +3892,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:b56d742e63daa530",
-      "community": 20,
+      "community": 133,
       "norm_label": "agroshop.application.dto.supplierdto"
     },
     {
@@ -3820,7 +3918,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_supplierdto_supplierdto",
-      "community": 5,
+      "community": 1,
       "norm_label": "supplierdto.cs"
     },
     {
@@ -3836,7 +3934,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_dto_supplierdto_supplierdto_agroshop_application_dto_supplierdto_supplierdto",
-      "community": 5,
+      "community": 1,
       "norm_label": "supplierdto"
     },
     {
@@ -3846,7 +3944,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_dto_supplierdto_supplierdto_cs_guid",
-      "community": 5,
+      "community": 1,
       "norm_label": "guid"
     },
     {
@@ -4088,7 +4186,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:f84c97ba31b1429d",
-      "community": 20,
+      "community": 107,
       "norm_label": "agroshop.application.interfaces"
     },
     {
@@ -4104,7 +4202,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iattributeoptionservice_agroshop_application_interfaces_iattributeoptionservice",
-      "community": 1,
+      "community": 99,
       "norm_label": "iattributeoptionservice"
     },
     {
@@ -4120,7 +4218,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iattributeoptionservice_agroshop_application_interfaces_iattributeoptionservice_getattributeoptionsasync",
-      "community": 1,
+      "community": 99,
       "norm_label": ".getattributeoptionsasync()"
     },
     {
@@ -4130,7 +4228,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iattributeoptionservice_cs_cancellationtoken",
-      "community": 1,
+      "community": 99,
       "norm_label": "cancellationtoken"
     },
     {
@@ -4140,7 +4238,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iattributeoptionservice_cs_task",
-      "community": 1,
+      "community": 99,
       "norm_label": "task"
     },
     {
@@ -4150,7 +4248,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iattributeoptionservice_cs_result",
-      "community": 1,
+      "community": 99,
       "norm_label": "result"
     },
     {
@@ -4160,7 +4258,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iattributeoptionservice_cs_ienumerable",
-      "community": 1,
+      "community": 99,
       "norm_label": "ienumerable"
     },
     {
@@ -4176,7 +4274,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iattributeoptionservice_agroshop_application_interfaces_iattributeoptionservice_getattributeoptionbyidasync",
-      "community": 1,
+      "community": 99,
       "norm_label": ".getattributeoptionbyidasync()"
     },
     {
@@ -4192,7 +4290,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iattributeoptionservice_agroshop_application_interfaces_iattributeoptionservice_addasync",
-      "community": 1,
+      "community": 99,
       "norm_label": ".addasync()"
     },
     {
@@ -4202,7 +4300,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iattributeoptionservice_cs_unitresult",
-      "community": 1,
+      "community": 99,
       "norm_label": "unitresult"
     },
     {
@@ -4218,7 +4316,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iattributeoptionservice_agroshop_application_interfaces_iattributeoptionservice_updateasync",
-      "community": 1,
+      "community": 99,
       "norm_label": ".updateasync()"
     },
     {
@@ -4234,7 +4332,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iattributeoptionservice_agroshop_application_interfaces_iattributeoptionservice_deleteasync",
-      "community": 1,
+      "community": 99,
       "norm_label": ".deleteasync()"
     },
     {
@@ -4244,7 +4342,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iattributeservice",
-      "community": 20,
+      "community": 56,
       "norm_label": "iattributeservice.cs"
     },
     {
@@ -4400,7 +4498,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iauthservice",
-      "community": 107,
+      "community": 121,
       "norm_label": "iauthservice.cs"
     },
     {
@@ -4634,7 +4732,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_icategoryservice",
-      "community": 20,
+      "community": 29,
       "norm_label": "icategoryservice.cs"
     },
     {
@@ -4650,7 +4748,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_icategoryservice_agroshop_application_interfaces_icategoryservice",
-      "community": 92,
+      "community": 59,
       "norm_label": "icategoryservice"
     },
     {
@@ -4666,7 +4764,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_icategoryservice_agroshop_application_interfaces_icategoryservice_getcategoriesasync",
-      "community": 92,
+      "community": 59,
       "norm_label": ".getcategoriesasync()"
     },
     {
@@ -4676,7 +4774,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_icategoryservice_cs_cancellationtoken",
-      "community": 92,
+      "community": 59,
       "norm_label": "cancellationtoken"
     },
     {
@@ -4686,7 +4784,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_icategoryservice_cs_task",
-      "community": 92,
+      "community": 59,
       "norm_label": "task"
     },
     {
@@ -4696,7 +4794,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_icategoryservice_cs_result",
-      "community": 92,
+      "community": 59,
       "norm_label": "result"
     },
     {
@@ -4706,7 +4804,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_icategoryservice_cs_ienumerable",
-      "community": 92,
+      "community": 59,
       "norm_label": "ienumerable"
     },
     {
@@ -4722,7 +4820,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_icategoryservice_agroshop_application_interfaces_icategoryservice_getcategorybyidasync",
-      "community": 92,
+      "community": 59,
       "norm_label": ".getcategorybyidasync()"
     },
     {
@@ -4738,7 +4836,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_icategoryservice_agroshop_application_interfaces_icategoryservice_addasync",
-      "community": 92,
+      "community": 59,
       "norm_label": ".addasync()"
     },
     {
@@ -4748,7 +4846,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_icategoryservice_cs_unitresult",
-      "community": 92,
+      "community": 59,
       "norm_label": "unitresult"
     },
     {
@@ -4764,7 +4862,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_icategoryservice_agroshop_application_interfaces_icategoryservice_updateasync",
-      "community": 92,
+      "community": 59,
       "norm_label": ".updateasync()"
     },
     {
@@ -4780,7 +4878,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_icategoryservice_agroshop_application_interfaces_icategoryservice_deleteasync",
-      "community": 92,
+      "community": 59,
       "norm_label": ".deleteasync()"
     },
     {
@@ -4790,7 +4888,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iimagestorageservice",
-      "community": 9,
+      "community": 59,
       "norm_label": "iimagestorageservice.cs"
     },
     {
@@ -4806,7 +4904,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iimagestorageservice_agroshop_application_interfaces_iimagestorageservice",
-      "community": 9,
+      "community": 59,
       "norm_label": "iimagestorageservice"
     },
     {
@@ -4822,7 +4920,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iimagestorageservice_agroshop_application_interfaces_iimagestorageservice_saveasync",
-      "community": 9,
+      "community": 59,
       "norm_label": ".saveasync()"
     },
     {
@@ -4832,7 +4930,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iimagestorageservice_cs_iformfile",
-      "community": 9,
+      "community": 59,
       "norm_label": "iformfile"
     },
     {
@@ -4842,7 +4940,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iimagestorageservice_cs_cancellationtoken",
-      "community": 9,
+      "community": 59,
       "norm_label": "cancellationtoken"
     },
     {
@@ -4852,7 +4950,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iimagestorageservice_cs_task",
-      "community": 9,
+      "community": 59,
       "norm_label": "task"
     },
     {
@@ -4868,7 +4966,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iimagestorageservice_agroshop_application_interfaces_iimagestorageservice_deleteasync",
-      "community": 9,
+      "community": 59,
       "norm_label": ".deleteasync()"
     },
     {
@@ -4878,7 +4976,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iproductattributeservice",
-      "community": 20,
+      "community": 107,
       "norm_label": "iproductattributeservice.cs"
     },
     {
@@ -5034,7 +5132,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice",
-      "community": 127,
+      "community": 100,
       "norm_label": "iproductservice"
     },
     {
@@ -5050,7 +5148,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_getproductsasync",
-      "community": 127,
+      "community": 100,
       "norm_label": ".getproductsasync()"
     },
     {
@@ -5060,7 +5158,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iproductservice_cs_cancellationtoken",
-      "community": 127,
+      "community": 100,
       "norm_label": "cancellationtoken"
     },
     {
@@ -5070,7 +5168,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iproductservice_cs_task",
-      "community": 127,
+      "community": 100,
       "norm_label": "task"
     },
     {
@@ -5080,7 +5178,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iproductservice_cs_result",
-      "community": 127,
+      "community": 100,
       "norm_label": "result"
     },
     {
@@ -5090,7 +5188,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iproductservice_cs_ienumerable",
-      "community": 127,
+      "community": 100,
       "norm_label": "ienumerable"
     },
     {
@@ -5106,7 +5204,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_getproductbyidasync",
-      "community": 127,
+      "community": 100,
       "norm_label": ".getproductbyidasync()"
     },
     {
@@ -5122,7 +5220,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_addasync",
-      "community": 127,
+      "community": 100,
       "norm_label": ".addasync()"
     },
     {
@@ -5132,7 +5230,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iproductservice_cs_unitresult",
-      "community": 127,
+      "community": 100,
       "norm_label": "unitresult"
     },
     {
@@ -5148,7 +5246,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_updateasync",
-      "community": 127,
+      "community": 100,
       "norm_label": ".updateasync()"
     },
     {
@@ -5164,8 +5262,24 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_deleteasync",
-      "community": 127,
+      "community": 100,
       "norm_label": ".deleteasync()"
+    },
+    {
+      "label": ".GetFiltersBySubCategoryAsync()",
+      "file_type": "code",
+      "source_file": "src/AgroShop.Application/Interfaces/IProductService.cs",
+      "source_location": "L14",
+      "metadata": {
+        "namespace": "AgroShop.Application.Interfaces",
+        "scope_chain": [
+          "s106"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_getfiltersbysubcategoryasync",
+      "community": 100,
+      "norm_label": ".getfiltersbysubcategoryasync()"
     },
     {
       "label": "ISubCategoryService.cs",
@@ -5174,7 +5288,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_isubcategoryservice",
-      "community": 20,
+      "community": 107,
       "norm_label": "isubcategoryservice.cs"
     },
     {
@@ -5190,7 +5304,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_isubcategoryservice_agroshop_application_interfaces_isubcategoryservice",
-      "community": 113,
+      "community": 31,
       "norm_label": "isubcategoryservice"
     },
     {
@@ -5206,7 +5320,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_isubcategoryservice_agroshop_application_interfaces_isubcategoryservice_getsubcategoriesasync",
-      "community": 113,
+      "community": 31,
       "norm_label": ".getsubcategoriesasync()"
     },
     {
@@ -5216,7 +5330,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_isubcategoryservice_cs_cancellationtoken",
-      "community": 113,
+      "community": 31,
       "norm_label": "cancellationtoken"
     },
     {
@@ -5226,7 +5340,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_isubcategoryservice_cs_task",
-      "community": 113,
+      "community": 31,
       "norm_label": "task"
     },
     {
@@ -5236,7 +5350,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_isubcategoryservice_cs_result",
-      "community": 113,
+      "community": 31,
       "norm_label": "result"
     },
     {
@@ -5246,7 +5360,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_isubcategoryservice_cs_ienumerable",
-      "community": 113,
+      "community": 31,
       "norm_label": "ienumerable"
     },
     {
@@ -5262,7 +5376,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_isubcategoryservice_agroshop_application_interfaces_isubcategoryservice_getsubcategorybyidasync",
-      "community": 113,
+      "community": 31,
       "norm_label": ".getsubcategorybyidasync()"
     },
     {
@@ -5278,7 +5392,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_isubcategoryservice_agroshop_application_interfaces_isubcategoryservice_addasync",
-      "community": 113,
+      "community": 31,
       "norm_label": ".addasync()"
     },
     {
@@ -5288,7 +5402,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_isubcategoryservice_cs_unitresult",
-      "community": 113,
+      "community": 31,
       "norm_label": "unitresult"
     },
     {
@@ -5304,7 +5418,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_isubcategoryservice_agroshop_application_interfaces_isubcategoryservice_updateasync",
-      "community": 113,
+      "community": 31,
       "norm_label": ".updateasync()"
     },
     {
@@ -5320,7 +5434,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_isubcategoryservice_agroshop_application_interfaces_isubcategoryservice_deleteasync",
-      "community": 113,
+      "community": 31,
       "norm_label": ".deleteasync()"
     },
     {
@@ -5330,7 +5444,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_isupplierservice",
-      "community": 20,
+      "community": 133,
       "norm_label": "isupplierservice.cs"
     },
     {
@@ -5486,7 +5600,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_interfaces_iuserservice",
-      "community": 107,
+      "community": 53,
       "norm_label": "iuserservice.cs"
     },
     {
@@ -5558,7 +5672,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_jwt_ijwttokenhandler",
-      "community": 107,
+      "community": 53,
       "norm_label": "ijwttokenhandler.cs"
     },
     {
@@ -5573,7 +5687,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:4fd2e50e0781671c",
-      "community": 107,
+      "community": 53,
       "norm_label": "agroshop.application.jwt"
     },
     {
@@ -5677,7 +5791,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_jwt_jwttokenhandler",
-      "community": 107,
+      "community": 53,
       "norm_label": "jwttokenhandler.cs"
     },
     {
@@ -5864,7 +5978,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:aa0d7eab7ad970df",
-      "community": 20,
+      "community": 29,
       "norm_label": "agroshop.application.mappers"
     },
     {
@@ -5916,7 +6030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_mappers_attributeoptionmapper",
-      "community": 20,
+      "community": 29,
       "norm_label": "attributeoptionmapper.cs"
     },
     {
@@ -5932,7 +6046,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_mappers_attributeoptionmapper_agroshop_application_mappers_attributeoptionmapper",
-      "community": 23,
+      "community": 9,
       "norm_label": "attributeoptionmapper"
     },
     {
@@ -5948,7 +6062,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_mappers_attributeoptionmapper_agroshop_application_mappers_attributeoptionmapper_todto",
-      "community": 23,
+      "community": 9,
       "norm_label": ".todto()"
     },
     {
@@ -5958,7 +6072,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_mappers_attributeoptionmapper_cs_ienumerable",
-      "community": 23,
+      "community": 9,
       "norm_label": "ienumerable"
     },
     {
@@ -5968,7 +6082,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_mappers_categorymapper",
-      "community": 20,
+      "community": 29,
       "norm_label": "categorymapper.cs"
     },
     {
@@ -6020,7 +6134,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_mappers_productattributemapper",
-      "community": 20,
+      "community": 107,
       "norm_label": "productattributemapper.cs"
     },
     {
@@ -6088,7 +6202,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_mappers_productmapper_agroshop_application_mappers_productmapper",
-      "community": 127,
+      "community": 92,
       "norm_label": "productmapper"
     },
     {
@@ -6104,7 +6218,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_mappers_productmapper_agroshop_application_mappers_productmapper_todto",
-      "community": 127,
+      "community": 92,
       "norm_label": ".todto()"
     },
     {
@@ -6114,7 +6228,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_mappers_productmapper_cs_ienumerable",
-      "community": 127,
+      "community": 92,
       "norm_label": "ienumerable"
     },
     {
@@ -6124,7 +6238,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_mappers_subcategorymapper",
-      "community": 20,
+      "community": 107,
       "norm_label": "subcategorymapper.cs"
     },
     {
@@ -6176,7 +6290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_mappers_suppliermapper",
-      "community": 20,
+      "community": 133,
       "norm_label": "suppliermapper.cs"
     },
     {
@@ -6243,7 +6357,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:679cbc18edf2c970",
-      "community": 107,
+      "community": 53,
       "norm_label": "agroshop.application.responses"
     },
     {
@@ -6269,7 +6383,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_responses_userresponse",
-      "community": 107,
+      "community": 53,
       "norm_label": "userresponse.cs"
     },
     {
@@ -6321,7 +6435,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_services_attributeoptionservice",
-      "community": 20,
+      "community": 53,
       "norm_label": "attributeoptionservice.cs"
     },
     {
@@ -6336,7 +6450,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:2a2ee874777d6b71",
-      "community": 20,
+      "community": 53,
       "norm_label": "agroshop.application.services"
     },
     {
@@ -6538,7 +6652,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_services_attributeservice",
-      "community": 20,
+      "community": 56,
       "norm_label": "attributeservice.cs"
     },
     {
@@ -6714,7 +6828,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_services_authservice",
-      "community": 107,
+      "community": 53,
       "norm_label": "authservice.cs"
     },
     {
@@ -6896,7 +7010,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice",
-      "community": 20,
+      "community": 29,
       "norm_label": "categoryservice.cs"
     },
     {
@@ -6912,7 +7026,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice_agroshop_application_services_categoryservice",
-      "community": 9,
+      "community": 59,
       "norm_label": "categoryservice"
     },
     {
@@ -6922,7 +7036,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice_cs_string",
-      "community": 9,
+      "community": 59,
       "norm_label": "string"
     },
     {
@@ -6932,7 +7046,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice_cs_timespan",
-      "community": 9,
+      "community": 59,
       "norm_label": "timespan"
     },
     {
@@ -6948,7 +7062,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice_agroshop_application_services_categoryservice_getcategoriesasync",
-      "community": 9,
+      "community": 59,
       "norm_label": ".getcategoriesasync()"
     },
     {
@@ -6958,7 +7072,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice_cs_cancellationtoken",
-      "community": 9,
+      "community": 59,
       "norm_label": "cancellationtoken"
     },
     {
@@ -6968,7 +7082,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice_cs_task",
-      "community": 9,
+      "community": 59,
       "norm_label": "task"
     },
     {
@@ -6978,7 +7092,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice_cs_result",
-      "community": 9,
+      "community": 59,
       "norm_label": "result"
     },
     {
@@ -6988,7 +7102,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice_cs_ienumerable",
-      "community": 9,
+      "community": 59,
       "norm_label": "ienumerable"
     },
     {
@@ -7004,7 +7118,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice_agroshop_application_services_categoryservice_getcategorybyidasync",
-      "community": 9,
+      "community": 59,
       "norm_label": ".getcategorybyidasync()"
     },
     {
@@ -7020,7 +7134,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice_agroshop_application_services_categoryservice_addasync",
-      "community": 9,
+      "community": 59,
       "norm_label": ".addasync()"
     },
     {
@@ -7030,7 +7144,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice_cs_unitresult",
-      "community": 9,
+      "community": 59,
       "norm_label": "unitresult"
     },
     {
@@ -7046,7 +7160,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice_agroshop_application_services_categoryservice_updateasync",
-      "community": 9,
+      "community": 59,
       "norm_label": ".updateasync()"
     },
     {
@@ -7062,7 +7176,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_categoryservice_agroshop_application_services_categoryservice_deleteasync",
-      "community": 9,
+      "community": 59,
       "norm_label": ".deleteasync()"
     },
     {
@@ -7072,7 +7186,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_services_productattributeservice",
-      "community": 20,
+      "community": 107,
       "norm_label": "productattributeservice.cs"
     },
     {
@@ -7402,10 +7516,26 @@
       "norm_label": ".deleteasync()"
     },
     {
+      "label": ".GetFiltersBySubCategoryAsync()",
+      "file_type": "code",
+      "source_file": "src/AgroShop.Application/Services/ProductService.cs",
+      "source_location": "L260",
+      "metadata": {
+        "namespace": "AgroShop.Application.Services",
+        "scope_chain": [
+          "s270"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_getfiltersbysubcategoryasync",
+      "community": 28,
+      "norm_label": ".getfiltersbysubcategoryasync()"
+    },
+    {
       "label": ".ValidateAttributeSelectionsAsync()",
       "file_type": "code",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L263",
+      "source_location": "L322",
       "metadata": {
         "namespace": "AgroShop.Application.Services",
         "scope_chain": [
@@ -7464,7 +7594,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice",
-      "community": 20,
+      "community": 107,
       "norm_label": "subcategoryservice.cs"
     },
     {
@@ -7480,7 +7610,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_agroshop_application_services_subcategoryservice",
-      "community": 113,
+      "community": 23,
       "norm_label": "subcategoryservice"
     },
     {
@@ -7490,7 +7620,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_cs_string",
-      "community": 113,
+      "community": 23,
       "norm_label": "string"
     },
     {
@@ -7500,7 +7630,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_cs_timespan",
-      "community": 113,
+      "community": 23,
       "norm_label": "timespan"
     },
     {
@@ -7516,7 +7646,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_agroshop_application_services_subcategoryservice_getsubcategoriesasync",
-      "community": 113,
+      "community": 23,
       "norm_label": ".getsubcategoriesasync()"
     },
     {
@@ -7526,7 +7656,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_cs_cancellationtoken",
-      "community": 113,
+      "community": 23,
       "norm_label": "cancellationtoken"
     },
     {
@@ -7536,7 +7666,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_cs_task",
-      "community": 113,
+      "community": 23,
       "norm_label": "task"
     },
     {
@@ -7546,7 +7676,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_cs_result",
-      "community": 113,
+      "community": 23,
       "norm_label": "result"
     },
     {
@@ -7556,7 +7686,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_cs_ienumerable",
-      "community": 113,
+      "community": 23,
       "norm_label": "ienumerable"
     },
     {
@@ -7572,7 +7702,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_agroshop_application_services_subcategoryservice_getsubcategorybyidasync",
-      "community": 113,
+      "community": 23,
       "norm_label": ".getsubcategorybyidasync()"
     },
     {
@@ -7588,7 +7718,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_agroshop_application_services_subcategoryservice_addasync",
-      "community": 113,
+      "community": 23,
       "norm_label": ".addasync()"
     },
     {
@@ -7598,7 +7728,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_cs_unitresult",
-      "community": 113,
+      "community": 23,
       "norm_label": "unitresult"
     },
     {
@@ -7614,7 +7744,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_agroshop_application_services_subcategoryservice_updateasync",
-      "community": 113,
+      "community": 23,
       "norm_label": ".updateasync()"
     },
     {
@@ -7630,7 +7760,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_agroshop_application_services_subcategoryservice_deleteasync",
-      "community": 113,
+      "community": 23,
       "norm_label": ".deleteasync()"
     },
     {
@@ -7646,7 +7776,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_agroshop_application_services_subcategoryservice_nametakenincategoryasync",
-      "community": 113,
+      "community": 23,
       "norm_label": ".nametakenincategoryasync()"
     },
     {
@@ -7656,7 +7786,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_subcategoryservice_cs_guid",
-      "community": 113,
+      "community": 23,
       "norm_label": "guid"
     },
     {
@@ -7666,7 +7796,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice",
-      "community": 20,
+      "community": 133,
       "norm_label": "supplierservice.cs"
     },
     {
@@ -7682,7 +7812,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice_agroshop_application_services_supplierservice",
-      "community": 5,
+      "community": 1,
       "norm_label": "supplierservice"
     },
     {
@@ -7692,7 +7822,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice_cs_string",
-      "community": 5,
+      "community": 1,
       "norm_label": "string"
     },
     {
@@ -7702,7 +7832,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice_cs_timespan",
-      "community": 5,
+      "community": 1,
       "norm_label": "timespan"
     },
     {
@@ -7718,7 +7848,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice_agroshop_application_services_supplierservice_getsuppliersasync",
-      "community": 5,
+      "community": 1,
       "norm_label": ".getsuppliersasync()"
     },
     {
@@ -7728,7 +7858,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice_cs_cancellationtoken",
-      "community": 5,
+      "community": 1,
       "norm_label": "cancellationtoken"
     },
     {
@@ -7738,7 +7868,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice_cs_task",
-      "community": 5,
+      "community": 1,
       "norm_label": "task"
     },
     {
@@ -7748,7 +7878,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice_cs_result",
-      "community": 5,
+      "community": 1,
       "norm_label": "result"
     },
     {
@@ -7758,7 +7888,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice_cs_ienumerable",
-      "community": 5,
+      "community": 1,
       "norm_label": "ienumerable"
     },
     {
@@ -7774,7 +7904,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice_agroshop_application_services_supplierservice_getsupplierbyidasync",
-      "community": 5,
+      "community": 1,
       "norm_label": ".getsupplierbyidasync()"
     },
     {
@@ -7790,7 +7920,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice_agroshop_application_services_supplierservice_addasync",
-      "community": 5,
+      "community": 1,
       "norm_label": ".addasync()"
     },
     {
@@ -7800,7 +7930,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice_cs_unitresult",
-      "community": 5,
+      "community": 1,
       "norm_label": "unitresult"
     },
     {
@@ -7816,7 +7946,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice_agroshop_application_services_supplierservice_updateasync",
-      "community": 5,
+      "community": 1,
       "norm_label": ".updateasync()"
     },
     {
@@ -7832,7 +7962,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_services_supplierservice_agroshop_application_services_supplierservice_deleteasync",
-      "community": 5,
+      "community": 1,
       "norm_label": ".deleteasync()"
     },
     {
@@ -7842,7 +7972,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_services_userservice",
-      "community": 20,
+      "community": 53,
       "norm_label": "userservice.cs"
     },
     {
@@ -7914,7 +8044,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_validators_attributeoptionvalidators_addattributeoptiondtovalidator",
-      "community": 121,
+      "community": 20,
       "norm_label": "addattributeoptiondtovalidator.cs"
     },
     {
@@ -7929,7 +8059,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:e8b870a450a12ee9",
-      "community": 121,
+      "community": 20,
       "norm_label": "agroshop.application.validators.attributeoptionvalidators"
     },
     {
@@ -7945,7 +8075,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_validators_attributeoptionvalidators_addattributeoptiondtovalidator_agroshop_application_validators_attributeoptionvalidators_addattributeoptiondtovalidator",
-      "community": 1,
+      "community": 20,
       "norm_label": "addattributeoptiondtovalidator"
     },
     {
@@ -7955,7 +8085,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "abstractvalidator",
-      "community": 1,
+      "community": 144,
       "norm_label": "abstractvalidator"
     },
     {
@@ -7965,7 +8095,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_validators_attributeoptionvalidators_updateattributeoptiondtovalidator",
-      "community": 121,
+      "community": 20,
       "norm_label": "updateattributeoptiondtovalidator.cs"
     },
     {
@@ -7981,7 +8111,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_validators_attributeoptionvalidators_updateattributeoptiondtovalidator_agroshop_application_validators_attributeoptionvalidators_updateattributeoptiondtovalidator",
-      "community": 1,
+      "community": 20,
       "norm_label": "updateattributeoptiondtovalidator"
     },
     {
@@ -7991,7 +8121,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_validators_attributevalidators_addattributedtovalidator",
-      "community": 121,
+      "community": 56,
       "norm_label": "addattributedtovalidator.cs"
     },
     {
@@ -8006,7 +8136,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:f3a730d52da7ded3",
-      "community": 121,
+      "community": 56,
       "norm_label": "agroshop.application.validators.attributevalidators"
     },
     {
@@ -8022,7 +8152,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_validators_attributevalidators_addattributedtovalidator_agroshop_application_validators_attributevalidators_addattributedtovalidator",
-      "community": 29,
+      "community": 56,
       "norm_label": "addattributedtovalidator"
     },
     {
@@ -8032,7 +8162,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_validators_attributevalidators_updateattributedtovalidator",
-      "community": 121,
+      "community": 56,
       "norm_label": "updateattributedtovalidator.cs"
     },
     {
@@ -8058,7 +8188,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_validators_authenticationvalidators_loginuserdtovalidator",
-      "community": 107,
+      "community": 121,
       "norm_label": "loginuserdtovalidator.cs"
     },
     {
@@ -8073,7 +8203,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:bcc17fad8a1f8907",
-      "community": 107,
+      "community": 121,
       "norm_label": "agroshop.application.validators.authenticationvalidators"
     },
     {
@@ -8099,7 +8229,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_validators_authenticationvalidators_registeruserdtovalidator",
-      "community": 107,
+      "community": 121,
       "norm_label": "registeruserdtovalidator.cs"
     },
     {
@@ -8140,7 +8270,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:6e46567c54ea291a",
-      "community": 121,
+      "community": 53,
       "norm_label": "agroshop.application.validators.categoryvalidators"
     },
     {
@@ -8182,7 +8312,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_validators_categoryvalidators_updatecategorydtovalidator_agroshop_application_validators_categoryvalidators_updatecategorydtovalidator",
-      "community": 100,
+      "community": 121,
       "norm_label": "updatecategorydtovalidator"
     },
     {
@@ -8192,7 +8322,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_validators_productattributevalidators_addproductattributedtovalidator",
-      "community": 1,
+      "community": 144,
       "norm_label": "addproductattributedtovalidator.cs"
     },
     {
@@ -8207,7 +8337,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:41db8cab250fd8fc",
-      "community": 1,
+      "community": 144,
       "norm_label": "agroshop.application.validators.productattributevalidators"
     },
     {
@@ -8223,7 +8353,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_validators_productattributevalidators_addproductattributedtovalidator_agroshop_application_validators_productattributevalidators_addproductattributedtovalidator",
-      "community": 1,
+      "community": 144,
       "norm_label": "addproductattributedtovalidator"
     },
     {
@@ -8264,7 +8394,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_validators_productvalidators_addproductdtovalidator_agroshop_application_validators_productvalidators_addproductdtovalidator",
-      "community": 127,
+      "community": 144,
       "norm_label": "addproductdtovalidator"
     },
     {
@@ -8290,7 +8420,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_validators_productvalidators_updateproductdtovalidator_agroshop_application_validators_productvalidators_updateproductdtovalidator",
-      "community": 127,
+      "community": 144,
       "norm_label": "updateproductdtovalidator"
     },
     {
@@ -8331,7 +8461,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_validators_subcategoryvalidators_addsubcategorydtovalidator_agroshop_application_validators_subcategoryvalidators_addsubcategorydtovalidator",
-      "community": 113,
+      "community": 31,
       "norm_label": "addsubcategorydtovalidator"
     },
     {
@@ -8357,7 +8487,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_application_validators_subcategoryvalidators_updatesubcategorydtovalidator_agroshop_application_validators_subcategoryvalidators_updatesubcategorydtovalidator",
-      "community": 113,
+      "community": 144,
       "norm_label": "updatesubcategorydtovalidator"
     },
     {
@@ -8367,7 +8497,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_validators_suppliervalidators_addsupplierdtovalidator",
-      "community": 121,
+      "community": 133,
       "norm_label": "addsupplierdtovalidator.cs"
     },
     {
@@ -8382,7 +8512,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:36edc00d7cb8a9a4",
-      "community": 121,
+      "community": 133,
       "norm_label": "agroshop.application.validators.suppliervalidators"
     },
     {
@@ -8408,7 +8538,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_application_validators_suppliervalidators_updatesupplierdtovalidator",
-      "community": 121,
+      "community": 133,
       "norm_label": "updatesupplierdtovalidator.cs"
     },
     {
@@ -8643,7 +8773,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_entities_attributeoption_agroshop_core_entities_attributeoption",
-      "community": 23,
+      "community": 9,
       "norm_label": "attributeoption"
     },
     {
@@ -8653,7 +8783,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_entities_attributeoption_cs_guid",
-      "community": 23,
+      "community": 9,
       "norm_label": "guid"
     },
     {
@@ -8663,7 +8793,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_entities_attributeoption_cs_icollection",
-      "community": 23,
+      "community": 9,
       "norm_label": "icollection"
     },
     {
@@ -8679,7 +8809,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_entities_attributeoption_agroshop_core_entities_attributeoption_create",
-      "community": 23,
+      "community": 9,
       "norm_label": ".create()"
     },
     {
@@ -8689,7 +8819,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_entities_attributeoption_cs_result",
-      "community": 23,
+      "community": 9,
       "norm_label": "result"
     },
     {
@@ -8705,7 +8835,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_entities_attributeoption_agroshop_core_entities_attributeoption_update",
-      "community": 23,
+      "community": 9,
       "norm_label": ".update()"
     },
     {
@@ -8829,7 +8959,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_entities_product_agroshop_core_entities_product",
-      "community": 30,
+      "community": 103,
       "norm_label": "product"
     },
     {
@@ -8849,7 +8979,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_entities_product_cs_datetime",
-      "community": 30,
+      "community": 103,
       "norm_label": "datetime"
     },
     {
@@ -8859,7 +8989,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_entities_product_cs_icollection",
-      "community": 30,
+      "community": 103,
       "norm_label": "icollection"
     },
     {
@@ -8911,7 +9041,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_core_entities_productattribute",
-      "community": 88,
+      "community": 93,
       "norm_label": "productattribute.cs"
     },
     {
@@ -8983,7 +9113,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_core_entities_productattributevalue",
-      "community": 88,
+      "community": 94,
       "norm_label": "productattributevalue.cs"
     },
     {
@@ -9123,7 +9253,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_core_entities_role",
-      "community": 31,
+      "community": 34,
       "norm_label": "role.cs"
     },
     {
@@ -9139,7 +9269,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_entities_role_agroshop_core_entities_role",
-      "community": 31,
+      "community": 34,
       "norm_label": "role"
     },
     {
@@ -9149,7 +9279,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_entities_role_cs_guid",
-      "community": 31,
+      "community": 34,
       "norm_label": "guid"
     },
     {
@@ -9433,7 +9563,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_entities_user_agroshop_core_entities_user_assignrole",
-      "community": 31,
+      "community": 34,
       "norm_label": ".assignrole()"
     },
     {
@@ -9687,7 +9817,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_iattributeoptionrepository_agroshop_core_interfaces_iattributeoptionrepository_delete",
-      "community": 23,
+      "community": 9,
       "norm_label": ".delete()"
     },
     {
@@ -9947,7 +10077,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_icategoryrepository_agroshop_core_interfaces_icategoryrepository_delete",
-      "community": 3,
+      "community": 59,
       "norm_label": ".delete()"
     },
     {
@@ -10103,7 +10233,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_iproductattributevaluerepository_agroshop_core_interfaces_iproductattributevaluerepository",
-      "community": 53,
+      "community": 94,
       "norm_label": "iproductattributevaluerepository"
     },
     {
@@ -10119,7 +10249,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_iproductattributevaluerepository_agroshop_core_interfaces_iproductattributevaluerepository_getbyproductidasync",
-      "community": 53,
+      "community": 94,
       "norm_label": ".getbyproductidasync()"
     },
     {
@@ -10129,7 +10259,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_iproductattributevaluerepository_cs_guid",
-      "community": 53,
+      "community": 94,
       "norm_label": "guid"
     },
     {
@@ -10139,7 +10269,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_iproductattributevaluerepository_cs_cancellationtoken",
-      "community": 53,
+      "community": 94,
       "norm_label": "cancellationtoken"
     },
     {
@@ -10149,7 +10279,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_iproductattributevaluerepository_cs_task",
-      "community": 53,
+      "community": 94,
       "norm_label": "task"
     },
     {
@@ -10159,7 +10289,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_iproductattributevaluerepository_cs_ienumerable",
-      "community": 53,
+      "community": 94,
       "norm_label": "ienumerable"
     },
     {
@@ -10175,7 +10305,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_iproductattributevaluerepository_agroshop_core_interfaces_iproductattributevaluerepository_addasync",
-      "community": 53,
+      "community": 94,
       "norm_label": ".addasync()"
     },
     {
@@ -10191,7 +10321,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_iproductattributevaluerepository_agroshop_core_interfaces_iproductattributevaluerepository_delete",
-      "community": 53,
+      "community": 28,
       "norm_label": ".delete()"
     },
     {
@@ -10217,7 +10347,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_iproductrepository_agroshop_core_interfaces_iproductrepository",
-      "community": 103,
+      "community": 6,
       "norm_label": "iproductrepository"
     },
     {
@@ -10279,7 +10409,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_iproductrepository_agroshop_core_interfaces_iproductrepository_getproductbyidasync",
-      "community": 28,
+      "community": 6,
       "norm_label": ".getproductbyidasync()"
     },
     {
@@ -10289,7 +10419,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_iproductrepository_cs_guid",
-      "community": 28,
+      "community": 6,
       "norm_label": "guid"
     },
     {
@@ -10321,7 +10451,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_iproductrepository_agroshop_core_interfaces_iproductrepository_delete",
-      "community": 103,
+      "community": 28,
       "norm_label": ".delete()"
     },
     {
@@ -10481,7 +10611,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isubcategoryrepository_agroshop_core_interfaces_isubcategoryrepository",
-      "community": 113,
+      "community": 123,
       "norm_label": "isubcategoryrepository"
     },
     {
@@ -10497,7 +10627,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isubcategoryrepository_agroshop_core_interfaces_isubcategoryrepository_getsubcategoriesasync",
-      "community": 113,
+      "community": 123,
       "norm_label": ".getsubcategoriesasync()"
     },
     {
@@ -10507,7 +10637,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isubcategoryrepository_cs_cancellationtoken",
-      "community": 113,
+      "community": 123,
       "norm_label": "cancellationtoken"
     },
     {
@@ -10517,7 +10647,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isubcategoryrepository_cs_task",
-      "community": 113,
+      "community": 123,
       "norm_label": "task"
     },
     {
@@ -10527,7 +10657,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isubcategoryrepository_cs_ienumerable",
-      "community": 113,
+      "community": 123,
       "norm_label": "ienumerable"
     },
     {
@@ -10543,7 +10673,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isubcategoryrepository_agroshop_core_interfaces_isubcategoryrepository_getsubcategorybyidasync",
-      "community": 113,
+      "community": 123,
       "norm_label": ".getsubcategorybyidasync()"
     },
     {
@@ -10553,7 +10683,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isubcategoryrepository_cs_guid",
-      "community": 113,
+      "community": 123,
       "norm_label": "guid"
     },
     {
@@ -10569,7 +10699,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isubcategoryrepository_agroshop_core_interfaces_isubcategoryrepository_addasync",
-      "community": 113,
+      "community": 123,
       "norm_label": ".addasync()"
     },
     {
@@ -10611,7 +10741,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isupplierrepository_agroshop_core_interfaces_isupplierrepository",
-      "community": 5,
+      "community": 136,
       "norm_label": "isupplierrepository"
     },
     {
@@ -10627,7 +10757,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isupplierrepository_agroshop_core_interfaces_isupplierrepository_getsuppliersasync",
-      "community": 5,
+      "community": 136,
       "norm_label": ".getsuppliersasync()"
     },
     {
@@ -10637,7 +10767,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isupplierrepository_cs_cancellationtoken",
-      "community": 5,
+      "community": 136,
       "norm_label": "cancellationtoken"
     },
     {
@@ -10647,7 +10777,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isupplierrepository_cs_task",
-      "community": 5,
+      "community": 136,
       "norm_label": "task"
     },
     {
@@ -10657,7 +10787,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isupplierrepository_cs_ienumerable",
-      "community": 5,
+      "community": 136,
       "norm_label": "ienumerable"
     },
     {
@@ -10673,7 +10803,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isupplierrepository_agroshop_core_interfaces_isupplierrepository_getsupplierbyidasync",
-      "community": 5,
+      "community": 136,
       "norm_label": ".getsupplierbyidasync()"
     },
     {
@@ -10683,7 +10813,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isupplierrepository_cs_guid",
-      "community": 5,
+      "community": 136,
       "norm_label": "guid"
     },
     {
@@ -10699,7 +10829,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isupplierrepository_agroshop_core_interfaces_isupplierrepository_addasync",
-      "community": 5,
+      "community": 136,
       "norm_label": ".addasync()"
     },
     {
@@ -10715,7 +10845,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_interfaces_isupplierrepository_agroshop_core_interfaces_isupplierrepository_delete",
-      "community": 5,
+      "community": 1,
       "norm_label": ".delete()"
     },
     {
@@ -11480,7 +11610,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_productdescription",
-      "community": 139,
+      "community": 150,
       "norm_label": "productdescription"
     },
     {
@@ -11496,7 +11626,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_productdescription_productdescriptioncantbeempty",
-      "community": 139,
+      "community": 150,
       "norm_label": ".productdescriptioncantbeempty()"
     },
     {
@@ -11512,7 +11642,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_productdescription_productdescriptioninvalidminlength",
-      "community": 139,
+      "community": 150,
       "norm_label": ".productdescriptioninvalidminlength()"
     },
     {
@@ -11528,7 +11658,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_productdescription_productdescriptioninvalidmaxlength",
-      "community": 139,
+      "community": 150,
       "norm_label": ".productdescriptioninvalidmaxlength()"
     },
     {
@@ -11969,7 +12099,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_attributeoption",
-      "community": 139,
+      "community": 132,
       "norm_label": "attributeoption"
     },
     {
@@ -11985,7 +12115,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_attributeoption_attributeoptionisnullbyid",
-      "community": 139,
+      "community": 132,
       "norm_label": ".attributeoptionisnullbyid()"
     },
     {
@@ -12001,7 +12131,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_attributeoption_attributeoptionvaluecantbeempty",
-      "community": 139,
+      "community": 132,
       "norm_label": ".attributeoptionvaluecantbeempty()"
     },
     {
@@ -12017,7 +12147,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_attributeoption_attributeoptionvalueinvalidmaxlength",
-      "community": 139,
+      "community": 132,
       "norm_label": ".attributeoptionvalueinvalidmaxlength()"
     },
     {
@@ -12033,7 +12163,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_attributeoption_attributeoptionalreadyexistsforattribute",
-      "community": 139,
+      "community": 132,
       "norm_label": ".attributeoptionalreadyexistsforattribute()"
     },
     {
@@ -12099,7 +12229,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_productattributevalue",
-      "community": 132,
+      "community": 149,
       "norm_label": "productattributevalue"
     },
     {
@@ -12115,7 +12245,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_productattributevalue_attributeoptiondoesnotbelongtoproductattribute",
-      "community": 132,
+      "community": 149,
       "norm_label": ".attributeoptiondoesnotbelongtoproductattribute()"
     },
     {
@@ -12131,7 +12261,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_productattributevalue_requiredattributemissingvalue",
-      "community": 132,
+      "community": 149,
       "norm_label": ".requiredattributemissingvalue()"
     },
     {
@@ -12147,7 +12277,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_productattributevalue_toomanyvaluesforsingleselectattribute",
-      "community": 132,
+      "community": 149,
       "norm_label": ".toomanyvaluesforsingleselectattribute()"
     },
     {
@@ -12213,7 +12343,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_email",
-      "community": 132,
+      "community": 139,
       "norm_label": "email"
     },
     {
@@ -12229,7 +12359,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_email_emailcantbeempty",
-      "community": 132,
+      "community": 139,
       "norm_label": ".emailcantbeempty()"
     },
     {
@@ -12245,7 +12375,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_email_emailinvalidformat",
-      "community": 132,
+      "community": 139,
       "norm_label": ".emailinvalidformat()"
     },
     {
@@ -12261,7 +12391,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_email_emailinvalidmaxlength",
-      "community": 132,
+      "community": 139,
       "norm_label": ".emailinvalidmaxlength()"
     },
     {
@@ -12375,7 +12505,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_phone",
-      "community": 132,
+      "community": 139,
       "norm_label": "phone"
     },
     {
@@ -12391,7 +12521,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_phone_phonecantbeempty",
-      "community": 132,
+      "community": 139,
       "norm_label": ".phonecantbeempty()"
     },
     {
@@ -12407,7 +12537,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_phone_phoneinvalidlength",
-      "community": 132,
+      "community": 139,
       "norm_label": ".phoneinvalidlength()"
     },
     {
@@ -12423,7 +12553,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_phone_phoneinvalidoperatorcode",
-      "community": 132,
+      "community": 139,
       "norm_label": ".phoneinvalidoperatorcode()"
     },
     {
@@ -12537,7 +12667,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_firstname",
-      "community": 134,
+      "community": 132,
       "norm_label": "firstname"
     },
     {
@@ -12553,7 +12683,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_firstname_firstnamecantbeempty",
-      "community": 134,
+      "community": 132,
       "norm_label": ".firstnamecantbeempty()"
     },
     {
@@ -12569,7 +12699,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_firstname_firstnameinvalidminlength",
-      "community": 134,
+      "community": 132,
       "norm_label": ".firstnameinvalidminlength()"
     },
     {
@@ -12585,7 +12715,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_firstname_firstnameinvalidmaxlength",
-      "community": 134,
+      "community": 132,
       "norm_label": ".firstnameinvalidmaxlength()"
     },
     {
@@ -12601,7 +12731,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_firstname_firstnameinvalidformat",
-      "community": 134,
+      "community": 132,
       "norm_label": ".firstnameinvalidformat()"
     },
     {
@@ -12617,7 +12747,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_shared_errors_agroshop_core_shared_firstname_firstnameinvalidlanguage",
-      "community": 134,
+      "community": 132,
       "norm_label": ".firstnameinvalidlanguage()"
     },
     {
@@ -13177,7 +13307,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_valueobjects_attributeoptionvalue_agroshop_core_valueobjects_attributeoptionvalue",
-      "community": 23,
+      "community": 9,
       "norm_label": "attributeoptionvalue"
     },
     {
@@ -13187,7 +13317,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_valueobjects_attributeoptionvalue_cs_int",
-      "community": 23,
+      "community": 9,
       "norm_label": "int"
     },
     {
@@ -13203,7 +13333,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_valueobjects_attributeoptionvalue_agroshop_core_valueobjects_attributeoptionvalue_create",
-      "community": 23,
+      "community": 9,
       "norm_label": ".create()"
     },
     {
@@ -13213,7 +13343,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_valueobjects_attributeoptionvalue_cs_result",
-      "community": 23,
+      "community": 9,
       "norm_label": "result"
     },
     {
@@ -13229,7 +13359,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_core_valueobjects_attributeoptionvalue_agroshop_core_valueobjects_attributeoptionvalue_getequalitycomponents",
-      "community": 23,
+      "community": 9,
       "norm_label": ".getequalitycomponents()"
     },
     {
@@ -13239,7 +13369,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_core_valueobjects_attributeoptionvalue_cs_ienumerable",
-      "community": 23,
+      "community": 9,
       "norm_label": "ienumerable"
     },
     {
@@ -14697,7 +14827,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_infrastructure_caching_rediscacheservice",
-      "community": 106,
+      "community": 57,
       "norm_label": "rediscacheservice.cs"
     },
     {
@@ -14712,7 +14842,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:d7db9dcde3f7f629",
-      "community": 106,
+      "community": 57,
       "norm_label": "agroshop.infrastructure.caching"
     },
     {
@@ -14728,7 +14858,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_infrastructure_caching_rediscacheservice_agroshop_infrastructure_caching_rediscacheservice",
-      "community": 106,
+      "community": 57,
       "norm_label": "rediscacheservice"
     },
     {
@@ -14738,7 +14868,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "iconnectionmultiplexer",
-      "community": 106,
+      "community": 57,
       "norm_label": "iconnectionmultiplexer"
     },
     {
@@ -14748,7 +14878,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "idatabase",
-      "community": 106,
+      "community": 57,
       "norm_label": "idatabase"
     },
     {
@@ -14764,7 +14894,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_infrastructure_caching_rediscacheservice_agroshop_infrastructure_caching_rediscacheservice_getasync",
-      "community": 106,
+      "community": 57,
       "norm_label": ".getasync()"
     },
     {
@@ -14774,7 +14904,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_infrastructure_caching_rediscacheservice_cs_cancellationtoken",
-      "community": 106,
+      "community": 57,
       "norm_label": "cancellationtoken"
     },
     {
@@ -14784,7 +14914,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_infrastructure_caching_rediscacheservice_cs_task",
-      "community": 106,
+      "community": 57,
       "norm_label": "task"
     },
     {
@@ -14800,7 +14930,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_infrastructure_caching_rediscacheservice_agroshop_infrastructure_caching_rediscacheservice_setasync",
-      "community": 106,
+      "community": 57,
       "norm_label": ".setasync()"
     },
     {
@@ -14810,7 +14940,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_infrastructure_caching_rediscacheservice_cs_timespan",
-      "community": 106,
+      "community": 57,
       "norm_label": "timespan"
     },
     {
@@ -14826,7 +14956,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_infrastructure_caching_rediscacheservice_agroshop_infrastructure_caching_rediscacheservice_removeasync",
-      "community": 106,
+      "community": 57,
       "norm_label": ".removeasync()"
     },
     {
@@ -14836,7 +14966,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_infrastructure_dependencyinjection",
-      "community": 106,
+      "community": 57,
       "norm_label": "dependencyinjection.cs"
     },
     {
@@ -14851,7 +14981,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:4054e4faf08e764d",
-      "community": 106,
+      "community": 57,
       "norm_label": "agroshop.infrastructure"
     },
     {
@@ -14867,7 +14997,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_infrastructure_dependencyinjection_agroshop_infrastructure_dependencyinjection",
-      "community": 106,
+      "community": 57,
       "norm_label": "dependencyinjection"
     },
     {
@@ -14883,7 +15013,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_infrastructure_dependencyinjection_agroshop_infrastructure_dependencyinjection_addinfrastructure",
-      "community": 106,
+      "community": 57,
       "norm_label": ".addinfrastructure()"
     },
     {
@@ -14893,7 +15023,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_infrastructure_dependencyinjection_cs_iservicecollection",
-      "community": 106,
+      "community": 57,
       "norm_label": "iservicecollection"
     },
     {
@@ -14903,7 +15033,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_infrastructure_dependencyinjection_cs_iconfiguration",
-      "community": 106,
+      "community": 57,
       "norm_label": "iconfiguration"
     },
     {
@@ -15064,7 +15194,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "ientitytypeconfiguration",
-      "community": 31,
+      "community": 34,
       "norm_label": "ientitytypeconfiguration"
     },
     {
@@ -15116,7 +15246,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_configurations_attributeoptionconfiguration_agroshop_persistence_configurations_attributeoptionconfiguration",
-      "community": 31,
+      "community": 34,
       "norm_label": "attributeoptionconfiguration"
     },
     {
@@ -15132,7 +15262,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_configurations_attributeoptionconfiguration_agroshop_persistence_configurations_attributeoptionconfiguration_configure",
-      "community": 31,
+      "community": 34,
       "norm_label": ".configure()"
     },
     {
@@ -15142,7 +15272,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_persistence_configurations_attributeoptionconfiguration_cs_entitytypebuilder",
-      "community": 31,
+      "community": 34,
       "norm_label": "entitytypebuilder"
     },
     {
@@ -15324,7 +15454,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_configurations_productconfiguration_agroshop_persistence_configurations_productconfiguration",
-      "community": 30,
+      "community": 103,
       "norm_label": "productconfiguration"
     },
     {
@@ -15340,7 +15470,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_configurations_productconfiguration_agroshop_persistence_configurations_productconfiguration_configure",
-      "community": 30,
+      "community": 103,
       "norm_label": ".configure()"
     },
     {
@@ -15350,7 +15480,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_persistence_configurations_productconfiguration_cs_entitytypebuilder",
-      "community": 30,
+      "community": 103,
       "norm_label": "entitytypebuilder"
     },
     {
@@ -15428,7 +15558,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_configurations_roleconfiguration_agroshop_persistence_configurations_roleconfiguration",
-      "community": 31,
+      "community": 34,
       "norm_label": "roleconfiguration"
     },
     {
@@ -15444,7 +15574,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_configurations_roleconfiguration_agroshop_persistence_configurations_roleconfiguration_configure",
-      "community": 31,
+      "community": 34,
       "norm_label": ".configure()"
     },
     {
@@ -15454,7 +15584,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_persistence_configurations_roleconfiguration_cs_entitytypebuilder",
-      "community": 31,
+      "community": 34,
       "norm_label": "entitytypebuilder"
     },
     {
@@ -15868,7 +15998,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_persistence_data_migrations_20250805183116_1",
-      "community": 99,
+      "community": 46,
       "norm_label": "20250805183116_1.cs"
     },
     {
@@ -15884,7 +16014,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_data_migrations_20250805183116_1_agroshop_persistence_data_migrations_1",
-      "community": 99,
+      "community": 46,
       "norm_label": "_1"
     },
     {
@@ -15910,7 +16040,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_data_migrations_20250805183116_1_agroshop_persistence_data_migrations_1_up",
-      "community": 99,
+      "community": 46,
       "norm_label": ".up()"
     },
     {
@@ -15920,7 +16050,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_persistence_data_migrations_20250805183116_1_cs_migrationbuilder",
-      "community": 99,
+      "community": 46,
       "norm_label": "migrationbuilder"
     },
     {
@@ -15936,7 +16066,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_data_migrations_20250805183116_1_agroshop_persistence_data_migrations_1_down",
-      "community": 99,
+      "community": 46,
       "norm_label": ".down()"
     },
     {
@@ -15998,7 +16128,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_agroshop_persistence_data_migrations_20251016175310_2",
-      "community": 46,
+      "community": 142,
       "norm_label": "20251016175310_2.cs"
     },
     {
@@ -16014,7 +16144,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_data_migrations_20251016175310_2_agroshop_persistence_data_migrations_2",
-      "community": 46,
+      "community": 142,
       "norm_label": "_2"
     },
     {
@@ -16030,7 +16160,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_data_migrations_20251016175310_2_agroshop_persistence_data_migrations_2_up",
-      "community": 46,
+      "community": 142,
       "norm_label": ".up()"
     },
     {
@@ -16040,7 +16170,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_persistence_data_migrations_20251016175310_2_cs_migrationbuilder",
-      "community": 46,
+      "community": 142,
       "norm_label": "migrationbuilder"
     },
     {
@@ -16056,7 +16186,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_data_migrations_20251016175310_2_agroshop_persistence_data_migrations_2_down",
-      "community": 46,
+      "community": 142,
       "norm_label": ".down()"
     },
     {
@@ -18183,7 +18313,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:06f08d5a25a18d33",
-      "community": 107,
+      "community": 57,
       "norm_label": "agroshop.persistence"
     },
     {
@@ -18302,7 +18432,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_extensions_queryableextensions_agroshop_persistence_extensions_queryableextensions",
-      "community": 94,
+      "community": 103,
       "norm_label": "queryableextensions"
     },
     {
@@ -18318,7 +18448,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_extensions_queryableextensions_agroshop_persistence_extensions_queryableextensions_includeall",
-      "community": 94,
+      "community": 103,
       "norm_label": ".includeall()"
     },
     {
@@ -18328,7 +18458,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "iqueryable",
-      "community": 94,
+      "community": 103,
       "norm_label": "iqueryable"
     },
     {
@@ -18369,7 +18499,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_attributeoptionrepository_agroshop_persistence_repositories_attributeoptionrepository",
-      "community": 43,
+      "community": 106,
       "norm_label": "attributeoptionrepository"
     },
     {
@@ -18385,7 +18515,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_attributeoptionrepository_agroshop_persistence_repositories_attributeoptionrepository_getattributeoptionsasync",
-      "community": 43,
+      "community": 106,
       "norm_label": ".getattributeoptionsasync()"
     },
     {
@@ -18395,7 +18525,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_attributeoptionrepository_cs_cancellationtoken",
-      "community": 43,
+      "community": 106,
       "norm_label": "cancellationtoken"
     },
     {
@@ -18405,7 +18535,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_attributeoptionrepository_cs_task",
-      "community": 43,
+      "community": 106,
       "norm_label": "task"
     },
     {
@@ -18415,7 +18545,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_attributeoptionrepository_cs_ienumerable",
-      "community": 43,
+      "community": 106,
       "norm_label": "ienumerable"
     },
     {
@@ -18431,7 +18561,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_attributeoptionrepository_agroshop_persistence_repositories_attributeoptionrepository_getattributeoptionbyidasync",
-      "community": 43,
+      "community": 106,
       "norm_label": ".getattributeoptionbyidasync()"
     },
     {
@@ -18441,7 +18571,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_attributeoptionrepository_cs_guid",
-      "community": 43,
+      "community": 106,
       "norm_label": "guid"
     },
     {
@@ -18457,7 +18587,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_attributeoptionrepository_agroshop_persistence_repositories_attributeoptionrepository_addasync",
-      "community": 43,
+      "community": 106,
       "norm_label": ".addasync()"
     },
     {
@@ -18473,7 +18603,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_attributeoptionrepository_agroshop_persistence_repositories_attributeoptionrepository_delete",
-      "community": 43,
+      "community": 106,
       "norm_label": ".delete()"
     },
     {
@@ -19267,7 +19397,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_subcategoryrepository_agroshop_persistence_repositories_subcategoryrepository",
-      "community": 113,
+      "community": 134,
       "norm_label": "subcategoryrepository"
     },
     {
@@ -19283,7 +19413,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_subcategoryrepository_agroshop_persistence_repositories_subcategoryrepository_getsubcategoriesasync",
-      "community": 113,
+      "community": 134,
       "norm_label": ".getsubcategoriesasync()"
     },
     {
@@ -19293,7 +19423,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_subcategoryrepository_cs_cancellationtoken",
-      "community": 113,
+      "community": 134,
       "norm_label": "cancellationtoken"
     },
     {
@@ -19303,7 +19433,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_subcategoryrepository_cs_task",
-      "community": 113,
+      "community": 134,
       "norm_label": "task"
     },
     {
@@ -19313,7 +19443,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_subcategoryrepository_cs_ienumerable",
-      "community": 113,
+      "community": 134,
       "norm_label": "ienumerable"
     },
     {
@@ -19329,7 +19459,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_subcategoryrepository_agroshop_persistence_repositories_subcategoryrepository_getsubcategorybyidasync",
-      "community": 113,
+      "community": 134,
       "norm_label": ".getsubcategorybyidasync()"
     },
     {
@@ -19339,7 +19469,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_subcategoryrepository_cs_guid",
-      "community": 113,
+      "community": 134,
       "norm_label": "guid"
     },
     {
@@ -19355,7 +19485,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_subcategoryrepository_agroshop_persistence_repositories_subcategoryrepository_addasync",
-      "community": 113,
+      "community": 134,
       "norm_label": ".addasync()"
     },
     {
@@ -19371,7 +19501,7 @@
       },
       "_origin": "ast",
       "id": "src_agroshop_persistence_repositories_subcategoryrepository_agroshop_persistence_repositories_subcategoryrepository_delete",
-      "community": 113,
+      "community": 134,
       "norm_label": ".delete()"
     },
     {
@@ -20572,6 +20702,17 @@
       "source_location": "L34",
       "weight": 1.0,
       "source": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller_deleteproduct",
+      "target": "src_agroshop_api_controllers_applicationcontroller_agroshop_api_controllers_applicationcontroller_fromresult"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/AgroShop.API/Controllers/ProductController.cs",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller_getfilters",
       "target": "src_agroshop_api_controllers_applicationcontroller_agroshop_api_controllers_applicationcontroller_fromresult"
     },
     {
@@ -23271,6 +23412,16 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.API/Controllers/ProductController.cs",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller",
+      "target": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller_getfilters",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.API/Controllers/ProductController.cs",
       "source_location": "L44",
       "weight": 1.0,
       "source": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller",
@@ -23410,6 +23561,20 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.API/Controllers/ProductController.cs",
+      "source_location": "L51",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "CancellationToken"
+      },
+      "source": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller_getfilters",
+      "target": "src_agroshop_api_controllers_productcontroller_cs_cancellationtoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.API/Controllers/ProductController.cs",
       "source_location": "L44",
       "weight": 1.0,
       "context": "parameter_type",
@@ -23459,6 +23624,20 @@
         "ref_token": "Task"
       },
       "source": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller_deleteproduct",
+      "target": "src_agroshop_api_controllers_productcontroller_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.API/Controllers/ProductController.cs",
+      "source_location": "L51",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller_getfilters",
       "target": "src_agroshop_api_controllers_productcontroller_cs_task",
       "confidence_score": 1.0
     },
@@ -23515,6 +23694,20 @@
         "ref_token": "IActionResult"
       },
       "source": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller_deleteproduct",
+      "target": "src_agroshop_api_controllers_productcontroller_cs_iactionresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.API/Controllers/ProductController.cs",
+      "source_location": "L51",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "IActionResult"
+      },
+      "source": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller_getfilters",
       "target": "src_agroshop_api_controllers_productcontroller_cs_iactionresult",
       "confidence_score": 1.0
     },
@@ -23653,6 +23846,20 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.API/Controllers/ProductController.cs",
+      "source_location": "L51",
+      "weight": 1.0,
+      "context": "attribute",
+      "metadata": {
+        "ref_token": "HttpGet"
+      },
+      "source": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller_getfilters",
+      "target": "src_agroshop_api_controllers_productcontroller_cs_httpget",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.API/Controllers/ProductController.cs",
       "source_location": "L44",
       "weight": 1.0,
       "context": "attribute",
@@ -23673,6 +23880,17 @@
       "weight": 1.0,
       "source": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller_getproductbyid",
       "target": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_getproductbyidasync"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/AgroShop.API/Controllers/ProductController.cs",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "src_agroshop_api_controllers_productcontroller_agroshop_api_controllers_productcontroller_getfilters",
+      "target": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_getfiltersbysubcategoryasync"
     },
     {
       "relation": "imports",
@@ -27870,6 +28088,26 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Dto/ProductDto/ProductFilterGroupDto.cs",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_agroshop_application_dto_productdto_productfiltergroupdto",
+      "target": "csharp_namespace:a0579e86ce48cebe",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Dto/ProductDto/ProductFilterOptionDto.cs",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_agroshop_application_dto_productdto_productfilteroptiondto",
+      "target": "csharp_namespace:a0579e86ce48cebe",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Dto/ProductDto/UpdateProductDto.cs",
       "source_location": "L4",
       "weight": 1.0,
@@ -28241,6 +28479,110 @@
       },
       "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_updateasync",
       "target": "src_agroshop_application_dto_productdto_productdto_agroshop_application_dto_productdto_productdto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Dto/ProductDto/ProductFilterGroupDto.cs",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_agroshop_application_dto_productdto_productfiltergroupdto",
+      "target": "src_agroshop_application_dto_productdto_productfiltergroupdto_agroshop_application_dto_productdto_productfiltergroupdto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Dto/ProductDto/ProductFilterGroupDto.cs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "context": "field",
+      "metadata": {
+        "ref_token": "Guid"
+      },
+      "source": "src_agroshop_application_dto_productdto_productfiltergroupdto_agroshop_application_dto_productdto_productfiltergroupdto",
+      "target": "src_agroshop_application_dto_productdto_productfiltergroupdto_cs_guid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Dto/ProductDto/ProductFilterGroupDto.cs",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "field",
+      "metadata": {
+        "ref_token": "List"
+      },
+      "source": "src_agroshop_application_dto_productdto_productfiltergroupdto_agroshop_application_dto_productdto_productfiltergroupdto",
+      "target": "src_agroshop_application_dto_productdto_productfiltergroupdto_cs_list",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Dto/ProductDto/ProductFilterGroupDto.cs",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "ProductFilterOptionDto"
+      },
+      "source": "src_agroshop_application_dto_productdto_productfiltergroupdto_agroshop_application_dto_productdto_productfiltergroupdto",
+      "target": "src_agroshop_application_dto_productdto_productfilteroptiondto_agroshop_application_dto_productdto_productfilteroptiondto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Interfaces/IProductService.cs",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "ProductFilterGroupDto"
+      },
+      "source": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_application_dto_productdto_productfiltergroupdto_agroshop_application_dto_productdto_productfiltergroupdto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Services/ProductService.cs",
+      "source_location": "L260",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "ProductFilterGroupDto"
+      },
+      "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_application_dto_productdto_productfiltergroupdto_agroshop_application_dto_productdto_productfiltergroupdto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Dto/ProductDto/ProductFilterOptionDto.cs",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_agroshop_application_dto_productdto_productfilteroptiondto",
+      "target": "src_agroshop_application_dto_productdto_productfilteroptiondto_agroshop_application_dto_productdto_productfilteroptiondto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Dto/ProductDto/ProductFilterOptionDto.cs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "context": "field",
+      "metadata": {
+        "ref_token": "Guid"
+      },
+      "source": "src_agroshop_application_dto_productdto_productfilteroptiondto_agroshop_application_dto_productdto_productfilteroptiondto",
+      "target": "src_agroshop_application_dto_productdto_productfilteroptiondto_cs_guid",
       "confidence_score": 1.0
     },
     {
@@ -32528,6 +32870,16 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Interfaces/IProductService.cs",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice",
+      "target": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_getfiltersbysubcategoryasync",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Interfaces/IProductService.cs",
       "source_location": "L10",
       "weight": 1.0,
       "source": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice",
@@ -32669,6 +33021,20 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Interfaces/IProductService.cs",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "CancellationToken"
+      },
+      "source": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_application_interfaces_iproductservice_cs_cancellationtoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Interfaces/IProductService.cs",
       "source_location": "L10",
       "weight": 1.0,
       "context": "parameter_type",
@@ -32725,6 +33091,20 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Interfaces/IProductService.cs",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_application_interfaces_iproductservice_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Interfaces/IProductService.cs",
       "source_location": "L10",
       "weight": 1.0,
       "context": "return_type",
@@ -32753,6 +33133,20 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Interfaces/IProductService.cs",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "Result"
+      },
+      "source": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_application_interfaces_iproductservice_cs_result",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Interfaces/IProductService.cs",
       "source_location": "L10",
       "weight": 1.0,
       "context": "generic_arg",
@@ -32775,6 +33169,20 @@
       },
       "source": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_updateasync",
       "target": "src_agroshop_application_interfaces_iproductservice_cs_result",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Interfaces/IProductService.cs",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "IEnumerable"
+      },
+      "source": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_application_interfaces_iproductservice_cs_ienumerable",
       "confidence_score": 1.0
     },
     {
@@ -32858,6 +33266,20 @@
         "ref_token": "Error"
       },
       "source": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_deleteasync",
+      "target": "src_agroshop_core_shared_error_agroshop_core_shared_error",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Interfaces/IProductService.cs",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "Error"
+      },
+      "source": "src_agroshop_application_interfaces_iproductservice_agroshop_application_interfaces_iproductservice_getfiltersbysubcategoryasync",
       "target": "src_agroshop_core_shared_error_agroshop_core_shared_error",
       "confidence_score": 1.0
     },
@@ -38407,6 +38829,16 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
+      "source_location": "L260",
+      "weight": 1.0,
+      "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice",
+      "target": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_getfiltersbysubcategoryasync",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Services/ProductService.cs",
       "source_location": "L68",
       "weight": 1.0,
       "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice",
@@ -38437,7 +38869,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L263",
+      "source_location": "L322",
       "weight": 1.0,
       "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice",
       "target": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_validateattributeselectionsasync",
@@ -38682,6 +39114,20 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
+      "source_location": "L260",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "CancellationToken"
+      },
+      "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_application_services_productservice_cs_cancellationtoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Services/ProductService.cs",
       "source_location": "L68",
       "weight": 1.0,
       "context": "parameter_type",
@@ -38710,7 +39156,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L263",
+      "source_location": "L322",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -38752,6 +39198,20 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
+      "source_location": "L260",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_application_services_productservice_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Services/ProductService.cs",
       "source_location": "L68",
       "weight": 1.0,
       "context": "return_type",
@@ -38780,7 +39240,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L263",
+      "source_location": "L322",
       "weight": 1.0,
       "context": "return_type",
       "metadata": {
@@ -38788,6 +39248,20 @@
       },
       "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_validateattributeselectionsasync",
       "target": "src_agroshop_application_services_productservice_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Services/ProductService.cs",
+      "source_location": "L260",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "Result"
+      },
+      "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_application_services_productservice_cs_result",
       "confidence_score": 1.0
     },
     {
@@ -38822,7 +39296,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L263",
+      "source_location": "L322",
       "weight": 1.0,
       "context": "generic_arg",
       "metadata": {
@@ -38836,7 +39310,21 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L263",
+      "source_location": "L260",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "IEnumerable"
+      },
+      "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_application_services_productservice_cs_ienumerable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Services/ProductService.cs",
+      "source_location": "L322",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -39129,10 +39617,68 @@
       "target": "src_agroshop_core_shared_iunitofwork_agroshop_core_shared_iunitofwork_savechangesasync"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/AgroShop.Application/Services/ProductService.cs",
+      "source_location": "L277",
+      "weight": 1.0,
+      "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_core_interfaces_iattributeoptionrepository_agroshop_core_interfaces_iattributeoptionrepository_getattributeoptionsasync"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/AgroShop.Application/Services/ProductService.cs",
+      "source_location": "L270",
+      "weight": 1.0,
+      "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_core_interfaces_iproductattributerepository_agroshop_core_interfaces_iproductattributerepository_getproductattributesasync"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/AgroShop.Application/Services/ProductService.cs",
+      "source_location": "L280",
+      "weight": 1.0,
+      "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_core_interfaces_iproductrepository_agroshop_core_interfaces_iproductrepository_getproductsasync"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/AgroShop.Application/Services/ProductService.cs",
+      "source_location": "L266",
+      "weight": 1.0,
+      "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_core_interfaces_isubcategoryrepository_agroshop_core_interfaces_isubcategoryrepository_getsubcategorybyidasync"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L263",
+      "source_location": "L260",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "Error"
+      },
+      "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_getfiltersbysubcategoryasync",
+      "target": "src_agroshop_core_shared_error_agroshop_core_shared_error",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/AgroShop.Application/Services/ProductService.cs",
+      "source_location": "L322",
       "weight": 1.0,
       "context": "generic_arg",
       "metadata": {
@@ -39146,7 +39692,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L263",
+      "source_location": "L322",
       "weight": 1.0,
       "context": "generic_arg",
       "metadata": {
@@ -39160,7 +39706,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L263",
+      "source_location": "L322",
       "weight": 1.0,
       "context": "generic_arg",
       "metadata": {
@@ -39174,7 +39720,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L263",
+      "source_location": "L322",
       "weight": 1.0,
       "context": "generic_arg",
       "metadata": {
@@ -39188,7 +39734,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L263",
+      "source_location": "L322",
       "weight": 1.0,
       "context": "generic_arg",
       "metadata": {
@@ -39204,7 +39750,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L274",
+      "source_location": "L333",
       "weight": 1.0,
       "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_validateattributeselectionsasync",
       "target": "src_agroshop_core_interfaces_iattributeoptionrepository_agroshop_core_interfaces_iattributeoptionrepository_getattributeoptionsasync"
@@ -39215,7 +39761,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L270",
+      "source_location": "L329",
       "weight": 1.0,
       "source": "src_agroshop_application_services_productservice_agroshop_application_services_productservice_validateattributeselectionsasync",
       "target": "src_agroshop_core_interfaces_iproductattributerepository_agroshop_core_interfaces_iproductattributerepository_getproductattributesasync"
@@ -39224,7 +39770,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/AgroShop.Application/Services/ProductService.cs",
-      "source_location": "L263",
+      "source_location": "L322",
       "weight": 1.0,
       "context": "generic_arg",
       "metadata": {
@@ -60025,5 +60571,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "ddc94b9ea9edc6c1f9c019c59e21d7c0d502ede5"
+  "built_at_commit": "e5af2da0eef707e4d035be1edf096f36bfd137ba"
 }

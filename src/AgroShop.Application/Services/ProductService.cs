@@ -254,6 +254,65 @@ namespace AgroShop.Application.Services
             return UnitResult.Success<Error>();
         }
 
+        // Not cached - it's derived from product data that changes on every
+        // Add/Update/Delete, and there's no per-subcategory invalidation
+        // hook yet to keep a cached version correct.
+        public async Task<Result<IEnumerable<ProductFilterGroupDto>, Error>> GetFiltersBySubCategoryAsync(string subCategoryId, CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (!Guid.TryParse(subCategoryId, out var subCategoryGuid))
+                return Result.Failure<IEnumerable<ProductFilterGroupDto>, Error>(Errors.General.IncorrectGuidError());
+
+            var subCategory = await _subCategoryRepository.GetSubCategoryByIdAsync(subCategoryGuid, asNoTracking: true, cancellationToken: cancellationToken);
+            if (subCategory == null)
+                return Result.Failure<IEnumerable<ProductFilterGroupDto>, Error>(Errors.SubCategory.SubCategoryIsNullById());
+
+            var productAttributes = (await _productAttributeRepository.GetProductAttributesAsync(asNoTracking: true, cancellationToken))
+                .Where(pa => pa.SubCategoryId == subCategoryGuid)
+                .ToList();
+
+            if (productAttributes.Count == 0)
+                return Result.Success<IEnumerable<ProductFilterGroupDto>, Error>([]);
+
+            var allOptions = await _attributeOptionRepository.GetAttributeOptionsAsync(asNoTracking: true, cancellationToken);
+            var optionsByAttributeId = allOptions.ToLookup(o => o.AttributeId);
+
+            var products = (await _productRepository.GetProductsAsync(asNoTracking: true, cancellationToken))
+                .Where(p => p.SubCategoryId == subCategoryGuid)
+                .ToList();
+
+            // How many distinct products currently carry each option - the
+            // "(81)" style counts next to each filter checkbox on the reference site.
+            var productCountsByOptionId = products
+                .SelectMany(p => p.ProductAttributeValues.Select(pav => (pav.AttributeOptionId, p.Id)))
+                .GroupBy(x => x.AttributeOptionId)
+                .ToDictionary(g => g.Key, g => g.Select(x => x.Id).Distinct().Count());
+
+            var filterGroups = productAttributes
+                .Select(pa => new ProductFilterGroupDto
+                {
+                    AttributeId = pa.AttributeId,
+                    AttributeName = pa.Attribute.Name.Value,
+                    ValueType = pa.Attribute.ValueType.ToString(),
+                    // Options nobody has selected yet are dropped - a filter
+                    // checkbox that can only ever return zero results isn't useful.
+                    Options = optionsByAttributeId[pa.AttributeId]
+                        .Select(o => new ProductFilterOptionDto
+                        {
+                            AttributeOptionId = o.Id,
+                            Value = o.Value.Value,
+                            ProductCount = productCountsByOptionId.GetValueOrDefault(o.Id)
+                        })
+                        .Where(o => o.ProductCount > 0)
+                        .OrderByDescending(o => o.ProductCount)
+                        .ToList()
+                })
+                .Where(g => g.Options.Count > 0)
+                .ToList();
+
+            return Result.Success<IEnumerable<ProductFilterGroupDto>, Error>(filterGroups);
+        }
+
         // Validates that every selected option exists, belongs to an attribute
         // actually linked to this subcategory, respects SingleSelect's
         // one-value limit, and that every attribute configured for the

@@ -47,5 +47,12 @@ namespace AgroShop.API.Controllers
             var result = await _productService.GetProductByIdAsync(id, cancellationToken: cancellationToken);
             return FromResult(result);
         }
+
+        [HttpGet("filters/{subCategoryId}")]
+        public async Task<IActionResult> GetFilters(string subCategoryId, CancellationToken cancellationToken)
+        {
+            var result = await _productService.GetFiltersBySubCategoryAsync(subCategoryId, cancellationToken);
+            return FromResult(result);
+        }
     }
 }
