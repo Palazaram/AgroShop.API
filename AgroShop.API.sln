@@ -11,7 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.Persistence", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.Application", "src\AgroShop.Application\AgroShop.Application.csproj", "{8FF73E31-348A-47B2-8ED6-5EF6B24832B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.Infrastructure", "src\AgroShop.Infrastructure\AgroShop.Infrastructure.csproj", "{13104E1F-FC8C-4684-9B45-53738141A2D2}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FA70289A-882C-404E-9CA3-283051418C20}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F09ABB9-E941-4749-9289-C87DCAD02B96}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
 		.env.example = .env.example
@@ -22,8 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FA70289A-882
 		.graphifyignore = .graphifyignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroShop.Infrastructure", "src\AgroShop.Infrastructure\AgroShop.Infrastructure.csproj", "{13104E1F-FC8C-4684-9B45-53738141A2D2}"
-EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

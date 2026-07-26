@@ -99,7 +99,19 @@
   "97": ".GetSubCategoryByIdAsync",
   "98": "_10",
   "99": "AlignCategoryNameMaxLengthWithDomain",
+  "100": ".GenerateTokensAsync",
   "101": "20260127152943_5.Designer.cs",
   "102": "20260308131958_9.Designer.cs",
-  "103": "20260719153341_MakeCategoryImagePathRequired.Designer.cs"
+  "103": "20260719153341_MakeCategoryImagePathRequired.Designer.cs",
+  "104": "20260307133355_8.Designer.cs",
+  "105": "20260725202611_AlignCategoryNameMaxLengthWithDomain.Designer.cs",
+  "106": "RoleConstants.cs",
+  "107": "HttpDelete",
+  "108": "HttpGet",
+  "109": "HttpPost",
+  "110": "HttpPut",
+  "111": "IActionResult",
+  "112": "TimeSpan",
+  "113": "ICollection",
+  "114": "int"
 }
