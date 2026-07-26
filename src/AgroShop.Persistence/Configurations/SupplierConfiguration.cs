@@ -1,5 +1,4 @@
-﻿using AgroShop.Core.Entities;
-using AgroShop.Core.ValueObjects;
+using AgroShop.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,7 +12,15 @@ namespace AgroShop.Persistence.Configurations
 
             builder.Property(s => s.Id).ValueGeneratedNever();
 
-            builder.Property(s => s.Name).IsRequired().HasColumnType("VARCHAR(200)");
+            builder.OwnsOne(s => s.Name, nameBuilder =>
+            {
+                nameBuilder.Property(n => n.Value)
+                    .HasMaxLength(50)
+                    .HasColumnName("Name")
+                    .IsRequired();
+
+                nameBuilder.HasIndex(n => n.Value).IsUnique();
+            });
 
             builder.HasMany(s => s.Products).WithOne(p => p.Supplier).HasForeignKey(p => p.SupplierId).OnDelete(DeleteBehavior.Restrict);
         }

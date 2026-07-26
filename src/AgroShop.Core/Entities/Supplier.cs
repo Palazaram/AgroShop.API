@@ -1,4 +1,6 @@
-﻿using AgroShop.Core.ValueObjects;
+using AgroShop.Core.Shared;
+using AgroShop.Core.ValueObjects;
+using CSharpFunctionalExtensions;
 
 namespace AgroShop.Core.Entities
 {
@@ -7,28 +9,25 @@ namespace AgroShop.Core.Entities
         private Supplier() { }
 
         public Guid Id { get; private set; }
-        public string Name { get; private set; } = default!;
+        public SupplierName Name { get; private set; } = default!;
 
         public virtual ICollection<Product> Products { get; private set; } = new List<Product>();
 
-        public static Supplier Create(string name)
+        public static Result<Supplier, Error> Create(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Назва постачальника не може бути порожньою");
-
-            return new Supplier
-            {
-                Id = Guid.CreateVersion7(),
-                Name = name.Trim()
-            };
+            return SupplierName.Create(name)
+                .Map(supplierName => new Supplier
+                {
+                    Id = Guid.CreateVersion7(),
+                    Name = supplierName
+                });
         }
 
-        public void Update(string name)
+        public Result<Supplier, Error> Update(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Назва постачальника не може бути порожньою");
-
-            Name = name.Trim();
+            return SupplierName.Create(name)
+                .Tap(supplierName => Name = supplierName)
+                .Map(_ => this);
         }
     }
 }

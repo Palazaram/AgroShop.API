@@ -38,7 +38,7 @@ namespace AgroShop.Application.Extensions
                 .WithMessage(Errors.General.ValueIsRequired().Serialize());
         }
 
-        public static IRuleBuilderOptions<T, string> MaximumLengthCustom<T>(this IRuleBuilder<T, string> ruleBuilder, int maximumLength)
+        public static IRuleBuilderOptions<T, string?> MaximumLengthCustom<T>(this IRuleBuilder<T, string?> ruleBuilder, int maximumLength)
         {
             return DefaultValidatorExtensions.MaximumLength(ruleBuilder, maximumLength)
                 .WithMessage(Errors.General.InvalidLength().Serialize());

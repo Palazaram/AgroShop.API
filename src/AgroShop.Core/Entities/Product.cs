@@ -1,4 +1,6 @@
-﻿using AgroShop.Core.ValueObjects;
+using AgroShop.Core.Shared;
+using AgroShop.Core.ValueObjects;
+using CSharpFunctionalExtensions;
 
 namespace AgroShop.Core.Entities
 {
@@ -8,13 +10,21 @@ namespace AgroShop.Core.Entities
 
         public Guid Id { get; private set; }
 
-        public string Name { get; private set; } = default!;
+        public ProductName Name { get; private set; } = default!;
+        public ProductDescription Description { get; private set; } = default!;
+        public Money Price { get; private set; } = default!;
+        public Sku Sku { get; private set; } = default!;
+        public StockQuantity StockQuantity { get; private set; } = default!;
+
+        public bool IsActive { get; private set; } = true;
+
+        // Not stored - purely derived from stock. See ProductConfiguration's Ignore().
+        public bool IsAvailable => StockQuantity.Value > 0;
+
         public string ImagePath { get; private set; } = default!;
-        public string? Description { get; private set; }
 
-        public decimal Price { get; private set; }
-
-        public bool IsAvailable { get; private set; } = true;
+        public DateTime CreatedAtUtc { get; private set; } = DateTime.UtcNow;
+        public DateTime? UpdatedUtc { get; private set; }
 
         public Guid SubCategoryId { get; private set; }
         public virtual SubCategory SubCategory { get; private set; } = null!;
@@ -24,73 +34,92 @@ namespace AgroShop.Core.Entities
 
         public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; private set; } = new List<ProductAttributeValue>();
 
-        public static Product Create
-            (
-                string name,
-                string? description,
-                decimal price,
-                Guid subCategoryId,
-                Guid supplierId,
-                string imagePath
-            )
+        public static Result<Product, Error> Create(
+            string name,
+            string description,
+            decimal price,
+            string sku,
+            int stockQuantity,
+            Guid subCategoryId,
+            Guid supplierId,
+            string imagePath)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Назва не може бути порожньою");
+            if (subCategoryId == Guid.Empty)
+                return Result.Failure<Product, Error>(Errors.General.ValueIsRequired("Підкатегорія"));
 
-            if (price <= 0)
-                throw new ArgumentException("Ціна повинна бути більшою за нуль");
+            if (supplierId == Guid.Empty)
+                return Result.Failure<Product, Error>(Errors.General.ValueIsRequired("Постачальник"));
 
-            return new Product
-            {
-                Id = Guid.CreateVersion7(),
-                Name = name.Trim(),
-                Description = description?.Trim(),
-                Price = price,
-                SubCategoryId = subCategoryId,
-                SupplierId = supplierId,
-                ImagePath = imagePath,
-                IsAvailable = true
-            };
+            return ProductName.Create(name)
+                .Bind(productName => ProductDescription.Create(description)
+                    .Bind(productDescription => Sku.Create(sku)
+                        .Bind(skuVo => Money.Create(price)
+                            .Bind(money => StockQuantity.Create(stockQuantity)
+                                .Map(stock => new Product
+                                {
+                                    Id = Guid.CreateVersion7(),
+                                    Name = productName,
+                                    Description = productDescription,
+                                    Price = money,
+                                    Sku = skuVo,
+                                    StockQuantity = stock,
+                                    SubCategoryId = subCategoryId,
+                                    SupplierId = supplierId,
+                                    ImagePath = imagePath,
+                                    IsActive = true
+                                })))));
         }
 
-        public void Update
-            (
-                string name,
-                string? description,
-                decimal price,
-                Guid subCategoryId,
-                Guid supplierId,
-                bool isAvailable,
-                string? imagePath = null // now optional
-            )
+        public Result<Product, Error> Update(
+            string name,
+            string description,
+            decimal price,
+            string sku,
+            int stockQuantity,
+            Guid subCategoryId,
+            Guid supplierId,
+            bool isActive,
+            string? imagePath = null)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Назва не може бути порожньою");
+            if (subCategoryId == Guid.Empty)
+                return Result.Failure<Product, Error>(Errors.General.ValueIsRequired("Підкатегорія"));
 
-            if (price <= 0)
-                throw new ArgumentException("Ціна повинна бути більшою за нуль");
+            if (supplierId == Guid.Empty)
+                return Result.Failure<Product, Error>(Errors.General.ValueIsRequired("Постачальник"));
 
-            Name = name.Trim();
-            Description = description?.Trim();
-            Price = price;
-            IsAvailable = isAvailable;
+            return ProductName.Create(name)
+                .Bind(productName => ProductDescription.Create(description)
+                    .Bind(productDescription => Sku.Create(sku)
+                        .Bind(skuVo => Money.Create(price)
+                            .Bind(money => StockQuantity.Create(stockQuantity)
+                                .Tap(stock =>
+                                {
+                                    Name = productName;
+                                    Description = productDescription;
+                                    Price = money;
+                                    Sku = skuVo;
+                                    StockQuantity = stock;
+                                    IsActive = isActive;
+                                    UpdatedUtc = DateTime.UtcNow;
 
-            if (SubCategoryId != subCategoryId)
-            {
-                SubCategoryId = subCategoryId;
-                SubCategory = null!;
-            }
+                                    if (SubCategoryId != subCategoryId)
+                                    {
+                                        SubCategoryId = subCategoryId;
+                                        SubCategory = null!;
+                                    }
 
-            if (SupplierId != supplierId)
-            {
-                SupplierId = supplierId;
-                Supplier = null!;
-            }
+                                    if (SupplierId != supplierId)
+                                    {
+                                        SupplierId = supplierId;
+                                        Supplier = null!;
+                                    }
 
-            if (!string.IsNullOrWhiteSpace(imagePath))
-            {
-                ImagePath = imagePath.Trim(); // can only be set from within this method
-            }
+                                    // Only overwrite when a new image was actually uploaded
+                                    // (same convention as Category.Update).
+                                    if (!string.IsNullOrWhiteSpace(imagePath))
+                                        ImagePath = imagePath;
+                                })
+                                .Map(_ => this)))));
         }
     }
 }

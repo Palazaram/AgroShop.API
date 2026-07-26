@@ -3,6 +3,7 @@ using System;
 using AgroShop.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AgroShop.Persistence.Data.Migrations
 {
     [DbContext(typeof(AgroShopDbContext))]
-    partial class AgroShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260726111737_ReworkProductAndSupplier")]
+    partial class ReworkProductAndSupplier
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,6 +61,9 @@ namespace AgroShop.Persistence.Data.Migrations
 
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("VARCHAR(400)");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
@@ -296,25 +302,6 @@ namespace AgroShop.Persistence.Data.Migrations
                                 .HasForeignKey("ProductId");
                         });
 
-                    b.OwnsOne("AgroShop.Core.ValueObjects.ProductDescription", "Description", b1 =>
-                        {
-                            b1.Property<Guid>("ProductId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasMaxLength(400)
-                                .HasColumnType("character varying(400)")
-                                .HasColumnName("Description");
-
-                            b1.HasKey("ProductId");
-
-                            b1.ToTable("Products");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProductId");
-                        });
-
                     b.OwnsOne("AgroShop.Core.ValueObjects.ProductName", "Name", b1 =>
                         {
                             b1.Property<Guid>("ProductId")
@@ -372,9 +359,6 @@ namespace AgroShop.Persistence.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("ProductId");
                         });
-
-                    b.Navigation("Description")
-                        .IsRequired();
 
                     b.Navigation("Name")
                         .IsRequired();

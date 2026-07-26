@@ -24,10 +24,10 @@ namespace AgroShop.Core.ValueObjects
             patronymic = patronymic.Trim();
 
             if (patronymic.Length < minLength)
-                return Result.Failure<Patronymic, Error>(Errors.Patronymic.PatronymicInvalidMinLength());
+                return Result.Failure<Patronymic, Error>(Errors.Patronymic.PatronymicInvalidMinLength(minLength));
 
             if (patronymic.Length > maxLength)
-                return Result.Failure<Patronymic, Error>(Errors.Patronymic.PatronymicInvalidMaxLength());
+                return Result.Failure<Patronymic, Error>(Errors.Patronymic.PatronymicInvalidMaxLength(maxLength));
 
             if (!Regex.IsMatch(patronymic, @"^[A-Za-zА-Яа-яІіЇїЄєҐґ'\-\s]+$"))
                 return Result.Failure<Patronymic, Error>(Errors.Patronymic.PatronymicInvalidFormat());

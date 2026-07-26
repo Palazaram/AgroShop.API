@@ -24,10 +24,10 @@ namespace AgroShop.Core.ValueObjects
             firstName = firstName.Trim();
 
             if (firstName.Length < minLength)
-                return Result.Failure<FirstName, Error>(Errors.FirstName.FirstNameInvalidMinLength());
+                return Result.Failure<FirstName, Error>(Errors.FirstName.FirstNameInvalidMinLength(minLength));
 
             if (firstName.Length > maxLength)
-                return Result.Failure<FirstName, Error>(Errors.FirstName.FirstNameInvalidMaxLength());
+                return Result.Failure<FirstName, Error>(Errors.FirstName.FirstNameInvalidMaxLength(maxLength));
 
             if (!Regex.IsMatch(firstName, @"^[A-Za-zА-Яа-яІіЇїЄєҐґ'\-\s]+$"))
                 return Result.Failure<FirstName, Error>(Errors.FirstName.FirstNameInvalidFormat());

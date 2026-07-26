@@ -24,10 +24,10 @@ namespace AgroShop.Core.ValueObjects
             categoryName = categoryName.Trim();
 
             if (categoryName.Length < minLength)
-                return Result.Failure<CategoryName, Error>(Errors.CategoryName.CategoryNameInvalidMinLength());
+                return Result.Failure<CategoryName, Error>(Errors.CategoryName.CategoryNameInvalidMinLength(minLength));
 
             if (categoryName.Length > maxLength)
-                return Result.Failure<CategoryName, Error>(Errors.CategoryName.CategoryNameInvalidMaxLength());
+                return Result.Failure<CategoryName, Error>(Errors.CategoryName.CategoryNameInvalidMaxLength(maxLength));
 
             if (!Regex.IsMatch(categoryName, @"^[A-Za-zА-Яа-яІіЇїЄєҐґ'\-\s]+$"))
                 return Result.Failure<CategoryName, Error>(Errors.CategoryName.CategoryNameInvalidFormat());
