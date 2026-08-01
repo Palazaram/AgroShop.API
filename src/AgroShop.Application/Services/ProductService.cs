@@ -51,16 +51,17 @@ namespace AgroShop.Application.Services
 
         public async Task<Result<IEnumerable<ProductDto>, Error>> GetProductsAsync(
             bool asNoTracking = false,
-            Guid? subCategoryId = null,
+            IEnumerable<Guid>? subCategoryIds = null,
             IEnumerable<Guid>? attributeOptionIds = null,
             IEnumerable<Guid>? supplierIds = null,
             CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
+            var subCategoryIdSet = subCategoryIds?.Distinct().ToHashSet() ?? [];
             var optionIds = attributeOptionIds?.Distinct().ToList() ?? [];
             var supplierIdSet = supplierIds?.Distinct().ToHashSet() ?? [];
-            var isFiltered = subCategoryId.HasValue || optionIds.Count > 0 || supplierIdSet.Count > 0;
+            var isFiltered = subCategoryIdSet.Count > 0 || optionIds.Count > 0 || supplierIdSet.Count > 0;
 
             if (!isFiltered)
             {
@@ -77,13 +78,17 @@ namespace AgroShop.Application.Services
             }
 
             // Filtered results aren't cached under ProductsCacheKey - the
-            // combinations of subCategoryId + selected options are too varied
+            // combinations of subCategoryIds + selected options are too varied
             // to key sensibly, and this path is already excluded from the
             // cache invalidated by Add/Update/Delete above.
             var products = await _productRepository.GetProductsAsync(asNoTracking, cancellationToken);
 
-            if (subCategoryId.HasValue)
-                products = products.Where(p => p.SubCategoryId == subCategoryId.Value);
+            // OR between selected subcategories - a category maps to several
+            // subcategories, so "all products in this category" is passing
+            // all of them at once, same checkbox-facet semantics as the two
+            // filters below.
+            if (subCategoryIdSet.Count > 0)
+                products = products.Where(p => subCategoryIdSet.Contains(p.SubCategoryId));
 
             // OR between selected suppliers, same checkbox-facet semantics as attributeOptionIds.
             if (supplierIdSet.Count > 0)
