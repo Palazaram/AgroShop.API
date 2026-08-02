@@ -359,76 +359,141 @@ namespace AgroShop.Application.Services
             return UnitResult.Success<Error>();
         }
 
-        // Not cached - it's derived from product data that changes on every
-        // Add/Update/Delete, and there's no per-subcategory invalidation
-        // hook yet to keep a cached version correct.
-        public async Task<Result<ProductFiltersDto, Error>> GetFiltersBySubCategoryAsync(string subCategoryId, CancellationToken cancellationToken = default)
+        // Not cached - derived from product data that changes on every
+        // Add/Update/Delete, and there's no per-facet invalidation hook to
+        // keep a cached version correct.
+        //
+        // Every facet below is computed by re-applying every filter EXCEPT
+        // its own dimension ("self-exclude") - the standard faceted-search
+        // rule, so a facet's counts answer "how many if I additionally
+        // picked this", not "how many before I picked anything". Attribute
+        // groups are deduplicated by Attribute, not by the ProductAttribute
+        // wiring row, so the same attribute shared across several
+        // subcategories (e.g. a packaging-format attribute wired to both
+        // seeds and fertilizers) merges into one group with combined
+        // counts instead of requiring exactly one subcategory to be active.
+        public async Task<Result<ProductFacetsDto, Error>> GetProductFacetsAsync(
+            IEnumerable<Guid>? subCategoryIds = null,
+            IEnumerable<Guid>? attributeOptionIds = null,
+            IEnumerable<Guid>? supplierIds = null,
+            CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            if (!Guid.TryParse(subCategoryId, out var subCategoryGuid))
-                return Result.Failure<ProductFiltersDto, Error>(Errors.General.IncorrectGuidError());
 
-            var subCategory = await _subCategoryRepository.GetSubCategoryByIdAsync(subCategoryGuid, asNoTracking: true, cancellationToken: cancellationToken);
-            if (subCategory == null)
-                return Result.Failure<ProductFiltersDto, Error>(Errors.SubCategory.SubCategoryIsNullById());
+            var subCategoryIdSet = subCategoryIds?.Distinct().ToHashSet() ?? [];
+            var optionIds = attributeOptionIds?.Distinct().ToList() ?? [];
+            var supplierIdSet = supplierIds?.Distinct().ToHashSet() ?? [];
 
-            var productsQuery = _productRepository.GetProductsQueryable(asNoTracking: true)
-                .Where(p => p.SubCategoryId == subCategoryGuid);
+            var allOptions = await _attributeOptionRepository.GetAttributeOptionsAsync(asNoTracking: true, cancellationToken);
+            var optionsById = allOptions.ToDictionary(o => o.Id);
 
-            // How many distinct products currently carry each supplier - same
-            // "(81)" style counts as the attribute options below.
-            var supplierOptions = productsQuery
+            // Same OR-within-attribute/AND-across-attributes grouping as GetProductsAsync.
+            var selectedGroupsByAttributeId = optionIds
+                .Where(optionsById.ContainsKey)
+                .GroupBy(id => optionsById[id].AttributeId)
+                .ToDictionary(g => g.Key, g => g.ToHashSet());
+
+            var baseQuery = _productRepository.GetProductsQueryable(asNoTracking: true);
+
+            IQueryable<Product> BuildQuery(bool includeSubCategory, bool includeSupplier, Guid? excludeAttributeId)
+            {
+                var query = baseQuery;
+
+                if (includeSubCategory && subCategoryIdSet.Count > 0)
+                    query = query.Where(p => subCategoryIdSet.Contains(p.SubCategoryId));
+
+                if (includeSupplier && supplierIdSet.Count > 0)
+                    query = query.Where(p => supplierIdSet.Contains(p.SupplierId));
+
+                foreach (var (attributeId, group) in selectedGroupsByAttributeId)
+                {
+                    if (attributeId == excludeAttributeId)
+                        continue;
+
+                    query = query.Where(p => p.ProductAttributeValues.Any(pav => group.Contains(pav.AttributeOptionId)));
+                }
+
+                return query;
+            }
+
+            // SubCategory facet - ignores subCategoryIds itself, keeps supplier + attributes.
+            var subCategoryOptions = await BuildQuery(includeSubCategory: false, includeSupplier: true, excludeAttributeId: null)
+                .GroupBy(p => p.SubCategoryId)
+                .Select(g => new ProductFilterSubCategoryOptionDto
+                {
+                    SubCategoryId = g.Key,
+                    ProductCount = g.Select(p => p.Id).Distinct().Count(),
+                })
+                .ToListAsync(cancellationToken);
+
+            // Supplier facet - ignores supplierIds itself, keeps subCategory + attributes.
+            var supplierOptions = await BuildQuery(includeSubCategory: true, includeSupplier: false, excludeAttributeId: null)
                 .GroupBy(p => p.SupplierId)
                 .Select(g => new ProductFilterSupplierOptionDto
                 {
                     SupplierId = g.Key,
                     Name = g.First().Supplier.Name.Value,
-                    ProductCount = g.Select(p => p.Id).Distinct().Count()
+                    ProductCount = g.Select(p => p.Id).Distinct().Count(),
                 })
                 .OrderByDescending(o => o.ProductCount)
+                .ToListAsync(cancellationToken);
+
+            // Which attributes are even relevant: wired to any subcategory
+            // currently in scope (or to any subcategory at all, if nothing's
+            // scoped - matches how subCategoryIds being empty means
+            // "everything" everywhere else in this service).
+            var allProductAttributes = await _productAttributeRepository.GetProductAttributesAsync(asNoTracking: true, cancellationToken);
+            var inScopeAttributes = allProductAttributes
+                .Where(pa => subCategoryIdSet.Count == 0 || subCategoryIdSet.Contains(pa.SubCategoryId))
+                .Select(pa => pa.Attribute)
+                .DistinctBy(a => a.Id)
                 .ToList();
 
-            var productAttributes = (await _productAttributeRepository.GetProductAttributesAsync(asNoTracking: true, cancellationToken))
-                .Where(pa => pa.SubCategoryId == subCategoryGuid)
-                .ToList();
+            var attributeGroups = new List<ProductFilterGroupDto>();
+            foreach (var attribute in inScopeAttributes)
+            {
+                // This one's self-exclusion is per-attribute: every OTHER
+                // selected attribute group still applies, subCategory/
+                // supplier still apply, only this attribute's own
+                // selection is left out.
+                var scopedQuery = BuildQuery(includeSubCategory: true, includeSupplier: true, excludeAttributeId: attribute.Id);
 
-            if (productAttributes.Count == 0)
-                return Result.Success<ProductFiltersDto, Error>(new ProductFiltersDto { SupplierOptions = supplierOptions });
+                var optionCounts = await scopedQuery
+                    .SelectMany(p => p.ProductAttributeValues
+                        .Where(pav => pav.AttributeOption.AttributeId == attribute.Id)
+                        .Select(pav => new { pav.AttributeOptionId, ProductId = p.Id }))
+                    .GroupBy(x => x.AttributeOptionId)
+                    .Select(g => new { AttributeOptionId = g.Key, Count = g.Select(x => x.ProductId).Distinct().Count() })
+                    .ToListAsync(cancellationToken);
 
-            var allOptions = await _attributeOptionRepository.GetAttributeOptionsAsync(asNoTracking: true, cancellationToken);
-            var optionsByAttributeId = allOptions.ToLookup(o => o.AttributeId);
+                if (optionCounts.Count == 0)
+                    continue;
 
-            // How many distinct products currently carry each option - the
-            // "(81)" style counts next to each filter checkbox on the reference site.
-            var productCountsByOptionId = productsQuery
-                .ToList()
-                .SelectMany(p => p.ProductAttributeValues.Select(pav => (pav.AttributeOptionId, p.Id)))
-                .GroupBy(x => x.AttributeOptionId)
-                .ToDictionary(g => g.Key, g => g.Select(x => x.Id).Distinct().Count());
+                var options = optionCounts
+                    .Select(oc => new ProductFilterOptionDto
+                    {
+                        AttributeOptionId = oc.AttributeOptionId,
+                        Value = optionsById[oc.AttributeOptionId].Value.Value,
+                        ProductCount = oc.Count,
+                    })
+                    .OrderByDescending(o => o.ProductCount)
+                    .ToList();
 
-            var attributeGroups = productAttributes
-                .Select(pa => new ProductFilterGroupDto
+                attributeGroups.Add(new ProductFilterGroupDto
                 {
-                    AttributeId = pa.AttributeId,
-                    AttributeName = pa.Attribute.Name.Value,
-                    ValueType = pa.Attribute.ValueType.ToString(),
-                    // Options nobody has selected yet are dropped - a filter
-                    // checkbox that can only ever return zero results isn't useful.
-                    Options = optionsByAttributeId[pa.AttributeId]
-                        .Select(o => new ProductFilterOptionDto
-                        {
-                            AttributeOptionId = o.Id,
-                            Value = o.Value.Value,
-                            ProductCount = productCountsByOptionId.GetValueOrDefault(o.Id)
-                        })
-                        .Where(o => o.ProductCount > 0)
-                        .OrderByDescending(o => o.ProductCount)
-                        .ToList()
-                })
-                .Where(g => g.Options.Count > 0)
-                .ToList();
+                    AttributeId = attribute.Id,
+                    AttributeName = attribute.Name.Value,
+                    ValueType = attribute.ValueType.ToString(),
+                    Options = options,
+                });
+            }
 
-            return Result.Success<ProductFiltersDto, Error>(new ProductFiltersDto { AttributeGroups = attributeGroups, SupplierOptions = supplierOptions });
+            return Result.Success<ProductFacetsDto, Error>(new ProductFacetsDto
+            {
+                SubCategoryOptions = subCategoryOptions,
+                SupplierOptions = supplierOptions,
+                AttributeGroups = attributeGroups,
+            });
         }
 
         // Validates that every selected option exists, belongs to an attribute
