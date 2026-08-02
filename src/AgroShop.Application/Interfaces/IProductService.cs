@@ -1,5 +1,6 @@
 using AgroShop.Application.Dto.Common;
 using AgroShop.Application.Dto.ProductDto;
+using AgroShop.Core.Enums;
 using AgroShop.Core.Shared;
 using CSharpFunctionalExtensions;
 
@@ -22,6 +23,7 @@ namespace AgroShop.Application.Interfaces
             IEnumerable<Guid>? supplierIds = null,
             int page = 1,
             int pageSize = 20,
+            ProductSortBy sortBy = ProductSortBy.NameAsc,
             CancellationToken cancellationToken = default);
         Task<Result<ProductDto, Error>> GetProductByIdAsync(string id, bool asNoTracking = false, CancellationToken cancellationToken = default);
         Task<UnitResult<Error>> AddAsync(AddProductDto productDto, CancellationToken cancellationToken);

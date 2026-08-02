@@ -61,6 +61,7 @@ namespace AgroShop.Application.Services
             IEnumerable<Guid>? supplierIds = null,
             int page = 1,
             int pageSize = DefaultPageSize,
+            ProductSortBy sortBy = ProductSortBy.NameAsc,
             CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -95,7 +96,12 @@ namespace AgroShop.Application.Services
                     await _cacheService.SetAsync(ProductsCacheKey, allProductDtos, ProductsCacheDuration, cancellationToken);
                 }
 
-                var pagedFromCache = allProductDtos.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                // The cache itself is only ever built sorted by name (see
+                // above) - re-sorting the already-fetched list in memory here
+                // is cheap and keeps every sortBy option working without a
+                // separate cache entry per sort order.
+                var sortedFromCache = SortProductDtos(allProductDtos, sortBy);
+                var pagedFromCache = sortedFromCache.Skip((page - 1) * pageSize).Take(pageSize).ToList();
                 return Result.Success<PagedResult<ProductDto>, Error>(new PagedResult<ProductDto>
                 {
                     Items = pagedFromCache,
@@ -154,8 +160,7 @@ namespace AgroShop.Application.Services
             // for offset pagination and the DTO needs TotalCount regardless.
             var totalCount = await productsQuery.CountAsync(cancellationToken);
 
-            var pagedProducts = await productsQuery
-                .OrderBy(p => p.Name.Value)
+            var pagedProducts = await SortProducts(productsQuery, sortBy)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync(cancellationToken);
@@ -169,6 +174,22 @@ namespace AgroShop.Application.Services
                 PageSize = pageSize,
             });
         }
+
+        private static IOrderedQueryable<Product> SortProducts(IQueryable<Product> query, ProductSortBy sortBy) =>
+            sortBy switch
+            {
+                ProductSortBy.PriceAsc => query.OrderBy(p => p.Price.Value),
+                ProductSortBy.PriceDesc => query.OrderByDescending(p => p.Price.Value),
+                _ => query.OrderBy(p => p.Name.Value),
+            };
+
+        private static List<ProductDto> SortProductDtos(List<ProductDto> products, ProductSortBy sortBy) =>
+            sortBy switch
+            {
+                ProductSortBy.PriceAsc => products.OrderBy(p => p.Price).ToList(),
+                ProductSortBy.PriceDesc => products.OrderByDescending(p => p.Price).ToList(),
+                _ => products.OrderBy(p => p.Name).ToList(),
+            };
 
         public async Task<Result<ProductDto, Error>> GetProductByIdAsync(string id, bool asNoTracking = false, CancellationToken cancellationToken = default)
         {

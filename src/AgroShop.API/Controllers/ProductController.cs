@@ -1,5 +1,6 @@
 using AgroShop.Application.Dto.ProductDto;
 using AgroShop.Application.Interfaces;
+using AgroShop.Core.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroShop.API.Controllers
@@ -41,6 +42,7 @@ namespace AgroShop.API.Controllers
             [FromQuery] Guid[]? supplierIds,
             [FromQuery] int page = 1,
             [FromQuery] int pageSize = 20,
+            [FromQuery] ProductSortBy sortBy = ProductSortBy.NameAsc,
             CancellationToken cancellationToken = default)
         {
             var result = await _productService.GetProductsAsync(
@@ -49,6 +51,7 @@ namespace AgroShop.API.Controllers
                 supplierIds: supplierIds,
                 page: page,
                 pageSize: pageSize,
+                sortBy: sortBy,
                 cancellationToken: cancellationToken);
             return FromResult(result);
         }
