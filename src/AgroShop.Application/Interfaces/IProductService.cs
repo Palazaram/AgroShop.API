@@ -1,3 +1,4 @@
+using AgroShop.Application.Dto.Common;
 using AgroShop.Application.Dto.ProductDto;
 using AgroShop.Core.Shared;
 using CSharpFunctionalExtensions;
@@ -12,11 +13,15 @@ namespace AgroShop.Application.Interfaces
         // aren't cached). subCategoryIds is OR'd like the other two - a
         // category maps to several subcategories, so "all products in this
         // category" means passing all of its subcategory ids at once.
-        Task<Result<IEnumerable<ProductDto>, Error>> GetProductsAsync(
+        // page/pageSize are clamped inside the service regardless of what's
+        // passed in, so callers don't need to validate them first.
+        Task<Result<PagedResult<ProductDto>, Error>> GetProductsAsync(
             bool asNoTracking = false,
             IEnumerable<Guid>? subCategoryIds = null,
             IEnumerable<Guid>? attributeOptionIds = null,
             IEnumerable<Guid>? supplierIds = null,
+            int page = 1,
+            int pageSize = 20,
             CancellationToken cancellationToken = default);
         Task<Result<ProductDto, Error>> GetProductByIdAsync(string id, bool asNoTracking = false, CancellationToken cancellationToken = default);
         Task<UnitResult<Error>> AddAsync(AddProductDto productDto, CancellationToken cancellationToken);

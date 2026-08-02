@@ -39,12 +39,16 @@ namespace AgroShop.API.Controllers
             [FromQuery] Guid[]? subCategoryIds,
             [FromQuery] Guid[]? attributeOptionIds,
             [FromQuery] Guid[]? supplierIds,
-            CancellationToken cancellationToken)
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 20,
+            CancellationToken cancellationToken = default)
         {
             var result = await _productService.GetProductsAsync(
                 subCategoryIds: subCategoryIds,
                 attributeOptionIds: attributeOptionIds,
                 supplierIds: supplierIds,
+                page: page,
+                pageSize: pageSize,
                 cancellationToken: cancellationToken);
             return FromResult(result);
         }

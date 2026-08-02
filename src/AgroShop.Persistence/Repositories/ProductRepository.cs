@@ -15,7 +15,7 @@ namespace AgroShop.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync(bool asNoTracking = false, CancellationToken cancellationToken = default)
+        public IQueryable<Product> GetProductsQueryable(bool asNoTracking = false)
         {
             var productsQuery = _context.Products.IncludeAll();
 
@@ -24,7 +24,7 @@ namespace AgroShop.Persistence.Repositories
                 productsQuery = productsQuery.AsNoTracking();
             }
 
-            return await productsQuery.ToListAsync(cancellationToken);
+            return productsQuery;
         }
 
         public async Task<Product?> GetProductByIdAsync(Guid id, bool asNoTracking = false, CancellationToken cancellationToken = default)

@@ -1,3 +1,4 @@
+using AgroShop.Application.Dto.Common;
 using AgroShop.Application.Dto.ProductDto;
 using AgroShop.Application.Interfaces;
 using AgroShop.Application.Mappers;
@@ -6,6 +7,7 @@ using AgroShop.Core.Enums;
 using AgroShop.Core.Interfaces;
 using AgroShop.Core.Shared;
 using CSharpFunctionalExtensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgroShop.Application.Services
 {
@@ -16,6 +18,9 @@ namespace AgroShop.Application.Services
         // Backstop only - Add/Update/Delete below invalidate this explicitly.
         private const string ProductsCacheKey = "products:all";
         private static readonly TimeSpan ProductsCacheDuration = TimeSpan.FromMinutes(15);
+
+        private const int DefaultPageSize = 20;
+        private const int MaxPageSize = 100;
 
         private readonly IProductRepository _productRepository;
         private readonly ISubCategoryRepository _subCategoryRepository;
@@ -49,14 +54,22 @@ namespace AgroShop.Application.Services
             _cacheService = cacheService;
         }
 
-        public async Task<Result<IEnumerable<ProductDto>, Error>> GetProductsAsync(
+        public async Task<Result<PagedResult<ProductDto>, Error>> GetProductsAsync(
             bool asNoTracking = false,
             IEnumerable<Guid>? subCategoryIds = null,
             IEnumerable<Guid>? attributeOptionIds = null,
             IEnumerable<Guid>? supplierIds = null,
+            int page = 1,
+            int pageSize = DefaultPageSize,
             CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
+
+            // Clamped here, not just at the controller - this is the one
+            // place every caller (including future ones) actually goes
+            // through, so it's the only place that has to be trusted.
+            page = Math.Max(1, page);
+            pageSize = Math.Clamp(pageSize, 1, MaxPageSize);
 
             var subCategoryIdSet = subCategoryIds?.Distinct().ToHashSet() ?? [];
             var optionIds = attributeOptionIds?.Distinct().ToList() ?? [];
@@ -65,34 +78,49 @@ namespace AgroShop.Application.Services
 
             if (!isFiltered)
             {
-                var cached = await _cacheService.GetAsync<List<ProductDto>>(ProductsCacheKey, cancellationToken);
-                if (cached != null)
-                    return Result.Success<IEnumerable<ProductDto>, Error>(cached);
+                // The cache holds the full, sorted, unpaginated list - paging
+                // it happens in memory below instead of re-querying per page.
+                // That's still a real win: it's slicing a list already in
+                // the cache, not asking Postgres to redo the same scan+sort
+                // on every page request for the common "no filters" case.
+                var allProductDtos = await _cacheService.GetAsync<List<ProductDto>>(ProductsCacheKey, cancellationToken);
 
-                var allProducts = await _productRepository.GetProductsAsync(asNoTracking, cancellationToken);
-                var allProductDtos = allProducts.ToDto().OrderBy(p => p.Name).ToList();
+                if (allProductDtos == null)
+                {
+                    var allProducts = await _productRepository.GetProductsQueryable(asNoTracking)
+                        .OrderBy(p => p.Name.Value)
+                        .ToListAsync(cancellationToken);
 
-                await _cacheService.SetAsync(ProductsCacheKey, allProductDtos, ProductsCacheDuration, cancellationToken);
+                    allProductDtos = allProducts.ToDto().ToList();
+                    await _cacheService.SetAsync(ProductsCacheKey, allProductDtos, ProductsCacheDuration, cancellationToken);
+                }
 
-                return Result.Success<IEnumerable<ProductDto>, Error>(allProductDtos);
+                var pagedFromCache = allProductDtos.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                return Result.Success<PagedResult<ProductDto>, Error>(new PagedResult<ProductDto>
+                {
+                    Items = pagedFromCache,
+                    TotalCount = allProductDtos.Count,
+                    Page = page,
+                    PageSize = pageSize,
+                });
             }
 
             // Filtered results aren't cached under ProductsCacheKey - the
             // combinations of subCategoryIds + selected options are too varied
             // to key sensibly, and this path is already excluded from the
             // cache invalidated by Add/Update/Delete above.
-            var products = await _productRepository.GetProductsAsync(asNoTracking, cancellationToken);
+            var productsQuery = _productRepository.GetProductsQueryable(asNoTracking);
 
             // OR between selected subcategories - a category maps to several
             // subcategories, so "all products in this category" is passing
             // all of them at once, same checkbox-facet semantics as the two
             // filters below.
             if (subCategoryIdSet.Count > 0)
-                products = products.Where(p => subCategoryIdSet.Contains(p.SubCategoryId));
+                productsQuery = productsQuery.Where(p => subCategoryIdSet.Contains(p.SubCategoryId));
 
             // OR between selected suppliers, same checkbox-facet semantics as attributeOptionIds.
             if (supplierIdSet.Count > 0)
-                products = products.Where(p => supplierIdSet.Contains(p.SupplierId));
+                productsQuery = productsQuery.Where(p => supplierIdSet.Contains(p.SupplierId));
 
             if (optionIds.Count > 0)
             {
@@ -108,13 +136,38 @@ namespace AgroShop.Application.Services
                     .Select(g => g.ToHashSet())
                     .ToList();
 
-                products = products.Where(p =>
-                    optionGroupsByAttributeId.All(group =>
-                        p.ProductAttributeValues.Any(pav => group.Contains(pav.AttributeOptionId))));
+                // Chained .Where calls, not one .All() over the captured
+                // list - each individual predicate below is simple enough
+                // for EF to translate reliably; a single .All(group => ...)
+                // wrapping a captured List<HashSet<Guid>> is exactly the
+                // kind of shape that risks silently falling back to
+                // client-side evaluation instead of a SQL WHERE.
+                foreach (var group in optionGroupsByAttributeId)
+                    productsQuery = productsQuery
+                        .Where(p => p.ProductAttributeValues
+                        .Any(pav => group.Contains(pav.AttributeOptionId)));
             }
 
-            var filteredProductDtos = products.ToDto().OrderBy(p => p.Name).ToList();
-            return Result.Success<IEnumerable<ProductDto>, Error>(filteredProductDtos);
+            // Count after filters, before Skip/Take - this is a second round
+            // trip to the DB (there's no way to get a filtered count and a
+            // page of rows out of one query), but it's the standard shape
+            // for offset pagination and the DTO needs TotalCount regardless.
+            var totalCount = await productsQuery.CountAsync(cancellationToken);
+
+            var pagedProducts = await productsQuery
+                .OrderBy(p => p.Name.Value)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken);
+
+            var filteredProductDtos = pagedProducts.ToDto().ToList();
+            return Result.Success<PagedResult<ProductDto>, Error>(new PagedResult<ProductDto>
+            {
+                Items = filteredProductDtos,
+                TotalCount = totalCount,
+                Page = page,
+                PageSize = pageSize,
+            });
         }
 
         public async Task<Result<ProductDto, Error>> GetProductByIdAsync(string id, bool asNoTracking = false, CancellationToken cancellationToken = default)
@@ -319,13 +372,12 @@ namespace AgroShop.Application.Services
             if (subCategory == null)
                 return Result.Failure<ProductFiltersDto, Error>(Errors.SubCategory.SubCategoryIsNullById());
 
-            var products = (await _productRepository.GetProductsAsync(asNoTracking: true, cancellationToken))
-                .Where(p => p.SubCategoryId == subCategoryGuid)
-                .ToList();
+            var productsQuery = _productRepository.GetProductsQueryable(asNoTracking: true)
+                .Where(p => p.SubCategoryId == subCategoryGuid);
 
             // How many distinct products currently carry each supplier - same
             // "(81)" style counts as the attribute options below.
-            var supplierOptions = products
+            var supplierOptions = productsQuery
                 .GroupBy(p => p.SupplierId)
                 .Select(g => new ProductFilterSupplierOptionDto
                 {
@@ -348,7 +400,8 @@ namespace AgroShop.Application.Services
 
             // How many distinct products currently carry each option - the
             // "(81)" style counts next to each filter checkbox on the reference site.
-            var productCountsByOptionId = products
+            var productCountsByOptionId = productsQuery
+                .ToList()
                 .SelectMany(p => p.ProductAttributeValues.Select(pav => (pav.AttributeOptionId, p.Id)))
                 .GroupBy(x => x.AttributeOptionId)
                 .ToDictionary(g => g.Key, g => g.Select(x => x.Id).Distinct().Count());
