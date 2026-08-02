@@ -367,3 +367,5 @@ FodyWeavers.xsd
 
 # generated knowledge graph - regenerate locally with `graphify update .`
 graphify-out/
+
+scripts
