@@ -42,7 +42,7 @@ namespace AgroShop.API.Controllers
             [FromQuery] Guid[]? supplierIds,
             [FromQuery] int page = 1,
             [FromQuery] int pageSize = 20,
-            [FromQuery] ProductSortBy sortBy = ProductSortBy.NameAsc,
+            [FromQuery] ProductSortBy sortBy = ProductSortBy.PriceDesc,
             CancellationToken cancellationToken = default)
         {
             var result = await _productService.GetProductsAsync(

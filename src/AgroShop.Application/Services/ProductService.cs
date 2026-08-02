@@ -61,7 +61,7 @@ namespace AgroShop.Application.Services
             IEnumerable<Guid>? supplierIds = null,
             int page = 1,
             int pageSize = DefaultPageSize,
-            ProductSortBy sortBy = ProductSortBy.NameAsc,
+            ProductSortBy sortBy = ProductSortBy.PriceDesc,
             CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();

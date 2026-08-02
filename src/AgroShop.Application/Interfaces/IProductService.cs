@@ -23,7 +23,7 @@ namespace AgroShop.Application.Interfaces
             IEnumerable<Guid>? supplierIds = null,
             int page = 1,
             int pageSize = 20,
-            ProductSortBy sortBy = ProductSortBy.NameAsc,
+            ProductSortBy sortBy = ProductSortBy.PriceDesc,
             CancellationToken cancellationToken = default);
         Task<Result<ProductDto, Error>> GetProductByIdAsync(string id, bool asNoTracking = false, CancellationToken cancellationToken = default);
         Task<UnitResult<Error>> AddAsync(AddProductDto productDto, CancellationToken cancellationToken);
