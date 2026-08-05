@@ -515,6 +515,25 @@ namespace AgroShop.Application.Services
                 return query;
             }
 
+            // The "universe" of each facet: everything that exists inside the
+            // current subcategory scope, with none of the sibling facet
+            // selections applied. Options are reported from this list with a
+            // count of 0 when the active selections rule them out, instead of
+            // dropping out of the response entirely - that lets the sidebar
+            // grey them out in place ("supplier A simply has no 2 кг pack")
+            // rather than reshuffling the list under the user's cursor every
+            // time a neighbouring facet changes.
+            var scopeQuery = subCategoryIdSet.Count > 0
+                ? baseQuery.Where(p => subCategoryIdSet.Contains(p.SubCategoryId))
+                : baseQuery;
+
+            // Every filter applied, nothing excluded - this is the plain
+            // "how many match right now" number, not a facet.
+            var totalCount = await BuildQuery(includeSubCategory: true, includeSupplier: true, includePackage: true, excludeAttributeId: null)
+                .Select(p => p.Id)
+                .Distinct()
+                .CountAsync(cancellationToken);
+
             // SubCategory facet - ignores subCategoryIds itself, keeps supplier + package + attributes.
             var subCategoryOptions = await BuildQuery(includeSubCategory: false, includeSupplier: true, includePackage: true, excludeAttributeId: null)
                 .GroupBy(p => p.SubCategoryId)
@@ -526,41 +545,64 @@ namespace AgroShop.Application.Services
                 .ToListAsync(cancellationToken);
 
             // Supplier facet - ignores supplierIds itself, keeps subCategory + package + attributes.
-            var supplierOptions = await BuildQuery(includeSubCategory: true, includeSupplier: false, includePackage: true, excludeAttributeId: null)
+            var supplierCounts = await BuildQuery(includeSubCategory: true, includeSupplier: false, includePackage: true, excludeAttributeId: null)
                 .GroupBy(p => p.SupplierId)
-                .Select(g => new ProductFilterSupplierOptionDto
-                {
-                    SupplierId = g.Key,
-                    Name = g.First().Supplier.Name.Value,
-                    ProductCount = g.Select(p => p.Id).Distinct().Count(),
-                })
-                .OrderByDescending(o => o.ProductCount)
+                .Select(g => new { SupplierId = g.Key, Count = g.Select(p => p.Id).Distinct().Count() })
                 .ToListAsync(cancellationToken);
+
+            var supplierUniverse = await scopeQuery
+                .Select(p => new { p.SupplierId, Name = p.Supplier.Name.Value })
+                .Distinct()
+                .ToListAsync(cancellationToken);
+
+            var supplierCountById = supplierCounts.ToDictionary(c => c.SupplierId, c => c.Count);
+
+            // Ordered by name alone, deliberately not by count: counts change
+            // whenever a neighbouring facet is ticked, and ordering by them
+            // would reshuffle this whole list underneath the user every time.
+            // A stable, predictable order is worth more here than surfacing
+            // the most populated supplier first.
+            var supplierOptions = supplierUniverse
+                .Select(s => new ProductFilterSupplierOptionDto
+                {
+                    SupplierId = s.SupplierId,
+                    Name = s.Name,
+                    ProductCount = supplierCountById.GetValueOrDefault(s.SupplierId),
+                })
+                .OrderBy(o => o.Name)
+                .ToList();
 
             // Package facet - ignores packages itself, keeps subCategory +
             // supplier + attributes. Ordered by unit then ascending amount
             // (1 г, 5 г, 10 г, 1 кг, ...) rather than by count: sizes are a
             // scale the user reads along, so the natural order beats
             // popularity here, unlike the supplier list above.
-            var packageGroups = await BuildQuery(includeSubCategory: true, includeSupplier: true, includePackage: false, excludeAttributeId: null)
+            var packageCounts = await BuildQuery(includeSubCategory: true, includeSupplier: true, includePackage: false, excludeAttributeId: null)
                 .GroupBy(p => new { p.PackageSize.Amount, p.PackageSize.Unit })
                 .Select(g => new
                 {
                     g.Key.Amount,
                     g.Key.Unit,
-                    ProductCount = g.Select(p => p.Id).Distinct().Count(),
+                    Count = g.Select(p => p.Id).Distinct().Count(),
                 })
                 .ToListAsync(cancellationToken);
 
-            var packageOptions = packageGroups
-                .OrderBy(g => g.Unit)
-                .ThenBy(g => g.Amount)
-                .Select(g => new ProductFilterPackageOptionDto
+            var packageUniverse = await scopeQuery
+                .Select(p => new { p.PackageSize.Amount, p.PackageSize.Unit })
+                .Distinct()
+                .ToListAsync(cancellationToken);
+
+            var packageCountByKey = packageCounts.ToDictionary(c => BuildPackageKey(c.Amount, c.Unit), c => c.Count);
+
+            var packageOptions = packageUniverse
+                .OrderBy(p => p.Unit)
+                .ThenBy(p => p.Amount)
+                .Select(p => new ProductFilterPackageOptionDto
                 {
-                    Key = BuildPackageKey(g.Amount, g.Unit),
-                    PackageAmount = g.Amount,
-                    PackageUnit = g.Unit.ToString(),
-                    ProductCount = g.ProductCount,
+                    Key = BuildPackageKey(p.Amount, p.Unit),
+                    PackageAmount = p.Amount,
+                    PackageUnit = p.Unit.ToString(),
+                    ProductCount = packageCountByKey.GetValueOrDefault(BuildPackageKey(p.Amount, p.Unit)),
                 })
                 .ToList();
 
@@ -592,17 +634,34 @@ namespace AgroShop.Application.Services
                     .Select(g => new { AttributeOptionId = g.Key, Count = g.Select(x => x.ProductId).Distinct().Count() })
                     .ToListAsync(cancellationToken);
 
-                if (optionCounts.Count == 0)
+                // Universe for this attribute: every option actually carried by
+                // some product in scope, so options ruled out by a neighbouring
+                // facet report 0 instead of disappearing. An attribute whose
+                // options are on nothing in scope is skipped entirely - that's
+                // an attribute wired to the subcategory but never filled in,
+                // not a filter with nothing currently matching.
+                var optionUniverse = await scopeQuery
+                    .SelectMany(p => p.ProductAttributeValues
+                        .Where(pav => pav.AttributeOption.AttributeId == attribute.Id)
+                        .Select(pav => pav.AttributeOptionId))
+                    .Distinct()
+                    .ToListAsync(cancellationToken);
+
+                if (optionUniverse.Count == 0)
                     continue;
 
-                var options = optionCounts
-                    .Select(oc => new ProductFilterOptionDto
+                var optionCountById = optionCounts.ToDictionary(oc => oc.AttributeOptionId, oc => oc.Count);
+
+                // By value, not by count - same reasoning as the supplier list.
+                var options = optionUniverse
+                    .Where(optionsById.ContainsKey)
+                    .Select(optionId => new ProductFilterOptionDto
                     {
-                        AttributeOptionId = oc.AttributeOptionId,
-                        Value = optionsById[oc.AttributeOptionId].Value.Value,
-                        ProductCount = oc.Count,
+                        AttributeOptionId = optionId,
+                        Value = optionsById[optionId].Value.Value,
+                        ProductCount = optionCountById.GetValueOrDefault(optionId),
                     })
-                    .OrderByDescending(o => o.ProductCount)
+                    .OrderBy(o => o.Value)
                     .ToList();
 
                 attributeGroups.Add(new ProductFilterGroupDto
@@ -616,6 +675,7 @@ namespace AgroShop.Application.Services
 
             return Result.Success<ProductFacetsDto, Error>(new ProductFacetsDto
             {
+                TotalCount = totalCount,
                 SubCategoryOptions = subCategoryOptions,
                 SupplierOptions = supplierOptions,
                 PackageOptions = packageOptions,

@@ -7,6 +7,12 @@ namespace AgroShop.Application.Dto.ProductDto
     // instead of freezing at the count from before you picked anything.
     public class ProductFacetsDto
     {
+        // How many products match the filters exactly as passed in - the one
+        // number here that is NOT self-excluded. Lets a caller previewing an
+        // uncommitted selection ("Показати N товарів") get the count from this
+        // same request instead of a second round trip.
+        public int TotalCount { get; set; }
+
         public List<ProductFilterSubCategoryOptionDto> SubCategoryOptions { get; set; } = [];
         public List<ProductFilterSupplierOptionDto> SupplierOptions { get; set; } = [];
         public List<ProductFilterPackageOptionDto> PackageOptions { get; set; } = [];
