@@ -16,11 +16,15 @@ namespace AgroShop.Application.Interfaces
         // category" means passing all of its subcategory ids at once.
         // page/pageSize are clamped inside the service regardless of what's
         // passed in, so callers don't need to validate them first.
+        // packages holds opaque "amount:unit" keys as handed out by
+        // GetProductFacetsAsync's PackageOptions - callers pass them straight
+        // back rather than building them, and anything unparseable is ignored.
         Task<Result<PagedResult<ProductDto>, Error>> GetProductsAsync(
             bool asNoTracking = false,
             IEnumerable<Guid>? subCategoryIds = null,
             IEnumerable<Guid>? attributeOptionIds = null,
             IEnumerable<Guid>? supplierIds = null,
+            IEnumerable<string>? packages = null,
             int page = 1,
             int pageSize = 20,
             ProductSortBy sortBy = ProductSortBy.PriceDesc,
@@ -39,6 +43,7 @@ namespace AgroShop.Application.Interfaces
             IEnumerable<Guid>? subCategoryIds = null,
             IEnumerable<Guid>? attributeOptionIds = null,
             IEnumerable<Guid>? supplierIds = null,
+            IEnumerable<string>? packages = null,
             CancellationToken cancellationToken = default);
     }
 }

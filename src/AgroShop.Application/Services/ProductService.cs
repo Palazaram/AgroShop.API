@@ -6,8 +6,11 @@ using AgroShop.Core.Entities;
 using AgroShop.Core.Enums;
 using AgroShop.Core.Interfaces;
 using AgroShop.Core.Shared;
+using AgroShop.Core.ValueObjects;
 using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using System.Linq.Expressions;
 
 namespace AgroShop.Application.Services
 {
@@ -59,6 +62,7 @@ namespace AgroShop.Application.Services
             IEnumerable<Guid>? subCategoryIds = null,
             IEnumerable<Guid>? attributeOptionIds = null,
             IEnumerable<Guid>? supplierIds = null,
+            IEnumerable<string>? packages = null,
             int page = 1,
             int pageSize = DefaultPageSize,
             ProductSortBy sortBy = ProductSortBy.PriceDesc,
@@ -75,7 +79,11 @@ namespace AgroShop.Application.Services
             var subCategoryIdSet = subCategoryIds?.Distinct().ToHashSet() ?? [];
             var optionIds = attributeOptionIds?.Distinct().ToList() ?? [];
             var supplierIdSet = supplierIds?.Distinct().ToHashSet() ?? [];
-            var isFiltered = subCategoryIdSet.Count > 0 || optionIds.Count > 0 || supplierIdSet.Count > 0;
+            var packageSelections = ParsePackageKeys(packages);
+            var isFiltered = subCategoryIdSet.Count > 0
+                || optionIds.Count > 0
+                || supplierIdSet.Count > 0
+                || packageSelections.Count > 0;
 
             if (!isFiltered)
             {
@@ -128,6 +136,9 @@ namespace AgroShop.Application.Services
             if (supplierIdSet.Count > 0)
                 productsQuery = productsQuery.Where(p => supplierIdSet.Contains(p.SupplierId));
 
+            // OR between selected packaging sizes, same semantics again.
+            productsQuery = ApplyPackageFilter(productsQuery, packageSelections);
+
             if (optionIds.Count > 0)
             {
                 var allOptions = await _attributeOptionRepository.GetAttributeOptionsAsync(asNoTracking: true, cancellationToken);
@@ -173,6 +184,68 @@ namespace AgroShop.Application.Services
                 Page = page,
                 PageSize = pageSize,
             });
+        }
+
+        // Packaging is a single filter dimension backed by two columns, so it
+        // travels as one composite "amount:unit" key - 5 г and 5 кг are
+        // different options, and filtering the two columns independently would
+        // conflate them. Invariant culture on both sides so the decimal
+        // separator can't shift with the server's locale.
+        private static string BuildPackageKey(decimal amount, PackageUnit unit) =>
+            $"{amount.ToString(CultureInfo.InvariantCulture)}:{unit}";
+
+        // Anything unparseable is skipped rather than failing the request -
+        // these arrive straight from a URL, where a stale or hand-edited key
+        // should degrade to "filter not applied", not to an error page.
+        private static List<(decimal Amount, PackageUnit Unit)> ParsePackageKeys(IEnumerable<string>? keys)
+        {
+            var parsed = new List<(decimal, PackageUnit)>();
+            if (keys == null)
+                return parsed;
+
+            foreach (var key in keys.Distinct())
+            {
+                var separator = key?.LastIndexOf(':') ?? -1;
+                if (key == null || separator <= 0)
+                    continue;
+
+                if (decimal.TryParse(key[..separator], NumberStyles.Number, CultureInfo.InvariantCulture, out var amount)
+                    && Enum.TryParse<PackageUnit>(key[(separator + 1)..], out var unit))
+                    parsed.Add((amount, unit));
+            }
+
+            return parsed;
+        }
+
+        // EF can't translate Contains over a collection of tuples, and two
+        // independent Contains calls (one per column) would match the cross
+        // product instead - with 5 г and 1 кг selected, 5 кг would wrongly
+        // pass too. Built as an expression tree so it lands as a single
+        // "(amount = x AND unit = y) OR (...)" WHERE clause, which still
+        // composes with the grouping and paging applied after it.
+        private static IQueryable<Product> ApplyPackageFilter(
+            IQueryable<Product> query,
+            List<(decimal Amount, PackageUnit Unit)> packages)
+        {
+            if (packages.Count == 0)
+                return query;
+
+            var product = Expression.Parameter(typeof(Product), "p");
+            var packageSize = Expression.Property(product, nameof(Product.PackageSize));
+            var amount = Expression.Property(packageSize, nameof(PackageSize.Amount));
+            var unit = Expression.Property(packageSize, nameof(PackageSize.Unit));
+
+            Expression? predicate = null;
+            foreach (var (packageAmount, packageUnit) in packages)
+            {
+                var matches = Expression.AndAlso(
+                    Expression.Equal(amount, Expression.Constant(packageAmount)),
+                    Expression.Equal(unit, Expression.Constant(packageUnit)));
+
+                predicate = predicate == null ? matches : Expression.OrElse(predicate, matches);
+            }
+
+            return query.Where(Expression.Lambda<Func<Product, bool>>(predicate!, product));
         }
 
         private static IOrderedQueryable<Product> SortProducts(IQueryable<Product> query, ProductSortBy sortBy) =>
@@ -397,6 +470,7 @@ namespace AgroShop.Application.Services
             IEnumerable<Guid>? subCategoryIds = null,
             IEnumerable<Guid>? attributeOptionIds = null,
             IEnumerable<Guid>? supplierIds = null,
+            IEnumerable<string>? packages = null,
             CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -404,6 +478,7 @@ namespace AgroShop.Application.Services
             var subCategoryIdSet = subCategoryIds?.Distinct().ToHashSet() ?? [];
             var optionIds = attributeOptionIds?.Distinct().ToList() ?? [];
             var supplierIdSet = supplierIds?.Distinct().ToHashSet() ?? [];
+            var packageSelections = ParsePackageKeys(packages);
 
             var allOptions = await _attributeOptionRepository.GetAttributeOptionsAsync(asNoTracking: true, cancellationToken);
             var optionsById = allOptions.ToDictionary(o => o.Id);
@@ -416,7 +491,7 @@ namespace AgroShop.Application.Services
 
             var baseQuery = _productRepository.GetProductsQueryable(asNoTracking: true);
 
-            IQueryable<Product> BuildQuery(bool includeSubCategory, bool includeSupplier, Guid? excludeAttributeId)
+            IQueryable<Product> BuildQuery(bool includeSubCategory, bool includeSupplier, bool includePackage, Guid? excludeAttributeId)
             {
                 var query = baseQuery;
 
@@ -425,6 +500,9 @@ namespace AgroShop.Application.Services
 
                 if (includeSupplier && supplierIdSet.Count > 0)
                     query = query.Where(p => supplierIdSet.Contains(p.SupplierId));
+
+                if (includePackage)
+                    query = ApplyPackageFilter(query, packageSelections);
 
                 foreach (var (attributeId, group) in selectedGroupsByAttributeId)
                 {
@@ -437,8 +515,8 @@ namespace AgroShop.Application.Services
                 return query;
             }
 
-            // SubCategory facet - ignores subCategoryIds itself, keeps supplier + attributes.
-            var subCategoryOptions = await BuildQuery(includeSubCategory: false, includeSupplier: true, excludeAttributeId: null)
+            // SubCategory facet - ignores subCategoryIds itself, keeps supplier + package + attributes.
+            var subCategoryOptions = await BuildQuery(includeSubCategory: false, includeSupplier: true, includePackage: true, excludeAttributeId: null)
                 .GroupBy(p => p.SubCategoryId)
                 .Select(g => new ProductFilterSubCategoryOptionDto
                 {
@@ -447,8 +525,8 @@ namespace AgroShop.Application.Services
                 })
                 .ToListAsync(cancellationToken);
 
-            // Supplier facet - ignores supplierIds itself, keeps subCategory + attributes.
-            var supplierOptions = await BuildQuery(includeSubCategory: true, includeSupplier: false, excludeAttributeId: null)
+            // Supplier facet - ignores supplierIds itself, keeps subCategory + package + attributes.
+            var supplierOptions = await BuildQuery(includeSubCategory: true, includeSupplier: false, includePackage: true, excludeAttributeId: null)
                 .GroupBy(p => p.SupplierId)
                 .Select(g => new ProductFilterSupplierOptionDto
                 {
@@ -458,6 +536,33 @@ namespace AgroShop.Application.Services
                 })
                 .OrderByDescending(o => o.ProductCount)
                 .ToListAsync(cancellationToken);
+
+            // Package facet - ignores packages itself, keeps subCategory +
+            // supplier + attributes. Ordered by unit then ascending amount
+            // (1 г, 5 г, 10 г, 1 кг, ...) rather than by count: sizes are a
+            // scale the user reads along, so the natural order beats
+            // popularity here, unlike the supplier list above.
+            var packageGroups = await BuildQuery(includeSubCategory: true, includeSupplier: true, includePackage: false, excludeAttributeId: null)
+                .GroupBy(p => new { p.PackageSize.Amount, p.PackageSize.Unit })
+                .Select(g => new
+                {
+                    g.Key.Amount,
+                    g.Key.Unit,
+                    ProductCount = g.Select(p => p.Id).Distinct().Count(),
+                })
+                .ToListAsync(cancellationToken);
+
+            var packageOptions = packageGroups
+                .OrderBy(g => g.Unit)
+                .ThenBy(g => g.Amount)
+                .Select(g => new ProductFilterPackageOptionDto
+                {
+                    Key = BuildPackageKey(g.Amount, g.Unit),
+                    PackageAmount = g.Amount,
+                    PackageUnit = g.Unit.ToString(),
+                    ProductCount = g.ProductCount,
+                })
+                .ToList();
 
             // Which attributes are even relevant: wired to any subcategory
             // currently in scope (or to any subcategory at all, if nothing's
@@ -477,7 +582,7 @@ namespace AgroShop.Application.Services
                 // selected attribute group still applies, subCategory/
                 // supplier still apply, only this attribute's own
                 // selection is left out.
-                var scopedQuery = BuildQuery(includeSubCategory: true, includeSupplier: true, excludeAttributeId: attribute.Id);
+                var scopedQuery = BuildQuery(includeSubCategory: true, includeSupplier: true, includePackage: true, excludeAttributeId: attribute.Id);
 
                 var optionCounts = await scopedQuery
                     .SelectMany(p => p.ProductAttributeValues
@@ -513,6 +618,7 @@ namespace AgroShop.Application.Services
             {
                 SubCategoryOptions = subCategoryOptions,
                 SupplierOptions = supplierOptions,
+                PackageOptions = packageOptions,
                 AttributeGroups = attributeGroups,
             });
         }

@@ -40,6 +40,7 @@ namespace AgroShop.API.Controllers
             [FromQuery] Guid[]? subCategoryIds,
             [FromQuery] Guid[]? attributeOptionIds,
             [FromQuery] Guid[]? supplierIds,
+            [FromQuery] string[]? packages,
             [FromQuery] int page = 1,
             [FromQuery] int pageSize = 20,
             [FromQuery] ProductSortBy sortBy = ProductSortBy.PriceDesc,
@@ -49,6 +50,7 @@ namespace AgroShop.API.Controllers
                 subCategoryIds: subCategoryIds,
                 attributeOptionIds: attributeOptionIds,
                 supplierIds: supplierIds,
+                packages: packages,
                 page: page,
                 pageSize: pageSize,
                 sortBy: sortBy,
@@ -68,12 +70,14 @@ namespace AgroShop.API.Controllers
             [FromQuery] Guid[]? subCategoryIds,
             [FromQuery] Guid[]? attributeOptionIds,
             [FromQuery] Guid[]? supplierIds,
+            [FromQuery] string[]? packages,
             CancellationToken cancellationToken)
         {
             var result = await _productService.GetProductFacetsAsync(
                 subCategoryIds: subCategoryIds,
                 attributeOptionIds: attributeOptionIds,
                 supplierIds: supplierIds,
+                packages: packages,
                 cancellationToken: cancellationToken);
             return FromResult(result);
         }

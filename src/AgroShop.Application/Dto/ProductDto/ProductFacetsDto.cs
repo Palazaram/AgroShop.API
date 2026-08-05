@@ -9,6 +9,7 @@ namespace AgroShop.Application.Dto.ProductDto
     {
         public List<ProductFilterSubCategoryOptionDto> SubCategoryOptions { get; set; } = [];
         public List<ProductFilterSupplierOptionDto> SupplierOptions { get; set; } = [];
+        public List<ProductFilterPackageOptionDto> PackageOptions { get; set; } = [];
         public List<ProductFilterGroupDto> AttributeGroups { get; set; } = [];
     }
 }
