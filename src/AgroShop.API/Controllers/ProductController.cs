@@ -73,6 +73,7 @@ namespace AgroShop.API.Controllers
             [FromQuery] Guid[]? attributeOptionIds,
             [FromQuery] Guid[]? supplierIds,
             [FromQuery] string[]? packages,
+            [FromQuery] string? search,
             CancellationToken cancellationToken)
         {
             var result = await _productService.GetProductFacetsAsync(
@@ -80,6 +81,7 @@ namespace AgroShop.API.Controllers
                 attributeOptionIds: attributeOptionIds,
                 supplierIds: supplierIds,
                 packages: packages,
+                search: search,
                 cancellationToken: cancellationToken);
             return FromResult(result);
         }

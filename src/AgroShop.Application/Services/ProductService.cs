@@ -541,6 +541,7 @@ namespace AgroShop.Application.Services
             IEnumerable<Guid>? attributeOptionIds = null,
             IEnumerable<Guid>? supplierIds = null,
             IEnumerable<string>? packages = null,
+            string? search = null,
             CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -549,6 +550,7 @@ namespace AgroShop.Application.Services
             var optionIds = attributeOptionIds?.Distinct().ToList() ?? [];
             var supplierIdSet = supplierIds?.Distinct().ToHashSet() ?? [];
             var packageSelections = ParsePackageKeys(packages);
+            var searchTerms = ParseSearchQuery(search);
 
             var allOptions = await _attributeOptionRepository.GetAttributeOptionsAsync(asNoTracking: true, cancellationToken);
             var optionsById = allOptions.ToDictionary(o => o.Id);
@@ -563,7 +565,10 @@ namespace AgroShop.Application.Services
 
             IQueryable<Product> BuildQuery(bool includeSubCategory, bool includeSupplier, bool includePackage, Guid? excludeAttributeId)
             {
-                var query = baseQuery;
+                // Search first, unconditionally: it's the scope every facet
+                // lives inside, so unlike the dimensions below it has no
+                // include flag and is never self-excluded.
+                var query = ApplySearchFilter(baseQuery, searchTerms);
 
                 if (includeSubCategory && subCategoryIdSet.Count > 0)
                     query = query.Where(p => subCategoryIdSet.Contains(p.SubCategoryId));
@@ -593,9 +598,15 @@ namespace AgroShop.Application.Services
             // grey them out in place ("supplier A simply has no 2 кг pack")
             // rather than reshuffling the list under the user's cursor every
             // time a neighbouring facet changes.
-            var scopeQuery = subCategoryIdSet.Count > 0
-                ? baseQuery.Where(p => subCategoryIdSet.Contains(p.SubCategoryId))
-                : baseQuery;
+            // Search joins the universe too: an option with no match inside
+            // the search scope disappears from the response rather than
+            // reporting zero - a search is a navigation act, like entering a
+            // category, and the sidebar is expected to describe the new world.
+            var scopeQuery = ApplySearchFilter(
+                subCategoryIdSet.Count > 0
+                    ? baseQuery.Where(p => subCategoryIdSet.Contains(p.SubCategoryId))
+                    : baseQuery,
+                searchTerms);
 
             // Every filter applied, nothing excluded - this is the plain
             // "how many match right now" number, not a facet.

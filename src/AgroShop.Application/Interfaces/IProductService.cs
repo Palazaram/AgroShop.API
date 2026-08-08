@@ -45,11 +45,17 @@ namespace AgroShop.Application.Interfaces
         // its own dimension, which is deliberately ignored so its own
         // counts reflect "if I additionally picked this" rather than
         // freezing at whatever was true before anything was selected.
+        //
+        // search is a SCOPE, not a facet: it applies to every dimension, the
+        // option universe and TotalCount alike, and is never self-excluded -
+        // options with no match inside the search disappear from the
+        // response entirely. Same matching semantics as GetProductsAsync.
         Task<Result<ProductFacetsDto, Error>> GetProductFacetsAsync(
             IEnumerable<Guid>? subCategoryIds = null,
             IEnumerable<Guid>? attributeOptionIds = null,
             IEnumerable<Guid>? supplierIds = null,
             IEnumerable<string>? packages = null,
+            string? search = null,
             CancellationToken cancellationToken = default);
     }
 }
