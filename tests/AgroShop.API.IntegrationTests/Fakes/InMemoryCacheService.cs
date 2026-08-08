@@ -27,5 +27,11 @@ namespace AgroShop.API.IntegrationTests.Fakes
             _store.TryRemove(key, out _);
             return Task.CompletedTask;
         }
+
+        // Test-only escape hatch, not part of ICacheService: seeding goes
+        // straight through the DbContext, bypassing the services' cache
+        // invalidation, so each test class flushes the cache after seeding
+        // to guarantee no listing serves a pre-seed answer.
+        public void Clear() => _store.Clear();
     }
 }

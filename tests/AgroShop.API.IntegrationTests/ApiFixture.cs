@@ -13,10 +13,9 @@ namespace AgroShop.API.IntegrationTests
 {
     // Boots the real API in-process against a disposable PostgreSQL from
     // Testcontainers. One container and one host per test collection - tests
-    // share the database, so each test must seed distinct data and assert on
-    // what it seeded, not on global totals it doesn't own... with one
-    // exception: the very first collection to run gets a genuinely empty
-    // database, which the smoke test relies on for its paging assertions.
+    // share the database, so each test must seed distinct data (unique SKUs,
+    // unique name tokens) and assert on what it seeded, never on global
+    // totals it doesn't own.
     //
     // Same major Postgres version as docker-compose.yml so migrations and
     // query translation are exercised against what production-like dev runs.
@@ -44,6 +43,13 @@ namespace AgroShop.API.IntegrationTests
                 services.AddSingleton<ICacheService, InMemoryCacheService>();
             });
         }
+
+        // The cast is safe by construction - ConfigureWebHost above is the
+        // only place ICacheService gets registered for tests. Called by test
+        // classes after seeding, because seeding bypasses the services and
+        // therefore their cache invalidation.
+        public void ClearCache() =>
+            ((InMemoryCacheService)Services.GetRequiredService<ICacheService>()).Clear();
 
         // Explicit implementations: WebApplicationFactory already exposes its
         // own DisposeAsync, and xunit's lifetime methods would collide with it.

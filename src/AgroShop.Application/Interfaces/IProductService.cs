@@ -19,12 +19,18 @@ namespace AgroShop.Application.Interfaces
         // packages holds opaque "amount:unit" keys as handed out by
         // GetProductFacetsAsync's PackageOptions - callers pass them straight
         // back rather than building them, and anything unparseable is ignored.
+        //
+        // search matches every whitespace-separated word against the product
+        // name (any order) OR the whole query against the SKU, both
+        // case-insensitively; trimmed queries under 2 characters degrade to
+        // "no search", never to an error.
         Task<Result<PagedResult<ProductDto>, Error>> GetProductsAsync(
             bool asNoTracking = false,
             IEnumerable<Guid>? subCategoryIds = null,
             IEnumerable<Guid>? attributeOptionIds = null,
             IEnumerable<Guid>? supplierIds = null,
             IEnumerable<string>? packages = null,
+            string? search = null,
             int page = 1,
             int pageSize = 20,
             ProductSortBy sortBy = ProductSortBy.PriceDesc,

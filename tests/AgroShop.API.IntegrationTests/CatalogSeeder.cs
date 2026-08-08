@@ -1,6 +1,7 @@
 using AgroShop.Core.Entities;
 using AgroShop.Core.Enums;
 using AgroShop.Persistence.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AgroShop.API.IntegrationTests
@@ -11,9 +12,11 @@ namespace AgroShop.API.IntegrationTests
     // so the data is honest, without dragging auth and multipart uploads
     // into read-path tests.
     //
-    // Seeding bypasses the services, so it also bypasses their cache
-    // invalidation: always seed BEFORE the first listing request of a test,
-    // never after, or the listing may serve a cached pre-seed answer.
+    // Each seeder is idempotent (get-or-create by SKU): xunit builds a new
+    // test-class instance per fact, so a class's InitializeAsync runs once
+    // per test, against a database shared by the whole collection. Callers
+    // must flush the cache afterwards (ApiFixture.ClearCache) because
+    // seeding bypasses the services' cache invalidation.
     public static class CatalogSeeder
     {
         public sealed record SeededCatalog(
@@ -22,29 +25,110 @@ namespace AgroShop.API.IntegrationTests
             Supplier Supplier,
             IReadOnlyList<Product> Products);
 
+        public sealed record SearchCatalog(
+            Supplier CucumberSupplier,
+            Supplier ZucchiniSupplier,
+            Product MercuryEarly,
+            Product MercuryLate,
+            Product Jupiter,
+            Product DescriptionTrap);
+
         public static async Task<SeededCatalog> SeedBasicCatalogAsync(ApiFixture api)
         {
             using var scope = api.Services.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<AgroShopDbContext>();
 
-            var category = Category.Create("Насіння", "/images/categories/seeds.jpg").Value;
-            var subCategory = SubCategory.Create("Насіння томатів", category.Id).Value;
-            var supplier = Supplier.Create("Сімейний сад").Value;
+            var skus = new[] { "TOM-CHERRY-1", "TOM-DEBARAO-1", "TOM-SANMARZ-1" };
+            var existing = await LoadBySkusAsync(db, skus);
+            if (existing.Count == skus.Length)
+            {
+                var subCategory = await db.Set<SubCategory>().FirstAsync(sc => sc.Id == existing[0].SubCategoryId);
+                var category = await db.Set<Category>().FirstAsync(c => c.Id == subCategory.CategoryId);
+                var supplier = await db.Set<Supplier>().FirstAsync(s => s.Id == existing[0].SupplierId);
+                return new SeededCatalog(category, subCategory, supplier, existing);
+            }
+
+            var newCategory = Category.Create("Насіння", "/images/categories/seeds.jpg").Value;
+            var newSubCategory = SubCategory.Create("Насіння томатів", newCategory.Id).Value;
+            var newSupplier = Supplier.Create("Сімейний сад").Value;
 
             var products = new List<Product>
             {
-                CreateProduct("Насіння томату Черрі", "TOM-CHERRY-1", 45.50m, subCategory.Id, supplier.Id),
-                CreateProduct("Насіння томату Де Барао", "TOM-DEBARAO-1", 38.00m, subCategory.Id, supplier.Id),
-                CreateProduct("Насіння томату Сан Марцано", "TOM-SANMARZ-1", 52.25m, subCategory.Id, supplier.Id),
+                CreateProduct("Насіння томату Черрі", skus[0], 45.50m, newSubCategory.Id, newSupplier.Id),
+                CreateProduct("Насіння томату Де Барао", skus[1], 38.00m, newSubCategory.Id, newSupplier.Id),
+                CreateProduct("Насіння томату Сан Марцано", skus[2], 52.25m, newSubCategory.Id, newSupplier.Id),
             };
 
-            db.Add(category);
-            db.Add(subCategory);
-            db.Add(supplier);
+            db.Add(newCategory);
+            db.Add(newSubCategory);
+            db.Add(newSupplier);
             db.AddRange(products);
             await db.SaveChangesAsync();
 
-            return new SeededCatalog(category, subCategory, supplier, products);
+            return new SeededCatalog(newCategory, newSubCategory, newSupplier, products);
+        }
+
+        // A world for the search tests, built from name tokens ("меркурій",
+        // "юпітер", "огірок", "кабачок") that no other seeder uses, so
+        // assertions can count exact matches in the shared database. The
+        // trap product carries "меркурій" only in its description - the one
+        // field search must NOT match.
+        public static async Task<SearchCatalog> SeedSearchCatalogAsync(ApiFixture api)
+        {
+            using var scope = api.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<AgroShopDbContext>();
+
+            var skus = new[] { "CUC-MERC-01", "CUC-MERC-02", "CUC-JUP-01", "ZUC-GRIB-01" };
+            var existing = await LoadBySkusAsync(db, skus);
+            if (existing.Count == skus.Length)
+            {
+                var suppliers = await db.Set<Supplier>()
+                    .Where(s => existing.Select(p => p.SupplierId).Contains(s.Id))
+                    .ToListAsync();
+                return new SearchCatalog(
+                    suppliers.First(s => s.Id == existing[0].SupplierId),
+                    suppliers.First(s => s.Id == existing[3].SupplierId),
+                    existing[0], existing[1], existing[2], existing[3]);
+            }
+
+            var category = Category.Create("Городина", "/images/categories/vegetables.jpg").Value;
+            var subCategory = SubCategory.Create("Огірки та кабачки", category.Id).Value;
+            var cucumberSupplier = Supplier.Create("Городина трейд").Value;
+            var zucchiniSupplier = Supplier.Create("Овочевий дім").Value;
+
+            var mercuryEarly = CreateProduct("Огірок Меркурій щедрий", skus[0], 10.00m, subCategory.Id, cucumberSupplier.Id);
+            var mercuryLate = CreateProduct("Меркурій огірок пізній", skus[1], 20.00m, subCategory.Id, cucumberSupplier.Id);
+            var jupiter = CreateProduct("Огірок Юпітер ранній", skus[2], 30.00m, subCategory.Id, zucchiniSupplier.Id);
+            var descriptionTrap = Product.Create(
+                "Кабачок Грибовський золотий",
+                "У назві цього товару слова меркурій немає, воно згадується лише в описі для перевірки пошуку.",
+                40.00m,
+                skus[3],
+                stockQuantity: 50,
+                packageAmount: 5,
+                PackageUnit.Gram,
+                subCategory.Id,
+                zucchiniSupplier.Id,
+                "/images/products/seeded.jpg").Value;
+
+            db.Add(category);
+            db.Add(subCategory);
+            db.Add(cucumberSupplier);
+            db.Add(zucchiniSupplier);
+            db.AddRange(mercuryEarly, mercuryLate, jupiter, descriptionTrap);
+            await db.SaveChangesAsync();
+
+            return new SearchCatalog(cucumberSupplier, zucchiniSupplier, mercuryEarly, mercuryLate, jupiter, descriptionTrap);
+        }
+
+        private static async Task<List<Product>> LoadBySkusAsync(AgroShopDbContext db, string[] skus)
+        {
+            var products = await db.Set<Product>()
+                .Where(p => skus.Contains(p.Sku.Value))
+                .ToListAsync();
+
+            // Callers rely on positional identity, so return in the skus order.
+            return products.OrderBy(p => Array.IndexOf(skus, p.Sku.Value)).ToList();
         }
 
         private static Product CreateProduct(string name, string sku, decimal price, Guid subCategoryId, Guid supplierId) =>

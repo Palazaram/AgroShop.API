@@ -11,6 +11,7 @@ using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace AgroShop.Application.Services
 {
@@ -63,6 +64,7 @@ namespace AgroShop.Application.Services
             IEnumerable<Guid>? attributeOptionIds = null,
             IEnumerable<Guid>? supplierIds = null,
             IEnumerable<string>? packages = null,
+            string? search = null,
             int page = 1,
             int pageSize = DefaultPageSize,
             ProductSortBy sortBy = ProductSortBy.PriceDesc,
@@ -80,10 +82,12 @@ namespace AgroShop.Application.Services
             var optionIds = attributeOptionIds?.Distinct().ToList() ?? [];
             var supplierIdSet = supplierIds?.Distinct().ToHashSet() ?? [];
             var packageSelections = ParsePackageKeys(packages);
+            var searchTerms = ParseSearchQuery(search);
             var isFiltered = subCategoryIdSet.Count > 0
                 || optionIds.Count > 0
                 || supplierIdSet.Count > 0
-                || packageSelections.Count > 0;
+                || packageSelections.Count > 0
+                || searchTerms != null;
 
             if (!isFiltered)
             {
@@ -138,6 +142,8 @@ namespace AgroShop.Application.Services
 
             // OR between selected packaging sizes, same semantics again.
             productsQuery = ApplyPackageFilter(productsQuery, packageSelections);
+
+            productsQuery = ApplySearchFilter(productsQuery, searchTerms);
 
             if (optionIds.Count > 0)
             {
@@ -246,6 +252,70 @@ namespace AgroShop.Application.Services
             }
 
             return query.Where(Expression.Lambda<Func<Product, bool>>(predicate!, product));
+        }
+
+        // Trimmed queries under 2 characters aren't an error - they arrive
+        // straight from a URL, and "too short to mean anything" should read
+        // as "no search", exactly like the unparseable package keys above.
+        private static (string[] Words, string Whole)? ParseSearchQuery(string? search)
+        {
+            if (string.IsNullOrWhiteSpace(search))
+                return null;
+
+            var whole = search.Trim();
+            if (whole.Length < 2)
+                return null;
+
+            return (whole.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries), whole);
+        }
+
+        // %, _ and \ are LIKE metacharacters - a shopper typing "5%" means a
+        // literal percent sign, not "5 followed by anything".
+        private static string EscapeLikePattern(string value) =>
+            value.Replace("\\", "\\\\").Replace("%", "\\%").Replace("_", "\\_");
+
+        private static readonly MethodInfo ILikeWithEscape = typeof(NpgsqlDbFunctionsExtensions).GetMethod(
+            nameof(NpgsqlDbFunctionsExtensions.ILike),
+            [typeof(DbFunctions), typeof(string), typeof(string), typeof(string)])!;
+
+        // A product matches when every word appears in its name (any order)
+        // OR the whole query is a substring of its SKU - words are how people
+        // search names, but a SKU is a single token they paste verbatim.
+        //
+        // Built as an expression tree for the same reason as
+        // ApplyPackageFilter: the word list is dynamic, and the AND-chain has
+        // to sit inside an OR with the SKU match - chained .Where calls can
+        // only express top-level ANDs, and .All() over a captured list is the
+        // shape that risks silent client-side evaluation. ILIKE rather than
+        // ToLower().Contains() so case-folding (Cyrillic included) happens in
+        // Postgres.
+        private static IQueryable<Product> ApplySearchFilter(
+            IQueryable<Product> query,
+            (string[] Words, string Whole)? searchTerms)
+        {
+            if (searchTerms == null)
+                return query;
+
+            var (words, whole) = searchTerms.Value;
+
+            var product = Expression.Parameter(typeof(Product), "p");
+            var efFunctions = Expression.Property(null, typeof(EF), nameof(EF.Functions));
+            var name = Expression.Property(Expression.Property(product, nameof(Product.Name)), nameof(ProductName.Value));
+            var sku = Expression.Property(Expression.Property(product, nameof(Product.Sku)), nameof(Sku.Value));
+
+            Expression Matches(Expression column, string term) => Expression.Call(
+                ILikeWithEscape,
+                efFunctions,
+                column,
+                Expression.Constant($"%{EscapeLikePattern(term)}%"),
+                Expression.Constant("\\"));
+
+            var nameMatchesEveryWord = words
+                .Select(word => Matches(name, word))
+                .Aggregate(Expression.AndAlso);
+
+            var predicate = Expression.OrElse(nameMatchesEveryWord, Matches(sku, whole));
+            return query.Where(Expression.Lambda<Func<Product, bool>>(predicate, product));
         }
 
         private static IOrderedQueryable<Product> SortProducts(IQueryable<Product> query, ProductSortBy sortBy) =>
