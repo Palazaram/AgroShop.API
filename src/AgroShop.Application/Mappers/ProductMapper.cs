@@ -1,4 +1,4 @@
-using AgroShop.Application.Dto.ProductDto;
+﻿using AgroShop.Application.Dto.ProductDto;
 using AgroShop.Core.Entities;
 
 namespace AgroShop.Application.Mappers
@@ -22,6 +22,12 @@ namespace AgroShop.Application.Mappers
                 ImagePath = product.ImagePath,
                 CreatedAtUtc = product.CreatedAtUtc,
                 UpdatedUtc = product.UpdatedUtc,
+                // Safe on every path that reaches this mapper: both the listing
+                // queryable and the by-id query go through IncludeAll, which
+                // loads SubCategory.Category, and lazy loading is off - so this
+                // adds no queries and can't hit a null navigation.
+                CategoryId = product.SubCategory.CategoryId,
+                CategoryName = product.SubCategory.Category.Name.Value,
                 SubCategoryId = product.SubCategoryId,
                 SubCategoryName = product.SubCategory.Name.Value,
                 SupplierId = product.SupplierId,

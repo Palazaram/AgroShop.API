@@ -511,6 +511,11 @@ namespace AgroShop.Application.Services
                 ImagePath = product.ImagePath,
                 CreatedAtUtc = product.CreatedAtUtc,
                 UpdatedUtc = product.UpdatedUtc,
+                // Same source as the two lines below it: subCategory was fetched
+                // through IncludeAll, which loads its Category, so this stays
+                // on the already-materialised graph like the rest of this DTO.
+                CategoryId = subCategory.CategoryId,
+                CategoryName = subCategory.Category.Name.Value,
                 SubCategoryId = product.SubCategoryId,
                 SubCategoryName = subCategory.Name.Value,
                 SupplierId = product.SupplierId,
