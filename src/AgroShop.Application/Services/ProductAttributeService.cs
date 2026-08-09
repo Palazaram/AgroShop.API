@@ -1,4 +1,4 @@
-using AgroShop.Application.Dto.ProductAttributeDto;
+﻿using AgroShop.Application.Dto.ProductAttributeDto;
 using AgroShop.Application.Interfaces;
 using AgroShop.Application.Mappers;
 using AgroShop.Core.Entities;
@@ -62,7 +62,7 @@ namespace AgroShop.Application.Services
             var productAttribute = await _productAttributeRepository.GetProductAttributeByIdAsync(productAttributeId, asNoTracking, cancellationToken);
 
             if (productAttribute == null)
-                return Result.Failure<ProductAttributeDto, Error>(Errors.ProductAttribute.ProductAttributeIsNullById());
+                return Result.Failure<ProductAttributeDto, Error>(Errors.ProductAttribute.ProductAttributeNotFoundById());
 
             return Result.Success<ProductAttributeDto, Error>(productAttribute.ToDto());
         }
@@ -73,11 +73,11 @@ namespace AgroShop.Application.Services
 
             var subCategory = await _subCategoryRepository.GetSubCategoryByIdAsync(productAttributeDto.SubCategoryId, cancellationToken: cancellationToken);
             if (subCategory == null)
-                return UnitResult.Failure(Errors.SubCategory.SubCategoryIsNullById());
+                return UnitResult.Failure(Errors.SubCategory.SubCategoryReferenceNotFound());
 
             var attribute = await _attributeRepository.GetAttributeByIdAsync(productAttributeDto.AttributeId, cancellationToken: cancellationToken);
             if (attribute == null)
-                return UnitResult.Failure(Errors.Attribute.AttributeIsNullById());
+                return UnitResult.Failure(Errors.Attribute.AttributeReferenceNotFound());
 
             var productAttributeResult = ProductAttribute.Create(productAttributeDto.SubCategoryId, productAttributeDto.AttributeId);
             if (productAttributeResult.IsFailure)
@@ -97,7 +97,7 @@ namespace AgroShop.Application.Services
 
             var productAttribute = await _productAttributeRepository.GetProductAttributeByIdAsync(productAttributeId, cancellationToken: cancellationToken);
             if (productAttribute == null)
-                return UnitResult.Failure(Errors.ProductAttribute.ProductAttributeIsNullById());
+                return UnitResult.Failure(Errors.ProductAttribute.ProductAttributeNotFoundById());
 
             _productAttributeRepository.Delete(productAttribute);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

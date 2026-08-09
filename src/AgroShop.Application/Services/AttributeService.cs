@@ -1,4 +1,4 @@
-using AgroShop.Application.Dto.AttributeDto;
+﻿using AgroShop.Application.Dto.AttributeDto;
 using AgroShop.Application.Interfaces;
 using AgroShop.Application.Mappers;
 using AgroShop.Core.Interfaces;
@@ -53,7 +53,7 @@ namespace AgroShop.Application.Services
             var attribute = await _attributeRepository.GetAttributeByIdAsync(attributeId, asNoTracking, cancellationToken);
 
             if (attribute == null)
-                return Result.Failure<AttributeDto, Error>(Errors.Attribute.AttributeIsNullById());
+                return Result.Failure<AttributeDto, Error>(Errors.Attribute.AttributeNotFoundById());
 
             return Result.Success<AttributeDto, Error>(attribute.ToDto());
         }
@@ -80,7 +80,7 @@ namespace AgroShop.Application.Services
 
             var attribute = await _attributeRepository.GetAttributeByIdAsync(attributeId, cancellationToken: cancellationToken);
             if (attribute == null)
-                return Result.Failure<AttributeDto, Error>(Errors.Attribute.AttributeIsNullById());
+                return Result.Failure<AttributeDto, Error>(Errors.Attribute.AttributeNotFoundById());
 
             var updateResult = attribute.Update(attributeDto.Name);
             if (updateResult.IsFailure)
@@ -100,7 +100,7 @@ namespace AgroShop.Application.Services
 
             var attribute = await _attributeRepository.GetAttributeByIdAsync(attributeId, cancellationToken: cancellationToken);
             if (attribute == null)
-                return UnitResult.Failure(Errors.Attribute.AttributeIsNullById());
+                return UnitResult.Failure(Errors.Attribute.AttributeNotFoundById());
 
             _attributeRepository.Delete(attribute);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

@@ -31,18 +31,38 @@
 
         public static class User 
         {
+            // Stays a validation error rather than joining the NotFound family
+            // below: it fires in the refresh-token flow, where no user resource
+            // was addressed - the token parsed fine but the user behind it is
+            // gone. Answering 404 there would claim the endpoint is missing.
             public static Error UserIsNullById() => Error.Validation("user.is.null.by.id", "Користувача з даним ID не знайдено");
         }
 
+        // Two shapes of "it isn't there", deliberately kept apart across every
+        // entity below, because they answer different questions and so deserve
+        // different statuses:
+        //
+        //   NotFoundById      - the resource the caller ADDRESSED is missing
+        //                       (GET/PUT/DELETE /thing/{id}) -> 404.
+        //   ReferenceNotFound - a field in the caller's PAYLOAD points at
+        //                       something that doesn't exist (POST /product
+        //                       with an unknown subCategoryId) -> 400. A 404
+        //                       here would claim /product itself is missing,
+        //                       when the endpoint is fine and the body is not.
+        //
+        // The reference messages are also phrased for whoever filled the form,
+        // rather than repeating the id-shaped wording of the addressed case.
         public static class Category
         {
-            public static Error CategoryIsNullById() => Error.Validation("category.is.null.by.id", "Категорію з даним ID не знайдено");
+            public static Error CategoryNotFoundById() => Error.NotFound("category.not.found.by.id", "Категорію з даним ID не знайдено");
+            public static Error CategoryReferenceNotFound() => Error.Validation("category.reference.not.found", "Обраної категорії не існує");
         }
 
         public static class SubCategory
         {
-            public static Error SubCategoryIsNullById() => Error.Validation("sub.category.is.null.by.id", "Підкатегорію з даним ID не знайдено");
-            public static Error SubCategoryNameAlreadyExistsInCategory() => Error.Validation("sub.category.name.already.exists.in.category", "Підкатегорія з такою назвою вже існує в цій категорії");
+            public static Error SubCategoryNotFoundById() => Error.NotFound("sub.category.not.found.by.id", "Підкатегорію з даним ID не знайдено");
+            public static Error SubCategoryReferenceNotFound() => Error.Validation("sub.category.reference.not.found", "Обраної підкатегорії не існує");
+            public static Error SubCategoryNameAlreadyExistsInCategory() => Error.Conflict("sub.category.name.already.exists.in.category", "Підкатегорія з такою назвою вже існує в цій категорії");
         }
 
         public static class SubCategoryName
@@ -65,8 +85,8 @@
 
         public static class Product
         {
-            public static Error ProductIsNullById() => Error.Validation("product.is.null.by.id", "Товар з даним ID не знайдено");
-            public static Error SkuAlreadyExists() => Error.Validation("product.sku.already.exists", "Товар з таким SKU вже існує");
+            public static Error ProductNotFoundById() => Error.NotFound("product.not.found.by.id", "Товар з даним ID не знайдено");
+            public static Error SkuAlreadyExists() => Error.Conflict("product.sku.already.exists", "Товар з таким SKU вже існує");
         }
 
         public static class ProductDescription
@@ -102,7 +122,8 @@
 
         public static class Supplier
         {
-            public static Error SupplierIsNullById() => Error.Validation("supplier.is.null.by.id", "Постачальника з даним ID не знайдено");
+            public static Error SupplierNotFoundById() => Error.NotFound("supplier.not.found.by.id", "Постачальника з даним ID не знайдено");
+            public static Error SupplierReferenceNotFound() => Error.Validation("supplier.reference.not.found", "Обраного постачальника не існує");
         }
 
         public static class SupplierName
@@ -114,7 +135,8 @@
 
         public static class Attribute
         {
-            public static Error AttributeIsNullById() => Error.Validation("attribute.is.null.by.id", "Атрибут з даним ID не знайдено");
+            public static Error AttributeNotFoundById() => Error.NotFound("attribute.not.found.by.id", "Атрибут з даним ID не знайдено");
+            public static Error AttributeReferenceNotFound() => Error.Validation("attribute.reference.not.found", "Обраного атрибута не існує");
         }
 
         public static class AttributeName
@@ -128,16 +150,17 @@
 
         public static class AttributeOption
         {
-            public static Error AttributeOptionIsNullById() => Error.Validation("attribute.option.is.null.by.id", "Варіант атрибуту з даним ID не знайдено");
+            public static Error AttributeOptionNotFoundById() => Error.NotFound("attribute.option.not.found.by.id", "Варіант атрибуту з даним ID не знайдено");
+            public static Error AttributeOptionReferenceNotFound() => Error.Validation("attribute.option.reference.not.found", "Обраного варіанту атрибуту не існує");
             public static Error AttributeOptionValueCantBeEmpty() => Error.Validation("attribute.option.value.cant.be.empty", "Значення варіанту атрибуту є обов'язковим");
             public static Error AttributeOptionValueInvalidMaxLength(int maxLength) => Error.Validation("attribute.option.value.invalid.max.length", $"Значення варіанту атрибуту не має перевищувати {maxLength} символів");
-            public static Error AttributeOptionAlreadyExistsForAttribute() => Error.Validation("attribute.option.already.exists.for.attribute", "Такий варіант вже існує для цього атрибуту");
+            public static Error AttributeOptionAlreadyExistsForAttribute() => Error.Conflict("attribute.option.already.exists.for.attribute", "Такий варіант вже існує для цього атрибуту");
         }
 
         public static class ProductAttribute
         {
-            public static Error ProductAttributeIsNullById() => Error.Validation("product.attribute.is.null.by.id", "Атрибут підкатегорії з даним ID не знайдено");
-            public static Error ProductAttributeAlreadyExistsForSubCategory() => Error.Validation("product.attribute.already.exists.for.sub.category", "Цей атрибут вже прив'язаний до цієї підкатегорії");
+            public static Error ProductAttributeNotFoundById() => Error.NotFound("product.attribute.not.found.by.id", "Атрибут підкатегорії з даним ID не знайдено");
+            public static Error ProductAttributeAlreadyExistsForSubCategory() => Error.Conflict("product.attribute.already.exists.for.sub.category", "Цей атрибут вже прив'язаний до цієї підкатегорії");
         }
 
         public static class ProductAttributeValue
@@ -217,8 +240,8 @@
             public static Error RefreshTokenIsNull() => Error.Validation("refresh.token.is.null", "Помилка при обробці запиту");
             public static Error RefreshTokenIsInvalid() => Error.Unauthorized("refresh.token.is.invalid", "Помилка при обробці запиту");
             public static Error Unauthorized() => Error.Unauthorized("Unauthorized", "Неавторизовано");
-            public static Error UserIsAlreadyExistsByEmail() => Error.Validation("user.is.already.exists.by.email", "Користувач з такою адресою вже існує");
-            public static Error UserIsAlreadyExistsByPhone() => Error.Validation("user.is.already.exists.by.phone", "Користувач з таким номером вже існує");
+            public static Error UserIsAlreadyExistsByEmail() => Error.Conflict("user.is.already.exists.by.email", "Користувач з такою адресою вже існує");
+            public static Error UserIsAlreadyExistsByPhone() => Error.Conflict("user.is.already.exists.by.phone", "Користувач з таким номером вже існує");
             public static Error IncorrectPhone() => Error.Validation("incorrect.phone", "Невірний номер");
             public static Error IncorrectPassword() => Error.Validation("incorrect.password", "Невірний пароль");
         }

@@ -1,4 +1,4 @@
-using AgroShop.Application.Dto.Common;
+﻿using AgroShop.Application.Dto.Common;
 using AgroShop.Application.Dto.ProductDto;
 using AgroShop.Application.Interfaces;
 using AgroShop.Application.Mappers;
@@ -343,7 +343,7 @@ namespace AgroShop.Application.Services
             var product = await _productRepository.GetProductByIdAsync(productId, asNoTracking, cancellationToken);
 
             if (product == null)
-                return Result.Failure<ProductDto, Error>(Errors.Product.ProductIsNullById());
+                return Result.Failure<ProductDto, Error>(Errors.Product.ProductNotFoundById());
 
             return Result.Success<ProductDto, Error>(product.ToDto());
         }
@@ -354,11 +354,11 @@ namespace AgroShop.Application.Services
 
             var subCategory = await _subCategoryRepository.GetSubCategoryByIdAsync(productDto.SubCategoryId, cancellationToken: cancellationToken);
             if (subCategory == null)
-                return UnitResult.Failure(Errors.SubCategory.SubCategoryIsNullById());
+                return UnitResult.Failure(Errors.SubCategory.SubCategoryReferenceNotFound());
 
             var supplier = await _supplierRepository.GetSupplierByIdAsync(productDto.SupplierId, cancellationToken: cancellationToken);
             if (supplier == null)
-                return UnitResult.Failure(Errors.Supplier.SupplierIsNullById());
+                return UnitResult.Failure(Errors.Supplier.SupplierReferenceNotFound());
 
             var selectionResult = await ValidateAttributeSelectionsAsync(productDto.SubCategoryId, productDto.AttributeOptionIds, cancellationToken);
             if (selectionResult.IsFailure)
@@ -406,15 +406,15 @@ namespace AgroShop.Application.Services
 
             var product = await _productRepository.GetProductByIdAsync(productId, cancellationToken: cancellationToken);
             if (product == null)
-                return Result.Failure<ProductDto, Error>(Errors.Product.ProductIsNullById());
+                return Result.Failure<ProductDto, Error>(Errors.Product.ProductNotFoundById());
 
             var subCategory = await _subCategoryRepository.GetSubCategoryByIdAsync(productDto.SubCategoryId, cancellationToken: cancellationToken);
             if (subCategory == null)
-                return Result.Failure<ProductDto, Error>(Errors.SubCategory.SubCategoryIsNullById());
+                return Result.Failure<ProductDto, Error>(Errors.SubCategory.SubCategoryReferenceNotFound());
 
             var supplier = await _supplierRepository.GetSupplierByIdAsync(productDto.SupplierId, cancellationToken: cancellationToken);
             if (supplier == null)
-                return Result.Failure<ProductDto, Error>(Errors.Supplier.SupplierIsNullById());
+                return Result.Failure<ProductDto, Error>(Errors.Supplier.SupplierReferenceNotFound());
 
             var selectionResult = await ValidateAttributeSelectionsAsync(productDto.SubCategoryId, productDto.AttributeOptionIds, cancellationToken);
             if (selectionResult.IsFailure)
@@ -514,7 +514,7 @@ namespace AgroShop.Application.Services
 
             var product = await _productRepository.GetProductByIdAsync(productId, cancellationToken: cancellationToken);
             if (product == null)
-                return UnitResult.Failure(Errors.Product.ProductIsNullById());
+                return UnitResult.Failure(Errors.Product.ProductNotFoundById());
 
             _productRepository.Delete(product);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
@@ -789,7 +789,7 @@ namespace AgroShop.Application.Services
             foreach (var optionId in distinctOptionIds)
             {
                 if (!optionsById.TryGetValue(optionId, out var option))
-                    return Result.Failure<List<(Guid, AttributeOption)>, Error>(Errors.AttributeOption.AttributeOptionIsNullById());
+                    return Result.Failure<List<(Guid, AttributeOption)>, Error>(Errors.AttributeOption.AttributeOptionReferenceNotFound());
 
                 var productAttribute = subCategoryAttributes.FirstOrDefault(pa => pa.AttributeId == option.AttributeId);
                 if (productAttribute == null)

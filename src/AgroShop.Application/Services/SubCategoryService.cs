@@ -1,4 +1,4 @@
-using AgroShop.Application.Dto.SubCategoryDto;
+﻿using AgroShop.Application.Dto.SubCategoryDto;
 using AgroShop.Application.Interfaces;
 using AgroShop.Application.Mappers;
 using AgroShop.Core.Entities;
@@ -57,7 +57,7 @@ namespace AgroShop.Application.Services
             var subCategory = await _subCategoryRepository.GetSubCategoryByIdAsync(subCategoryId, asNoTracking, cancellationToken);
 
             if (subCategory == null)
-                return Result.Failure<SubCategoryDto, Error>(Errors.SubCategory.SubCategoryIsNullById());
+                return Result.Failure<SubCategoryDto, Error>(Errors.SubCategory.SubCategoryNotFoundById());
 
             return Result.Success<SubCategoryDto, Error>(subCategory.ToDto());
         }
@@ -68,7 +68,7 @@ namespace AgroShop.Application.Services
 
             var category = await _categoryRepository.GetCategoryByIdAsync(subCategoryDto.CategoryId, cancellationToken: cancellationToken);
             if (category == null)
-                return UnitResult.Failure(Errors.Category.CategoryIsNullById());
+                return UnitResult.Failure(Errors.Category.CategoryReferenceNotFound());
 
             if (await NameTakenInCategoryAsync(subCategoryDto.Name, subCategoryDto.CategoryId, excludeId: null, cancellationToken))
                 return UnitResult.Failure(Errors.SubCategory.SubCategoryNameAlreadyExistsInCategory());
@@ -91,11 +91,11 @@ namespace AgroShop.Application.Services
 
             var subCategory = await _subCategoryRepository.GetSubCategoryByIdAsync(subCategoryId, cancellationToken: cancellationToken);
             if (subCategory == null)
-                return Result.Failure<SubCategoryDto, Error>(Errors.SubCategory.SubCategoryIsNullById());
+                return Result.Failure<SubCategoryDto, Error>(Errors.SubCategory.SubCategoryNotFoundById());
 
             var category = await _categoryRepository.GetCategoryByIdAsync(subCategoryDto.CategoryId, cancellationToken: cancellationToken);
             if (category == null)
-                return Result.Failure<SubCategoryDto, Error>(Errors.Category.CategoryIsNullById());
+                return Result.Failure<SubCategoryDto, Error>(Errors.Category.CategoryReferenceNotFound());
 
             if (await NameTakenInCategoryAsync(subCategoryDto.Name, subCategoryDto.CategoryId, excludeId: subCategoryId, cancellationToken))
                 return Result.Failure<SubCategoryDto, Error>(Errors.SubCategory.SubCategoryNameAlreadyExistsInCategory());
@@ -127,7 +127,7 @@ namespace AgroShop.Application.Services
 
             var subCategory = await _subCategoryRepository.GetSubCategoryByIdAsync(subCategoryId, cancellationToken: cancellationToken);
             if (subCategory == null)
-                return UnitResult.Failure(Errors.SubCategory.SubCategoryIsNullById());
+                return UnitResult.Failure(Errors.SubCategory.SubCategoryNotFoundById());
 
             _subCategoryRepository.Delete(subCategory);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

@@ -1,4 +1,4 @@
-using AgroShop.Application.Dto.AttributeOptionDto;
+﻿using AgroShop.Application.Dto.AttributeOptionDto;
 using AgroShop.Application.Interfaces;
 using AgroShop.Application.Mappers;
 using AgroShop.Core.Entities;
@@ -56,7 +56,7 @@ namespace AgroShop.Application.Services
             var option = await _attributeOptionRepository.GetAttributeOptionByIdAsync(optionId, asNoTracking, cancellationToken);
 
             if (option == null)
-                return Result.Failure<AttributeOptionDto, Error>(Errors.AttributeOption.AttributeOptionIsNullById());
+                return Result.Failure<AttributeOptionDto, Error>(Errors.AttributeOption.AttributeOptionNotFoundById());
 
             return Result.Success<AttributeOptionDto, Error>(option.ToDto());
         }
@@ -67,7 +67,7 @@ namespace AgroShop.Application.Services
 
             var attribute = await _attributeRepository.GetAttributeByIdAsync(attributeOptionDto.AttributeId, cancellationToken: cancellationToken);
             if (attribute == null)
-                return UnitResult.Failure(Errors.Attribute.AttributeIsNullById());
+                return UnitResult.Failure(Errors.Attribute.AttributeReferenceNotFound());
 
             if (await ValueTakenForAttributeAsync(attributeOptionDto.Value, attributeOptionDto.AttributeId, excludeId: null, cancellationToken))
                 return UnitResult.Failure(Errors.AttributeOption.AttributeOptionAlreadyExistsForAttribute());
@@ -90,7 +90,7 @@ namespace AgroShop.Application.Services
 
             var option = await _attributeOptionRepository.GetAttributeOptionByIdAsync(optionId, cancellationToken: cancellationToken);
             if (option == null)
-                return Result.Failure<AttributeOptionDto, Error>(Errors.AttributeOption.AttributeOptionIsNullById());
+                return Result.Failure<AttributeOptionDto, Error>(Errors.AttributeOption.AttributeOptionNotFoundById());
 
             if (await ValueTakenForAttributeAsync(attributeOptionDto.Value, option.AttributeId, excludeId: optionId, cancellationToken))
                 return Result.Failure<AttributeOptionDto, Error>(Errors.AttributeOption.AttributeOptionAlreadyExistsForAttribute());
@@ -113,7 +113,7 @@ namespace AgroShop.Application.Services
 
             var option = await _attributeOptionRepository.GetAttributeOptionByIdAsync(optionId, cancellationToken: cancellationToken);
             if (option == null)
-                return UnitResult.Failure(Errors.AttributeOption.AttributeOptionIsNullById());
+                return UnitResult.Failure(Errors.AttributeOption.AttributeOptionNotFoundById());
 
             _attributeOptionRepository.Delete(option);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

@@ -1,4 +1,4 @@
-using AgroShop.Application.Dto.CategoryDto;
+﻿using AgroShop.Application.Dto.CategoryDto;
 using AgroShop.Application.Interfaces;
 using AgroShop.Application.Mappers;
 using AgroShop.Core.Entities;
@@ -59,7 +59,7 @@ namespace AgroShop.Application.Services
             var category = await _categoryRepository.GetCategoryByIdAsync(categoryId, asNoTracking, cancellationToken);
 
             if (category == null)
-                return Result.Failure<CategoryDto, Error>(Errors.Category.CategoryIsNullById());
+                return Result.Failure<CategoryDto, Error>(Errors.Category.CategoryNotFoundById());
 
             return Result.Success<CategoryDto, Error>(category.ToDto());
         }
@@ -89,7 +89,7 @@ namespace AgroShop.Application.Services
             var category = await _categoryRepository.GetCategoryByIdAsync(categoryId, cancellationToken: cancellationToken);
 
             if (category == null)
-                return Result.Failure<CategoryDto, Error>(Errors.Category.CategoryIsNullById());
+                return Result.Failure<CategoryDto, Error>(Errors.Category.CategoryNotFoundById());
 
             var previousImagePath = category.ImagePath;
 
@@ -120,7 +120,7 @@ namespace AgroShop.Application.Services
             var category = await _categoryRepository.GetCategoryByIdAsync(categoryId, cancellationToken: cancellationToken);
 
             if (category == null)
-                return UnitResult.Failure(Errors.Category.CategoryIsNullById());
+                return UnitResult.Failure(Errors.Category.CategoryNotFoundById());
 
             _categoryRepository.Delete(category);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

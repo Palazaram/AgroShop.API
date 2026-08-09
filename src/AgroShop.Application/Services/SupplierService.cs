@@ -1,4 +1,4 @@
-using AgroShop.Application.Dto.SupplierDto;
+﻿using AgroShop.Application.Dto.SupplierDto;
 using AgroShop.Application.Interfaces;
 using AgroShop.Application.Mappers;
 using AgroShop.Core.Entities;
@@ -58,7 +58,7 @@ namespace AgroShop.Application.Services
             var supplier = await _supplierRepository.GetSupplierByIdAsync(supplierId, asNoTracking, cancellationToken);
 
             if (supplier == null)
-                return Result.Failure<SupplierDto, Error>(Errors.Supplier.SupplierIsNullById());
+                return Result.Failure<SupplierDto, Error>(Errors.Supplier.SupplierNotFoundById());
 
             return Result.Success<SupplierDto, Error>(supplier.ToDto());
         }
@@ -89,7 +89,7 @@ namespace AgroShop.Application.Services
 
             var supplier = await _supplierRepository.GetSupplierByIdAsync(supplierId, cancellationToken: cancellationToken);
             if (supplier == null)
-                return Result.Failure<SupplierDto, Error>(Errors.Supplier.SupplierIsNullById());
+                return Result.Failure<SupplierDto, Error>(Errors.Supplier.SupplierNotFoundById());
 
             var previousImagePath = supplier.ImagePath;
 
@@ -119,7 +119,7 @@ namespace AgroShop.Application.Services
 
             var supplier = await _supplierRepository.GetSupplierByIdAsync(supplierId, cancellationToken: cancellationToken);
             if (supplier == null)
-                return UnitResult.Failure(Errors.Supplier.SupplierIsNullById());
+                return UnitResult.Failure(Errors.Supplier.SupplierNotFoundById());
 
             _supplierRepository.Delete(supplier);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
