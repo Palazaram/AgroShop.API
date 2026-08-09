@@ -364,6 +364,16 @@ namespace AgroShop.Application.Services
             if (selectionResult.IsFailure)
                 return UnitResult.Failure(selectionResult.Error);
 
+            // Deliberately ahead of the image write below: a rejected product
+            // must not leave an orphan file in storage, and nothing here can
+            // clean one up (the upload happens before the product exists).
+            var skuResult = Sku.Create(productDto.Sku);
+            if (skuResult.IsFailure)
+                return UnitResult.Failure(skuResult.Error);
+
+            if (await SkuTakenAsync(skuResult.Value.Value, excludeProductId: null, cancellationToken))
+                return UnitResult.Failure(Errors.Product.SkuAlreadyExists());
+
             var imagePath = await _imageStorageService.SaveAsync(productDto.Image, ImagesSubfolder, cancellationToken);
 
             var productResult = Product.Create(
@@ -419,6 +429,15 @@ namespace AgroShop.Application.Services
             var selectionResult = await ValidateAttributeSelectionsAsync(productDto.SubCategoryId, productDto.AttributeOptionIds, cancellationToken);
             if (selectionResult.IsFailure)
                 return Result.Failure<ProductDto, Error>(selectionResult.Error);
+
+            var skuResult = Sku.Create(productDto.Sku);
+            if (skuResult.IsFailure)
+                return Result.Failure<ProductDto, Error>(skuResult.Error);
+
+            // Excludes this product, so re-saving a form without touching the
+            // code isn't rejected as a clash with itself.
+            if (await SkuTakenAsync(skuResult.Value.Value, excludeProductId: productId, cancellationToken))
+                return Result.Failure<ProductDto, Error>(Errors.Product.SkuAlreadyExists());
 
             var previousImagePath = product.ImagePath;
 
@@ -762,6 +781,25 @@ namespace AgroShop.Application.Services
                 PackageOptions = packageOptions,
                 AttributeGroups = attributeGroups,
             });
+        }
+
+        // The unique index on Product.Sku is what actually guarantees this; the
+        // check exists so a clash reads as 409 instead of the 500 an unhandled
+        // DbUpdateException produces on save. The index stays the backstop for
+        // the race between this read and that write.
+        private async Task<bool> SkuTakenAsync(string sku, Guid? excludeProductId, CancellationToken cancellationToken)
+        {
+            // Guid.Empty stands in for "exclude nothing": ids come from
+            // Guid.CreateVersion7, so no row can hold it, and a plain !=
+            // translates where comparing against a nullable would not.
+            var excludeId = excludeProductId ?? Guid.Empty;
+
+            // Compared exactly rather than case-insensitively: Sku.Create trims
+            // and upper-cases every value on the way in, so stored codes are
+            // already canonical - and an exact match can use the index.
+            return await _productRepository
+                .GetProductsQueryable(asNoTracking: true)
+                .AnyAsync(p => p.Id != excludeId && p.Sku.Value == sku, cancellationToken);
         }
 
         // Validates that every selected option exists, belongs to an attribute

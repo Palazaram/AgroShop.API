@@ -79,6 +79,20 @@ namespace AgroShop.Application.Services
             if (attribute == null)
                 return UnitResult.Failure(Errors.Attribute.AttributeReferenceNotFound());
 
+            // Same purpose as the SKU check in ProductService: the composite
+            // unique index on (SubCategoryId, AttributeId) already forbids this,
+            // so without the check a repeat link surfaced as a 500 from the
+            // failed save instead of 409. Read in memory rather than queried -
+            // this table holds one row per attribute per subcategory, and it
+            // matches how SubCategoryService checks its own duplicates.
+            var existingLinks = await _productAttributeRepository.GetProductAttributesAsync(asNoTracking: true, cancellationToken);
+            if (existingLinks.Any(pa =>
+                    pa.SubCategoryId == productAttributeDto.SubCategoryId
+                    && pa.AttributeId == productAttributeDto.AttributeId))
+            {
+                return UnitResult.Failure(Errors.ProductAttribute.ProductAttributeAlreadyExistsForSubCategory());
+            }
+
             var productAttributeResult = ProductAttribute.Create(productAttributeDto.SubCategoryId, productAttributeDto.AttributeId);
             if (productAttributeResult.IsFailure)
                 return UnitResult.Failure(productAttributeResult.Error);

@@ -1,4 +1,5 @@
-using System.Net;
+﻿using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using Xunit;
@@ -109,6 +110,86 @@ namespace AgroShop.API.IntegrationTests
             Assert.Equal(
                 "sub.category.name.already.exists.in.category",
                 await FirstErrorCodeAsync(duplicate));
+        }
+
+        [Fact]
+        public async Task Creating_a_product_whose_sku_is_taken_answers_409()
+        {
+            var client = _api.CreateClient();
+
+            using var form = new MultipartFormDataContent
+            {
+                { new StringContent("Насіння тестове"), "Name" },
+                { new StringContent("Опис товару для перевірки унікальності артикулу."), "Description" },
+                { new StringContent("10"), "Price" },
+                // The clash: a code one of the seeded products already carries.
+                { new StringContent(_seeded.Products[0].Sku.Value), "Sku" },
+                { new StringContent("5"), "StockQuantity" },
+                { new StringContent("1"), "PackageAmount" },
+                { new StringContent("Gram"), "PackageUnit" },
+                { new StringContent(_seeded.SubCategory.Id.ToString()), "SubCategoryId" },
+                { new StringContent(_seeded.Supplier.Id.ToString()), "SupplierId" },
+            };
+
+            // The image only has to get past validation, which inspects the
+            // extension and the length - not the bytes - so these three will do.
+            var image = new ByteArrayContent([1, 2, 3]);
+            image.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+            form.Add(image, "Image", "x.png");
+
+            var response = await client.PostAsync("/product", form);
+
+            Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
+            Assert.Equal("product.sku.already.exists", await FirstErrorCodeAsync(response));
+        }
+
+        [Fact]
+        public async Task Linking_an_attribute_to_a_sub_category_twice_answers_409()
+        {
+            var client = _api.CreateClient();
+
+            // Its own subcategory, not the seeded one: linking an attribute to a
+            // subcategory makes that attribute mandatory for products created in
+            // it, which would break the SKU fact above. xUnit does not promise an
+            // order for facts in a class, so the isolation has to be structural.
+            var subCategoryId = await CreateAndFindIdAsync(
+                client, "/subcategory", "Підкатегорія звязку",
+                new { Name = "Підкатегорія звязку", CategoryId = _seeded.Category.Id });
+
+            var attributeId = await CreateAndFindIdAsync(
+                client, "/attribute", "Тестовий атрибут",
+                new { Name = "Тестовий атрибут", ValueType = "SingleSelect" });
+
+            var payload = new { SubCategoryId = subCategoryId, AttributeId = attributeId };
+
+            var first = await client.PostAsJsonAsync("/productattribute", payload);
+            Assert.Equal(HttpStatusCode.OK, first.StatusCode);
+
+            var duplicate = await client.PostAsJsonAsync("/productattribute", payload);
+
+            Assert.Equal(HttpStatusCode.Conflict, duplicate.StatusCode);
+            Assert.Equal(
+                "product.attribute.already.exists.for.sub.category",
+                await FirstErrorCodeAsync(duplicate));
+        }
+
+        // The create endpoints answer with an empty envelope rather than the new
+        // row, so the id has to be read back from the collection by name.
+        private static async Task<Guid> CreateAndFindIdAsync(
+            HttpClient client, string route, string name, object payload)
+        {
+            var created = await client.PostAsJsonAsync(route, payload);
+            Assert.Equal(HttpStatusCode.OK, created.StatusCode);
+
+            var listed = await client.GetAsync(route);
+            Assert.Equal(HttpStatusCode.OK, listed.StatusCode);
+
+            using var json = JsonDocument.Parse(await listed.Content.ReadAsStringAsync());
+            var match = json.RootElement.GetProperty("result")
+                .EnumerateArray()
+                .Single(item => item.GetProperty("name").GetString() == name);
+
+            return match.GetProperty("id").GetGuid();
         }
     }
 }
