@@ -16,9 +16,16 @@
                 return Error.Validation("invalid.string.length", $"Недопустима{label}довжина");
             }
 
+            // Validation, not InternalServerError: this fires when a route id
+            // fails Guid.TryParse, i.e. when the caller typed something that
+            // isn't an id at all. Answering 500 blamed the server for a client
+            // mistake - it put visitor typos in the address bar into
+            // server-fault monitoring and told clients to retry a request that
+            // can never succeed. Every other error in this file is already a
+            // validation error; this was the only one that wasn't.
             public static Error IncorrectGuidError(string message = "Некоректний Guid")
             {
-                return Error.InternalServerError("incorrect.guid.error", message);
+                return Error.Validation("incorrect.guid.error", message);
             }
         }
 
