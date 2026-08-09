@@ -20,6 +20,12 @@ namespace AgroShop.Application.Services
         private const string ImagesSubfolder = "products";
 
         // Backstop only - Add/Update/Delete below invalidate this explicitly.
+        // A row, not a listing: one is pointless and a dozen stops being a
+        // row. The bounds keep a hand-typed `take` from turning this into an
+        // unpaged dump of the sub-category.
+        private const int MinSimilarProducts = 1;
+        private const int MaxSimilarProducts = 12;
+
         private const string ProductsCacheKey = "products:all";
         private static readonly TimeSpan ProductsCacheDuration = TimeSpan.FromMinutes(15);
 
@@ -100,7 +106,7 @@ namespace AgroShop.Application.Services
 
                 if (allProductDtos == null)
                 {
-                    var allProducts = await _productRepository.GetProductsQueryable(asNoTracking)
+                    var allProducts = await VisibleProducts(asNoTracking)
                         .OrderBy(p => p.Name.Value)
                         .ToListAsync(cancellationToken);
 
@@ -127,7 +133,7 @@ namespace AgroShop.Application.Services
             // combinations of subCategoryIds + selected options are too varied
             // to key sensibly, and this path is already excluded from the
             // cache invalidated by Add/Update/Delete above.
-            var productsQuery = _productRepository.GetProductsQueryable(asNoTracking);
+            var productsQuery = VisibleProducts(asNoTracking);
 
             // OR between selected subcategories - a category maps to several
             // subcategories, so "all products in this category" is passing
@@ -334,6 +340,18 @@ namespace AgroShop.Application.Services
                 _ => products.OrderBy(p => p.Name).ToList(),
             };
 
+        // Every shopper-facing read goes through this rather than the raw
+        // queryable, so IsActive means one thing in the listing, the facets and
+        // the neighbours row alike. A half-applied rule would be worse than
+        // none: a product visible in the catalog but 404 when opened.
+        //
+        // Deliberately NOT used by SkuTakenAsync: a code held by a hidden
+        // product is still taken, and the unique index would reject the insert
+        // anyway - checking against visible products only would turn a clear
+        // 409 into a 500 from the database.
+        private IQueryable<Product> VisibleProducts(bool asNoTracking = false) =>
+            _productRepository.GetProductsQueryable(asNoTracking).Where(p => p.IsActive);
+
         public async Task<Result<ProductDto, Error>> GetProductByIdAsync(string id, bool asNoTracking = false, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -342,10 +360,52 @@ namespace AgroShop.Application.Services
 
             var product = await _productRepository.GetProductByIdAsync(productId, asNoTracking, cancellationToken);
 
-            if (product == null)
+            // Deactivated reads as missing rather than as its own status: to a
+            // shopper the two are the same, and a distinct answer would only
+            // tell them the product exists but is being withheld.
+            if (product == null || !product.IsActive)
                 return Result.Failure<ProductDto, Error>(Errors.Product.ProductNotFoundById());
 
             return Result.Success<ProductDto, Error>(product.ToDto());
+        }
+
+        // Neighbours are chosen by price proximity rather than by taking the
+        // top of a sorted page, because the row exists so a shopper can compare
+        // alternatives: the products worth putting next to a 40 UAH fertiliser
+        // are the ones near 40 UAH, not whichever five are most expensive in
+        // the sub-category. Proximity also makes the answer differ per product,
+        // where a page slice hands every product below the fold the same row.
+        //
+        // The product itself is excluded here rather than by the caller, so it
+        // works even when it would fall outside whatever page a client asked
+        // for - the bug this endpoint replaces.
+        public async Task<Result<IEnumerable<ProductDto>, Error>> GetSimilarProductsAsync(
+            string id,
+            int take,
+            CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (!Guid.TryParse(id, out var productId))
+                return Result.Failure<IEnumerable<ProductDto>, Error>(Errors.General.IncorrectGuidError());
+
+            var product = await _productRepository.GetProductByIdAsync(productId, asNoTracking: true, cancellationToken);
+            if (product == null || !product.IsActive)
+                return Result.Failure<IEnumerable<ProductDto>, Error>(Errors.Product.ProductNotFoundById());
+
+            var boundedTake = Math.Clamp(take, MinSimilarProducts, MaxSimilarProducts);
+            var price = product.Price.Value;
+
+            var similar = await VisibleProducts(asNoTracking: true)
+                .Where(p => p.SubCategoryId == product.SubCategoryId && p.Id != product.Id)
+                // Name breaks ties so two products equidistant in price don't
+                // swap places between requests, which would make the row
+                // flicker as a shopper moves back and forth.
+                .OrderBy(p => Math.Abs(p.Price.Value - price))
+                .ThenBy(p => p.Name.Value)
+                .Take(boundedTake)
+                .ToListAsync(cancellationToken);
+
+            return Result.Success<IEnumerable<ProductDto>, Error>(similar.ToDto());
         }
 
         public async Task<UnitResult<Error>> AddAsync(AddProductDto productDto, CancellationToken cancellationToken)
@@ -585,7 +645,7 @@ namespace AgroShop.Application.Services
                 .GroupBy(id => optionsById[id].AttributeId)
                 .ToDictionary(g => g.Key, g => g.ToHashSet());
 
-            var baseQuery = _productRepository.GetProductsQueryable(asNoTracking: true);
+            var baseQuery = VisibleProducts(asNoTracking: true);
 
             IQueryable<Product> BuildQuery(bool includeSubCategory, bool includeSupplier, bool includePackage, Guid? excludeAttributeId)
             {

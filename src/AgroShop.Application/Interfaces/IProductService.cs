@@ -1,4 +1,4 @@
-using AgroShop.Application.Dto.Common;
+﻿using AgroShop.Application.Dto.Common;
 using AgroShop.Application.Dto.ProductDto;
 using AgroShop.Core.Enums;
 using AgroShop.Core.Shared;
@@ -36,6 +36,9 @@ namespace AgroShop.Application.Interfaces
             ProductSortBy sortBy = ProductSortBy.PriceDesc,
             CancellationToken cancellationToken = default);
         Task<Result<ProductDto, Error>> GetProductByIdAsync(string id, bool asNoTracking = false, CancellationToken cancellationToken = default);
+        // Products from the same subcategory, nearest in price to this one and
+        // never including it. `take` is clamped by the implementation.
+        Task<Result<IEnumerable<ProductDto>, Error>> GetSimilarProductsAsync(string id, int take, CancellationToken cancellationToken = default);
         Task<UnitResult<Error>> AddAsync(AddProductDto productDto, CancellationToken cancellationToken);
         Task<Result<ProductDto, Error>> UpdateAsync(string id, UpdateProductDto productDto, CancellationToken cancellationToken);
         Task<UnitResult<Error>> DeleteAsync(string id, CancellationToken cancellationToken);

@@ -1,4 +1,4 @@
-using AgroShop.Core.Entities;
+﻿using AgroShop.Core.Entities;
 using AgroShop.Core.Enums;
 using AgroShop.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +24,19 @@ namespace AgroShop.API.IntegrationTests
             SubCategory SubCategory,
             Supplier Supplier,
             IReadOnlyList<Product> Products);
+
+        // Its own sub-category, so the assertions can talk about "everything
+        // here" without other test classes' data drifting into the answer.
+        // Prices are spread evenly and the product under test is the cheapest,
+        // which is what makes the ordering visible: nearest-by-price picks the
+        // four just above it, while taking the first page by price descending
+        // would pick the four most expensive instead.
+        public sealed record VisibilityCatalog(
+            SubCategory SubCategory,
+            Product Cheapest,
+            IReadOnlyList<Product> ActiveNeighbours,
+            Product Hidden,
+            Product MostExpensive);
 
         public sealed record SearchCatalog(
             Supplier CucumberSupplier,
@@ -119,6 +132,67 @@ namespace AgroShop.API.IntegrationTests
             await db.SaveChangesAsync();
 
             return new SearchCatalog(cucumberSupplier, zucchiniSupplier, mercuryEarly, mercuryLate, jupiter, descriptionTrap);
+        }
+
+        // Six products in one sub-category: five active priced 10 to 50, plus a
+        // deactivated one priced next to the cheapest so it would win on
+        // proximity if visibility were not honoured.
+        public static async Task<VisibilityCatalog> SeedVisibilityCatalogAsync(ApiFixture api)
+        {
+            using var scope = api.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<AgroShopDbContext>();
+
+            var skus = new[] { "VIS-10", "VIS-20", "VIS-30", "VIS-40", "VIS-50", "VIS-HIDDEN" };
+            var existing = await LoadBySkusAsync(db, skus);
+            if (existing.Count != skus.Length)
+            {
+                var category = Category.Create("Видимість", "/images/categories/visibility.jpg").Value;
+                var subCategory = SubCategory.Create("Перевірка видимості", category.Id).Value;
+                var supplier = Supplier.Create("Постачальник видимості", "/images/suppliers/visibility.jpg").Value;
+
+                var products = new List<Product>
+                {
+                    CreateProduct("Товар десять", "VIS-10", 10m, subCategory.Id, supplier.Id),
+                    CreateProduct("Товар двадцять", "VIS-20", 20m, subCategory.Id, supplier.Id),
+                    CreateProduct("Товар тридцять", "VIS-30", 30m, subCategory.Id, supplier.Id),
+                    CreateProduct("Товар сорок", "VIS-40", 40m, subCategory.Id, supplier.Id),
+                    CreateProduct("Товар пятдесят", "VIS-50", 50m, subCategory.Id, supplier.Id),
+                    CreateProduct("Товар прихований", "VIS-HIDDEN", 11m, subCategory.Id, supplier.Id),
+                };
+
+                // The only way to clear the flag: Create always starts a product
+                // active, and Update is what the admin path calls too.
+                var hidden = products[^1];
+                hidden.Update(
+                    hidden.Name.Value,
+                    hidden.Description.Value,
+                    hidden.Price.Value,
+                    hidden.Sku.Value,
+                    hidden.StockQuantity.Value,
+                    hidden.PackageSize.Amount,
+                    hidden.PackageSize.Unit,
+                    subCategory.Id,
+                    supplier.Id,
+                    isActive: false);
+
+                db.Add(category);
+                db.Add(subCategory);
+                db.Add(supplier);
+                db.AddRange(products);
+                await db.SaveChangesAsync();
+
+                existing = await LoadBySkusAsync(db, skus);
+            }
+
+            var loadedSubCategory = await db.Set<SubCategory>()
+                .FirstAsync(sc => sc.Id == existing[0].SubCategoryId);
+
+            return new VisibilityCatalog(
+                SubCategory: loadedSubCategory,
+                Cheapest: existing[0],
+                ActiveNeighbours: existing.Skip(1).Take(4).ToList(),
+                Hidden: existing[5],
+                MostExpensive: existing[4]);
         }
 
         private static async Task<List<Product>> LoadBySkusAsync(AgroShopDbContext db, string[] skus)

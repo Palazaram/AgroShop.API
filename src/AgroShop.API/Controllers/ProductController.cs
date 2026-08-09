@@ -1,4 +1,4 @@
-using AgroShop.Application.Dto.ProductDto;
+﻿using AgroShop.Application.Dto.ProductDto;
 using AgroShop.Application.Interfaces;
 using AgroShop.Core.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -64,6 +64,13 @@ namespace AgroShop.API.Controllers
         public async Task<IActionResult> GetProductById(string id, CancellationToken cancellationToken)
         {
             var result = await _productService.GetProductByIdAsync(id, cancellationToken: cancellationToken);
+            return FromResult(result);
+        }
+
+        [HttpGet("{id}/similar")]
+        public async Task<IActionResult> GetSimilarProducts(string id, [FromQuery] int take = 4, CancellationToken cancellationToken = default)
+        {
+            var result = await _productService.GetSimilarProductsAsync(id, take, cancellationToken);
             return FromResult(result);
         }
 
